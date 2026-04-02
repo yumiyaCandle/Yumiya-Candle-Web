@@ -730,7 +730,7 @@ function render() {
               <span style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--rose)" id="shop-price">${pp.toFixed(2)} CHF</span>
               <div style="display:flex;gap:.5rem">
                 <button class="prd-btn" onclick="addToCartFromShop()">+ Panier</button>
-                <button class="prd-btn" onclick="openOrderModal()" style="background:var(--rose);color:#fff;border-color:var(--rose)">Commander</button>
+                <button class="prd-btn" onclick="openOrderModal(shopPrice)" style="background:var(--rose);color:#fff;border-color:var(--rose)">Commander</button>
               </div>
             </div>
           </div>
@@ -864,7 +864,7 @@ function render() {
           <div id="cf-twint-box" style="background:rgba(0,135,232,.07);border:1.5px solid rgba(0,135,232,.22);border-radius:14px;padding:1.2rem;margin:1rem 0 0">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;font-size:.84rem;color:var(--mid);font-weight:300">
               <span>Montant</span>
-              <strong id="cf-twint-amount" style="color:#0087e8;font-size:1rem;font-weight:700"></strong>
+              <strong id="cf-twint-amount" style="color:#0087e8;font-size:1rem;font-weight:700;user-select:none;pointer-events:none" unselectable="on"></strong>
             </div>
             <div style="font-size:.74rem;color:var(--muted);margin-bottom:.9rem;line-height:1.6">Mets ton prénom + <strong>"Yumiya"</strong> dans le message Twint. 🕯️</div>
             <a id="cf-twint-link" href="#" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:.5rem;background:#0087e8;color:#fff;border-radius:10px;padding:.8rem 1rem;font-size:.95rem;font-weight:700;text-decoration:none">
@@ -902,21 +902,42 @@ function render() {
     <div class="modal-box"><button class="modal-close" onclick="closeModal('order-bg')">✕</button>
       <div class="modal-inner">
         <div id="order-form">
-          <div class="modal-icon">💙</div>
-          <div class="modal-title">Payer par Twint</div>
-          <p class="modal-sub">Ton panier est prêt. Clique ci-dessous pour payer directement dans l'app Twint.</p>
+          <div class="modal-icon">📦</div>
+          <div class="modal-title">Livraison & paiement</div>
+          <p class="modal-sub">Remplis ton adresse de livraison, puis paye directement par Twint.</p>
           <div class="order-summary" id="order-summary"></div>
-          <div style="background:rgba(0,135,232,.07);border:1.5px solid rgba(0,135,232,.22);border-radius:14px;padding:1.3rem;margin:1rem 0">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;font-size:.85rem;color:var(--mid);font-weight:300">
-              <span>Montant</span>
-              <strong id="twint-amount" style="color:#0087e8;font-size:1.15rem;font-weight:700"></strong>
+
+          <!-- Adresse de livraison -->
+          <div id="order-address-form">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+              <div class="cf-group" style="margin-bottom:0"><label class="cf-lbl cf-lbl-light">Prénom *</label><input class="cf-in cf-in-light" id="ord-fname" placeholder="Marie" type="text"/></div>
+              <div class="cf-group" style="margin-bottom:0"><label class="cf-lbl cf-lbl-light">Nom *</label><input class="cf-in cf-in-light" id="ord-lname" placeholder="Dupont" type="text"/></div>
             </div>
-            <div style="font-size:.75rem;color:var(--muted);margin-bottom:1rem;line-height:1.6">Mets ton prénom + <strong>"Yumiya"</strong> dans le message Twint. 🕯️</div>
-            <a id="twint-link" href="#" target="_blank" onclick="onTwintClick()" style="display:flex;align-items:center;justify-content:center;gap:.6rem;background:#0087e8;color:#fff;border-radius:11px;padding:.9rem 1rem;font-size:1rem;font-weight:700;text-decoration:none;letter-spacing:.01em">
-              💙 Payer maintenant avec Twint
-            </a>
+            <div class="cf-group" style="margin-top:.7rem"><label class="cf-lbl cf-lbl-light">Adresse *</label><input class="cf-in cf-in-light" id="ord-address" placeholder="Rue des Roses 12" type="text"/></div>
+            <div style="display:grid;grid-template-columns:1fr 2fr;gap:.7rem">
+              <div class="cf-group" style="margin-bottom:0"><label class="cf-lbl cf-lbl-light">NPA *</label><input class="cf-in cf-in-light" id="ord-npa" placeholder="3000" type="text" maxlength="10"/></div>
+              <div class="cf-group" style="margin-bottom:0"><label class="cf-lbl cf-lbl-light">Ville *</label><input class="cf-in cf-in-light" id="ord-city" placeholder="Berne" type="text"/></div>
+            </div>
+            <div class="cf-group" style="margin-top:.7rem"><label class="cf-lbl cf-lbl-light">Téléphone *</label><input class="cf-in cf-in-light" id="ord-phone" placeholder="+41 78 000 00 00" type="tel"/></div>
+            <button class="cf-btn cf-btn-rose" style="margin-top:.3rem" onclick="submitOrderAddress()">Continuer vers Twint →</button>
           </div>
-          <p style="font-size:.74rem;color:var(--muted);line-height:1.6;text-align:center">On te confirme la livraison dès réception du paiement.</p>
+
+          <!-- Twint (caché jusqu'à validation adresse) -->
+          <div id="order-twint-box" style="display:none">
+            <div style="background:rgba(0,135,232,.07);border:1.5px solid rgba(0,135,232,.22);border-radius:14px;padding:1.3rem;margin:.8rem 0">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;font-size:.85rem;color:var(--mid);font-weight:300">
+                <span>Montant</span>
+                <strong id="twint-amount" style="color:#0087e8;font-size:1.15rem;font-weight:700;user-select:none;pointer-events:none" unselectable="on"></strong>
+              </div>
+              <div style="font-size:.75rem;color:var(--muted);margin-bottom:1rem;line-height:1.6">Mets ton prénom + <strong>"Yumiya"</strong> dans le message Twint. 🕯️</div>
+              <a id="twint-link" href="#" target="_blank" onclick="onTwintClick()" style="display:flex;align-items:center;justify-content:center;gap:.6rem;background:#0087e8;color:#fff;border-radius:11px;padding:.9rem 1rem;font-size:1rem;font-weight:700;text-decoration:none;letter-spacing:.01em">
+                💙 Payer maintenant avec Twint
+              </a>
+            </div>
+            <p style="font-size:.74rem;color:var(--muted);line-height:1.6;text-align:center">On te confirme la livraison dès réception du paiement.</p>
+            <button class="btn" style="margin-top:.5rem;width:100%;font-size:.78rem;background:transparent;color:var(--muted);border:1.5px solid var(--peach)" onclick="backToAddress()">← Modifier l'adresse</button>
+          </div>
+
           <button class="btn" style="margin-top:.8rem;width:100%" onclick="closeModal('order-bg')">Fermer</button>
         </div>
       </div>
@@ -1265,7 +1286,7 @@ function openModal(id) { document.getElementById(id).classList.add('on'); docume
 function closeModal(id) { document.getElementById(id).classList.remove('on'); document.body.style.overflow = ''; }
 function closeModalBg(id) { if (event.target === document.getElementById(id)) closeModal(id); }
 
-function openOrderModal() {
+function openOrderModal(directPrice) {
   closeCart();
   var tot = 0;
   var rows = '';
@@ -1273,14 +1294,85 @@ function openOrderModal() {
     rows = cart.map(function(i) { tot += i.price * i.qty; return '<div class="os-row"><span>' + i.name + ' <em>' + i.size + ' ×' + i.qty + '</em></span><span>' + (i.price*i.qty).toFixed(2) + ' CHF</span></div>'; }).join('');
     rows += '<div class="os-total"><span>Total</span><span>' + tot.toFixed(2) + ' CHF</span></div>';
   }
+  // Si appelé directement depuis "Commander" (sans panier), utiliser shopPrice
+  if (tot === 0 && directPrice && directPrice > 0) {
+    tot = directPrice;
+    rows = '<div class="os-row"><span>' + (D.val_name || 'Bougie') + ' <em>' + shopSize + ' ×1</em></span><span>' + tot.toFixed(2) + ' CHF</span></div>';
+    rows += '<div class="os-total"><span>Total</span><span>' + tot.toFixed(2) + ' CHF</span></div>';
+  }
   document.getElementById('order-summary').innerHTML = rows;
-  var baseLink = (D && D.twint_paylink) ? D.twint_paylink : '';
+  var baseLink = (D && D.twint_paylink) ? D.twint_paylink.replace(/[&?]amount=[^&]*/g, '') : '';
   var payLink = baseLink + '&amount=' + tot.toFixed(2) + '&cur=CHF&trxInfo=Yumiya+Candle';
   document.getElementById('twint-amount').textContent = tot.toFixed(2) + ' CHF';
   document.getElementById('twint-link').href = payLink;
   document.getElementById('order-form').style.display = 'block';
+  document.getElementById('order-address-form').style.display = 'block';
+  document.getElementById('order-twint-box').style.display = 'none';
   openModal('order-bg');
 }
+async function submitOrderAddress() {
+  var fname = document.getElementById('ord-fname').value.trim();
+  var lname = document.getElementById('ord-lname').value.trim();
+  var address = document.getElementById('ord-address').value.trim();
+  var npa = document.getElementById('ord-npa').value.trim();
+  var city = document.getElementById('ord-city').value.trim();
+  var phone = document.getElementById('ord-phone').value.trim();
+  var ok = true;
+  [['ord-fname', function(v){return v.length>0;}],
+   ['ord-lname', function(v){return v.length>0;}],
+   ['ord-address', function(v){return v.length>3;}],
+   ['ord-npa', function(v){return v.length>=4;}],
+   ['ord-city', function(v){return v.length>1;}],
+   ['ord-phone', function(v){return v.length>6;}]
+  ].forEach(function(arr){
+    var el = document.getElementById(arr[0]);
+    if (!arr[1](el.value.trim())) {
+      ok = false;
+      el.style.borderColor = 'var(--rose)';
+      setTimeout(function(){ el.style.borderColor = ''; }, 1400);
+    }
+  });
+  if (!ok) return;
+
+  // Résumé commande
+  var montant = document.getElementById('twint-amount').textContent || '?';
+  var lignes = [];
+  document.querySelectorAll('#order-summary .os-row').forEach(function(r){
+    lignes.push(r.innerText.replace(/\s+/g,' ').trim());
+  });
+  var commande = lignes.join(' | ') || '(direct)';
+
+  // Bouton en loading
+  var btn = document.querySelector('#order-address-form .cf-btn-rose');
+  if (btn) { btn.textContent = 'Envoi…'; btn.disabled = true; }
+
+  try {
+    await fetch('https://formspree.io/f/xjgpegvy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        prenom: fname,
+        nom: lname,
+        adresse: address,
+        npa: npa,
+        ville: city,
+        telephone: phone,
+        commande: commande,
+        montant: montant
+      })
+    });
+  } catch(e) { console.warn('Formspree error', e); }
+
+  if (btn) { btn.textContent = 'Continuer vers Twint →'; btn.disabled = false; }
+  document.getElementById('order-address-form').style.display = 'none';
+  document.getElementById('order-twint-box').style.display = 'block';
+}
+
+function backToAddress() {
+  document.getElementById('order-twint-box').style.display = 'none';
+  document.getElementById('order-address-form').style.display = 'block';
+}
+
 function onTwintClick() {
   setTimeout(function() { if (typeof clearCart === 'function') clearCart(); }, 800);
 }
@@ -1338,7 +1430,7 @@ function submitContact() {
     }
   }
 
-  var baseLink = (D && D.twint_paylink) ? D.twint_paylink : '';
+  var baseLink = (D && D.twint_paylink) ? D.twint_paylink.replace(/[&?]amount=[^&]*/g, '') : '';
   var payLink = amountNum > 0
     ? baseLink + '&amount=' + amountNum.toFixed(2) + '&cur=CHF&trxInfo=Yumiya+Candle'
     : baseLink;
