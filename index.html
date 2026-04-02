@@ -102,12 +102,12 @@ const DEFAULT_DATA = {
   about_title: 'Une passion',
   about_title_em: 'qui brûle',
   about_intro: 'Yumiya Candle est née d\'un amour profond pour les senteurs et l\'artisanat soigné. Une bougie pour chaque émotion, chaque moment précieux.',
-  about_founder_eyebrow: 'La fondatrice',
-  about_founder_title: 'Une créatrice',
-  about_founder_title_em: 'passionnée',
-  about_p1: 'Yumiya Candle est une micro-marque artisanale basée en Suisse. Chaque bougie est conçue, fabriquée et emballée à la main — pas de production en série, pas de compromis sur la qualité.',
-  about_p2: 'On utilise exclusivement de la cire de soja, des mèches en coton naturel et des fragrances soigneusement choisies. La collection St-Valentin a ouvert le bal, Pâques arrive bientôt.',
-  about_p3: 'Et on crée aussi des bougies 100% personnalisées pour vos moments les plus importants.',
+  about_founder_eyebrow: 'Notre équipe',
+  about_founder_title: 'Cinq élèves,',
+  about_founder_title_em: 'une vraie entreprise',
+  about_p1: 'Yumiya Candle est née d\'une vraie envie de créer quelque chose de concret. Nous sommes cinq élèves de l\'École Supérieure de Commerce de La Neuveville, et nous consacrons 8 leçons par semaine à faire vivre cette entreprise dans le cadre de notre formation.',
+  about_p2: 'Du développement du produit à la vente, en passant par la communication et la gestion — tout est fait par nous, avec soin.',
+  about_p3: 'Chaque bougie que tu commandes est le reflet de ce travail. Artisanale, pensée et fabriquée à la main en Suisse. 🕯️',
   av1_ic: '🌱', av1_t: 'Végétal & éco',   av1_p: 'Cire de soja, mèche coton, sans paraffine.',
   av2_ic: '🤍', av2_t: 'Fait avec soin',  av2_p: 'Chaque pièce est unique, coulée à la main.',
   av3_ic: '🇨🇭', av3_t: 'Local & honnête', av3_p: 'Fabriqué en Suisse, livré avec soin.',
@@ -679,15 +679,7 @@ function render() {
       <div class="val reveal d2"><div class="val-ic">${D.val3_ic}</div><div class="val-t">${D.val3_t}</div><p class="val-p">${D.val3_p}</p></div>
     </section>
 
-    <section class="testimonials">
-      <div class="eyebrow reveal" style="justify-content:center">Ce que vous en pensez</div>
-      <h2 class="h2 reveal d1" style="text-align:center">Elles <em>adorent</em></h2>
-      <div class="testi-grid">
-        <div class="testi-card reveal"><div class="testi-stars">${D.testi1_stars}</div><p class="testi-quote">${D.testi1_quote}</p><div class="testi-name">${D.testi1_name}</div></div>
-        <div class="testi-card reveal d1"><div class="testi-stars">${D.testi2_stars}</div><p class="testi-quote">${D.testi2_quote}</p><div class="testi-name">${D.testi2_name}</div></div>
-        <div class="testi-card reveal d2"><div class="testi-stars">${D.testi3_stars}</div><p class="testi-quote">${D.testi3_quote}</p><div class="testi-name">${D.testi3_name}</div></div>
-      </div>
-    </section>
+
 
     <section class="cta-band">
       <h2 class="reveal">${D.cta_title}<br><em style="font-style:italic">${D.cta_title_em}</em></h2>
