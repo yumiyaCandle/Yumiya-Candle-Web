@@ -45,19 +45,11 @@ const DEFAULT_DATA = {
   feat_tag: '✦ Collection du moment',
   feat_eyebrow: 'En ce moment',
   feat_title: 'Bougie',
-  feat_title_em: 'St-Valentin',
+  feat_title_em: 'Fête des Mères',
   feat_spec1: '🌿 Cire végétale · mèche coton',
   feat_spec2: '🌸 Rose · Fraise · Vanille chaude',
   feat_spec3: '⏱ ~20h petite · ~30h grande',
   feat_spec4: '📦 Verre transparent · livraison soignée',
-
-  // ── PAGE ACCUEIL — Easter teaser
-  easter_chip: '🐣 Prochaine collection',
-  easter_eyebrow: 'Disponible ce printemps',
-  easter_title: 'Collection',
-  easter_title_em: 'Pâques',
-  easter_desc: 'Fleurs de printemps, miel et vanille douce. Une bougie pour célébrer le renouveau — en cours de création, disponible très bientôt !',
-  easter_show: true,
 
   // ── PAGE ACCUEIL — Custom section
   custom_eyebrow: 'Sur mesure',
@@ -80,22 +72,16 @@ const DEFAULT_DATA = {
 
   // ── PAGE ACCUEIL — Avis
   testi1_stars: '★★★★★', testi1_quote: '« Une bougie qui sent divinement bon. Packaging soigné et livraison rapide ! »', testi1_name: '— Camille B., Lausanne',
-  testi2_stars: '★★★★★', testi2_quote: '« Parfaite comme cadeau. Ma moitié a adoré la senteur rose-vanille. Vivement Pâques ! »', testi2_name: '— Sarah M., Genève',
+  testi2_stars: '★★★★★', testi2_quote: '« Parfaite comme cadeau. Ma moitié a adoré la senteur rose-vanille. »', testi2_name: '— Sarah M., Genève',
   testi3_stars: '★★★★★', testi3_quote: '« J\'ai commandé une bougie personnalisée pour mon mariage. Le résultat était magique ! »', testi3_name: '— Laura T., Fribourg',
 
   // ── BOUTIQUE — St-Valentin
   val_active: true,
-  val_collection: 'Collection St-Valentin',
-  val_name: 'Bougie Gourmande Love',
+  val_collection: 'Collection Fête des Mères',
+  val_name: 'Bougie Fête des Mères',
   val_desc: 'Rose, fraise & vanille chaude. Cire végétale, mèche coton. Un parfum enveloppant pour l\'amour.',
   val_price_petite: 8.90,
   val_price_grande: 10.90,
-
-  // ── BOUTIQUE — Pâques
-  paques_active: true,
-  paques_collection: 'Collection Pâques',
-  paques_name: 'Bougie Printemps',
-  paques_desc: 'Fleurs de printemps, miel et vanille douce. Une bougie pour célébrer le renouveau de saison.',
 
   // ── PAGE NOTRE HISTOIRE
   about_eyebrow: 'Notre histoire',
@@ -253,20 +239,6 @@ nav.scrolled{box-shadow:0 4px 32px rgba(100,20,40,.08)}
 .feat-body{padding:4.5rem 4vw;display:flex;flex-direction:column;justify-content:center;background:var(--blush)}
 .feat-specs{background:#fff;border-radius:12px;padding:1.3rem;border-left:3px solid var(--rose);margin-bottom:1.8rem;max-width:310px}
 .spec{display:flex;align-items:center;gap:.65rem;font-size:.84rem;color:var(--text);padding:.3rem 0;font-weight:300}
-.easter-band{background:linear-gradient(135deg,var(--egl),#f0f9e8 50%,var(--egl));padding:5rem 5vw;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;border-top:1px solid rgba(139,184,122,.2);border-bottom:1px solid rgba(139,184,122,.2);position:relative;overflow:hidden}
-.easter-band::before{content:'🐣';position:absolute;right:4vw;top:50%;transform:translateY(-50%);font-size:14rem;opacity:.06;line-height:1;pointer-events:none}
-.easter-band-img{border-radius:20px;overflow:hidden;box-shadow:0 16px 56px rgba(90,138,74,.12)}
-.easter-band-img img{width:100%;display:block;filter:saturate(.5) brightness(1.05);transition:filter .5s}
-.easter-band-img:hover img{filter:saturate(.75)}
-.easter-coming-chip{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:1.5px solid var(--eg);border-radius:50px;padding:.4rem 1rem;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--egm);font-weight:600;margin-bottom:1.2rem}
-.easter-eyebrow{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--egm);display:flex;align-items:center;gap:.65rem;margin-bottom:1rem}
-.easter-eyebrow::before{content:'';display:inline-block;width:24px;height:1px;background:var(--eg)}
-.easter-h2{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.5vw,3rem);font-weight:400;line-height:1.14;margin-bottom:.9rem;color:var(--text)}
-.easter-h2 em{font-style:italic;color:var(--eg)}
-.easter-notify{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.6rem}
-.easter-input{flex:1;min-width:180px;padding:.78rem 1.2rem;border:1.5px solid rgba(139,184,122,.4);border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;background:#fff;transition:border-color .2s}
-.easter-input:focus{border-color:var(--eg)}
-.easter-success{display:none;color:var(--egm);font-size:.9rem;font-style:italic;font-family:'Playfair Display',serif;margin-top:.8rem}
 .custom-section{padding:6rem 5vw;background:var(--text);position:relative;overflow:hidden}
 .custom-inner{max-width:940px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;position:relative;z-index:1}
 .custom-eyebrow-el{font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.65rem;margin-bottom:1rem}
@@ -486,7 +458,7 @@ footer{background:var(--text);padding:4rem 5vw 2.5rem;color:rgba(255,255,255,.6)
 .adm-login-err{display:none;color:var(--rose);font-size:.8rem;margin-bottom:.6rem}
 .adm-login-btns{display:flex;gap:.6rem}
 
-@media(max-width:900px){.hero,.feature,.easter-band,.custom-inner{grid-template-columns:1fr}.hero-r{height:50vw;min-height:260px}.vals,.testi-grid,.about-vals-grid{grid-template-columns:1fr 1fr}.coll-grid{grid-template-columns:1fr 1fr}.about-body,.contact-wrap{grid-template-columns:1fr;gap:2.5rem}.footer-grid{grid-template-columns:1fr 1fr}.footer-grid>div:first-child{grid-column:1/-1}.adm-panel{width:100%;max-width:100%;height:85vh;border-radius:20px 20px 0 0}.adm-overlay.on{align-items:flex-end;padding:0}}
+@media(max-width:900px){.hero,.feature,.custom-inner{grid-template-columns:1fr}.hero-r{height:50vw;min-height:260px}.vals,.testi-grid,.about-vals-grid{grid-template-columns:1fr 1fr}.coll-grid{grid-template-columns:1fr 1fr}.about-body,.contact-wrap{grid-template-columns:1fr;gap:2.5rem}.footer-grid{grid-template-columns:1fr 1fr}.footer-grid>div:first-child{grid-column:1/-1}.adm-panel{width:100%;max-width:100%;height:85vh;border-radius:20px 20px 0 0}.adm-overlay.on{align-items:flex-end;padding:0}}
 @media(max-width:640px){nav .nav-links{display:none}.burger{display:flex}.vals,.testi-grid,.about-vals-grid,.coll-grid,.shop-grid{grid-template-columns:1fr}.hero-l{padding:3rem 5vw}.cf-row,.adm-row{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}}
 </style>`);
 
@@ -552,11 +524,11 @@ function render() {
     </section>
     <div class="marquee"><div class="marquee-t">
       <span class="mi">Cire de soja 100% végétale</span><span class="mi">Fait à la main avec amour</span>
-      <span class="mi">Commandes personnalisées</span><span class="mi">St-Valentin disponible</span>
-      <span class="mi">Pâques bientôt</span><span class="mi">Livraison soignée en Suisse</span>
+      <span class="mi">Commandes personnalisées</span><span class="mi">Fête des Mères disponible</span>
+      <span class="mi">Livraison soignée en Suisse</span>
       <span class="mi">Cire de soja 100% végétale</span><span class="mi">Fait à la main avec amour</span>
-      <span class="mi">Commandes personnalisées</span><span class="mi">St-Valentin disponible</span>
-      <span class="mi">Pâques bientôt</span><span class="mi">Livraison soignée en Suisse</span>
+      <span class="mi">Commandes personnalisées</span><span class="mi">Fête des Mères disponible</span>
+      <span class="mi">Livraison soignée en Suisse</span>
     </div></div>
 
     <section class="collections">
@@ -567,20 +539,12 @@ function render() {
       </div>
       <div class="coll-grid">
         <div class="coll-card reveal" onclick="navigate('shop')" style="${!D.val_active?'opacity:.45;pointer-events:none':''}">
-          <div class="coll-card-img"><img src="${IMG_MAIN}" alt="St-Valentin"/><div class="coll-card-overlay"></div>
+          <div class="coll-card-img"><img src="${IMG_MAIN}" alt="Fête des Mères"/><div class="coll-card-overlay"></div>
             <span class="coll-card-badge badge-available">✦ ${D.val_active?'Disponible':'Indisponible'}</span>
-            <div class="coll-card-body"><div class="coll-card-name">St-Valentin</div><div class="coll-card-sub">Rose · Fraise · Vanille chaude</div></div>
+            <div class="coll-card-body"><div class="coll-card-name">Fête des Mères</div><div class="coll-card-sub">Rose · Fraise · Vanille chaude</div></div>
           </div>
           <div class="coll-card-info"><span style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--rose)">dès ${pp.toFixed(2)} CHF</span><span class="coll-card-cta" style="color:var(--rose)">Voir <span>→</span></span></div>
         </div>
-        ${D.easter_show ? `
-        <div class="coll-card reveal d1" onclick="openNotifyModal()">
-          <div class="coll-card-img" style="filter:saturate(.42)"><img src="https://images.unsplash.com/photo-1522790873439-0de5e4a38e11?w=600&q=70" alt="Pâques"/><div class="coll-card-overlay"></div>
-            <span class="coll-card-badge badge-soon">🐣 Bientôt</span>
-            <div class="coll-card-body"><div class="coll-card-name">Pâques</div><div class="coll-card-sub">Fleurs de printemps · Vanille · Miel</div></div>
-          </div>
-          <div class="coll-card-info"><span style="font-size:.82rem;color:var(--muted);font-style:italic">Ce printemps</span><span class="coll-card-cta" style="color:var(--eg)">M'alerter</span></div>
-        </div>` : ''}
         <div class="coll-card reveal d2" onclick="scrollCustom()">
           <div class="coll-card-img" style="background:linear-gradient(135deg,#1e0e08,#3e1c10);display:flex;align-items:center;justify-content:center">
             <div style="text-align:center;position:relative;z-index:2"><div style="font-size:3.2rem;margin-bottom:.5rem">✨</div><div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);font-style:italic">La tienne</div><div style="font-size:.74rem;color:rgba(255,255,255,.45);margin-top:.3rem">entièrement sur mesure</div></div>
@@ -610,23 +574,6 @@ function render() {
         </div>
       </div>
     </section>
-
-    ${D.easter_show ? `
-    <section class="easter-band">
-      <div class="easter-band-img reveal"><img src="https://images.unsplash.com/photo-1522790873439-0de5e4a38e11?w=700&q=75" alt="Pâques"/></div>
-      <div class="reveal d1">
-        <div class="easter-coming-chip">${D.easter_chip}</div>
-        <div class="easter-eyebrow">${D.easter_eyebrow}</div>
-        <h2 class="easter-h2">${D.easter_title} <em>${D.easter_title_em}</em></h2>
-        <div class="bar bar-green"></div>
-        <p class="txt" style="color:var(--egm);max-width:400px">${D.easter_desc}</p>
-        <div class="easter-notify" id="en-form">
-          <input class="easter-input" id="en-email" placeholder="Ton email pour être notifiée…" type="email"/>
-          <button class="btn btn-green" onclick="submitEasterNotify()">M'alerter 🐣</button>
-        </div>
-        <div class="easter-success" id="en-success">🌱 Parfait ! On te prévient dès que Pâques est disponible.</div>
-      </div>
-    </section>` : ''}
 
     <div id="custom-anchor" style="scroll-margin-top:90px"></div>
     <section class="custom-section">
@@ -696,13 +643,12 @@ function render() {
         <div class="eyebrow">La boutique</div>
         <h1 class="h1" style="margin-bottom:1rem">Nos <em>bougies</em></h1>
         <div class="bar"></div>
-        <p class="txt" style="max-width:440px">St-Valentin disponible maintenant${D.easter_show?', Pâques qui arrive bientôt,':''} et des créations 100% sur mesure à tout moment.</p>
+        <p class="txt" style="max-width:440px">Fête des Mères disponible maintenant et des créations 100% sur mesure à tout moment.</p>
       </div>
     </div>
     <div class="shop-tabs">
       <button class="shop-tab on" onclick="filterShop('all',this)">Tout voir</button>
-      <button class="shop-tab" onclick="filterShop('valentin',this)">💝 St-Valentin</button>
-      ${D.easter_show?'<button class="shop-tab" onclick="filterShop(\'paques\',this)">🐣 Pâques</button>':''}
+      <button class="shop-tab" onclick="filterShop('valentin',this)">💐 Fête des Mères</button>
       <button class="shop-tab" onclick="filterShop('custom',this)">✨ Sur mesure</button>
     </div>
     <div class="shop-products">
@@ -742,19 +688,7 @@ function render() {
           </div>
         </div>
       </div>
-      ${D.easter_show ? `
-      <div class="shop-sep" id="sep-soon"><div class="shop-sep-line"></div><div class="shop-sep-text">🐣 Bientôt disponible</div><div class="shop-sep-line"></div></div>
-      <div class="shop-grid" id="sg-soon">
-        <div class="prod-card reveal" data-col="paques" data-st="soon">
-          <div class="prod-card-img" style="filter:saturate(.42)"><span class="prod-card-pill pill-soon">🐣 Bientôt</span><img src="https://images.unsplash.com/photo-1522790873439-0de5e4a38e11?w=600&q=70" alt="Pâques"/></div>
-          <div class="prod-card-body">
-            <div class="prod-card-col">${D.paques_collection}</div>
-            <div class="prod-card-name">${D.paques_name}</div>
-            <p class="prod-card-desc">${D.paques_desc}</p>
-            <div class="prod-card-footer"><span style="font-size:.84rem;color:var(--muted);font-style:italic">Ce printemps</span><button class="prd-btn" onclick="openNotifyModal()">M'alerter</button></div>
-          </div>
-        </div>
-      </div>` : ''}
+      
     </div>
     ${footer()}
   </div>
@@ -829,8 +763,7 @@ function render() {
           <div class="cf-group"><label class="cf-lbl cf-lbl-light">Type de commande *</label>
             <select class="cf-sel cf-sel-light" id="cf-type" onchange="toggleCfType()">
               <option value="">— Choisir —</option>
-              <option value="standard">Bougie St-Valentin (disponible)</option>
-              ${D.easter_show?'<option value="paques">Pré-demande Pâques</option>':''}
+              <option value="standard">Bougie Fête des Mères (disponible)</option>
               <option value="custom">Bougie personnalisée / sur mesure</option>
             </select>
           </div>
@@ -977,7 +910,6 @@ function render() {
         <button class="adm-tab on" onclick="switchAdmTab('general',this)">Général</button>
         <button class="adm-tab" onclick="switchAdmTab('accueil',this)">Accueil</button>
         <button class="adm-tab" onclick="switchAdmTab('boutique',this)">Boutique</button>
-        <button class="adm-tab" onclick="switchAdmTab('paques',this)">🐣 Pâques</button>
         <button class="adm-tab" onclick="switchAdmTab('about',this)">Histoire</button>
         <button class="adm-tab" onclick="switchAdmTab('contact',this)">Contact</button>
         <button class="adm-tab" onclick="switchAdmTab('avis',this)">Avis</button>
@@ -1057,7 +989,7 @@ function render() {
 
         <!-- BOUTIQUE -->
         <div class="adm-section" id="adm-boutique">
-          <div class="adm-sub">Collection St-Valentin</div>
+          <div class="adm-sub">Collection Fête des Mères</div>
           <div class="adm-group"><label class="adm-lbl">Affichage</label>
             <div class="adm-toggle">
               <label><input type="radio" name="adm-val" id="adm-val-on" value="1"/> ✅ Disponible</label>
@@ -1071,29 +1003,6 @@ function render() {
             <div class="adm-group"><label class="adm-lbl">Prix petite (CHF)</label><input class="adm-in" id="b-vpp" type="number" step="0.10" min="0" /></div>
             <div class="adm-group"><label class="adm-lbl">Prix grande (CHF)</label><input class="adm-in" id="b-vpg" type="number" step="0.10" min="0" /></div>
           </div>
-        </div>
-
-        <!-- PÂQUES -->
-        <div class="adm-section" id="adm-paques">
-          <div class="adm-sub">Section Pâques</div>
-          <div class="adm-group"><label class="adm-lbl">Affichage</label>
-            <div class="adm-toggle">
-              <label><input type="radio" name="adm-paq" id="adm-paq-on" value="1"/> ✅ Visible</label>
-              <label><input type="radio" name="adm-paq" id="adm-paq-off" value="0"/> 🚫 Masquée</label>
-            </div>
-          </div>
-          <div class="adm-group"><label class="adm-lbl">Chip (ex: 🐣 Prochaine collection)</label><input class="adm-in" id="p-chip" /></div>
-          <div class="adm-group"><label class="adm-lbl">Eyebrow</label><input class="adm-in" id="p-eyebrow" /></div>
-          <div class="adm-row">
-            <div class="adm-group"><label class="adm-lbl">Titre</label><input class="adm-in" id="p-title" /></div>
-            <div class="adm-group"><label class="adm-lbl">Titre italique</label><input class="adm-in" id="p-title-em" /></div>
-          </div>
-          <div class="adm-group"><label class="adm-lbl">Description</label><textarea class="adm-ta" id="p-desc"></textarea></div>
-          <div class="adm-sep"></div>
-          <div class="adm-sub">Fiche produit boutique</div>
-          <div class="adm-group"><label class="adm-lbl">Nom de la collection</label><input class="adm-in" id="p-col" /></div>
-          <div class="adm-group"><label class="adm-lbl">Nom du produit</label><input class="adm-in" id="p-name" /></div>
-          <div class="adm-group"><label class="adm-lbl">Description produit</label><textarea class="adm-ta" id="p-pdesc"></textarea></div>
         </div>
 
         <!-- HISTOIRE -->
@@ -1377,11 +1286,6 @@ function submitNotify() {
   const btn=document.getElementById('nm-btn');btn.textContent='Envoi…';btn.disabled=true;
   setTimeout(()=>{document.getElementById('notify-form').style.display='none';document.getElementById('notify-success').style.display='block';btn.textContent='Me notifier →';btn.disabled=false;},900);
 }
-function submitEasterNotify() {
-  const e=document.getElementById('en-email').value.trim();
-  if(!e.includes('@')){document.getElementById('en-email').style.borderColor='var(--rose)';setTimeout(()=>{document.getElementById('en-email').style.borderColor='';},1200);return;}
-  document.getElementById('en-form').style.display='none'; document.getElementById('en-success').style.display='block';
-}
 function submitCustom() {
   const n=document.getElementById('cm-name').value.trim();
   const e=document.getElementById('cm-email').value.trim();
@@ -1538,17 +1442,6 @@ function admFill() {
   document.getElementById('b-vdesc').value = D.val_desc;
   document.getElementById('b-vpp').value = D.val_price_petite;
   document.getElementById('b-vpg').value = D.val_price_grande;
-  // Pâques
-  document.getElementById('adm-paq-on').checked = D.easter_show;
-  document.getElementById('adm-paq-off').checked = !D.easter_show;
-  document.getElementById('p-chip').value = D.easter_chip;
-  document.getElementById('p-eyebrow').value = D.easter_eyebrow;
-  document.getElementById('p-title').value = D.easter_title;
-  document.getElementById('p-title-em').value = D.easter_title_em;
-  document.getElementById('p-desc').value = D.easter_desc;
-  document.getElementById('p-col').value = D.paques_collection;
-  document.getElementById('p-name').value = D.paques_name;
-  document.getElementById('p-pdesc').value = D.paques_desc;
   // Histoire
   document.getElementById('ab-ey').value = D.about_eyebrow;
   document.getElementById('ab-t').value = D.about_title;
@@ -1604,9 +1497,6 @@ function admSave() {
   D.val_active = gb('adm-val-on');
   D.val_collection = g('b-vcol'); D.val_name = g('b-vname'); D.val_desc = g('b-vdesc');
   D.val_price_petite = gf('b-vpp'); D.val_price_grande = gf('b-vpg');
-  D.easter_show = gb('adm-paq-on');
-  D.easter_chip = g('p-chip'); D.easter_eyebrow = g('p-eyebrow'); D.easter_title = g('p-title'); D.easter_title_em = g('p-title-em');
-  D.easter_desc = g('p-desc'); D.paques_collection = g('p-col'); D.paques_name = g('p-name'); D.paques_desc = g('p-pdesc');
   D.about_eyebrow = g('ab-ey'); D.about_title = g('ab-t'); D.about_title_em = g('ab-em'); D.about_intro = g('ab-intro');
   D.about_founder_eyebrow = g('ab-fey'); D.about_founder_title = g('ab-ft'); D.about_founder_title_em = g('ab-fem');
   D.about_p1 = g('ab-p1'); D.about_p2 = g('ab-p2'); D.about_p3 = g('ab-p3');
