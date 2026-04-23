@@ -61,8 +61,8 @@ const DEFAULT_DATA = {
 
   // ── PAGE ACCUEIL — CTA band
   cta_title: 'Commande et paie',
-  cta_title_em: 'directement par Twint',
-  cta_desc: 'Pas d\'attente. Tu choisis ta bougie, tu remplis tes infos, et Twint s\'ouvre directement. Simple, rapide, sécurisé.',
+  cta_title_em: 'directement par carte',
+  cta_desc: 'Pas d\'attente. Tu choisis ta bougie, tu remplis tes infos, et le paiement s\'ouvre directement. Simple, rapide, sécurisé.',
   cta_btn: 'Passer une demande →',
 
   // ── PAGE ACCUEIL — Valeurs
@@ -99,21 +99,20 @@ const DEFAULT_DATA = {
   av3_ic: '🇨🇭', av3_t: 'Local & honnête', av3_p: 'Fabriqué en Suisse, livré avec soin.',
   av4_ic: '✨', av4_t: 'Sur mesure',      av4_p: 'On crée ta bougie exactement comme tu l\'imagines.',
 
-  // ── TWINT
-  twint_phone: '+41 78 788 00 90',
-  twint_paylink: 'https://go.twint.ch/1/e/tw?tw=acq.Et8bt3P8RsK8PLRfFEIONFLZcq38_S8sgbAZrPS31vtZ4fSw-Zy2Y2kF_c3UIE9a.',
+  // ── STRIPE
+  stripe_paylink: 'https://buy.stripe.com/7sYdRa1Kj9Oxetp1VL9k400',
 
   // ── PAGE COMMANDER
   contact_eyebrow: 'On discute ?',
   contact_title: 'Passe une',
   contact_title_em: 'demande',
-  contact_intro: 'Commande standard ou personnalisée — remplis le formulaire et paie directement par Twint. Confirmation immédiate !',
+  contact_intro: 'Commande standard ou personnalisée — remplis le formulaire et paie par carte. Confirmation immédiate !',
   contact_step1: 'Choisis ta bougie et remplis le formulaire',
-  contact_step2: 'Paye directement par Twint en 1 clic',
+  contact_step2: 'Paye par carte en 1 clic',
   contact_step3: 'Commande confirmée · Livraison rapide 🇨🇭',
-  contact_form_title: 'Commander 💙',
-  contact_form_sub: 'Remplis tes infos — tu seras redirigé vers Twint pour payer.',
-  contact_note: 'Paiement Twint direct. Ta commande est confirmée dès réception du paiement.',
+  contact_form_title: 'Commander 💳',
+  contact_form_sub: 'Remplis tes infos — tu seras redirigé vers Stripe pour payer.',
+  contact_note: 'Paiement sécurisé par carte via Stripe. Ta commande est confirmée dès réception du paiement.',
 
   // ── FOOTER
   footer_desc: 'Bougies gourmandes artisanales. Collections saisonnières & créations sur mesure, faites à la main en Suisse.',
@@ -741,7 +740,7 @@ function render() {
       <div>
         <div class="eyebrow">Comment ça marche ?</div>
         <h2 class="h2" style="margin-bottom:1.3rem">Commander <em>facilement</em></h2>
-        <p class="txt" style="margin-bottom:1.8rem">Remplis le formulaire et paye directement par Twint. Ta commande est confirmée dès réception du paiement !</p>
+        <p class="txt" style="margin-bottom:1.8rem">Remplis le formulaire et paye par carte. Ta commande est confirmée dès réception du paiement !</p>
         <div class="contact-chips">
           <div class="contact-chip reveal"><div class="contact-chip-ic">1️⃣</div><div><div class="cchip-lbl">Étape 1</div><div class="cchip-val">${D.contact_step1}</div></div></div>
           <div class="contact-chip reveal d1"><div class="contact-chip-ic">2️⃣</div><div><div class="cchip-lbl">Étape 2</div><div class="cchip-val">${D.contact_step2}</div></div></div>
@@ -780,21 +779,20 @@ function render() {
           </div>
           <div class="cf-group"><label class="cf-lbl cf-lbl-light">Adresse de livraison *</label><input class="cf-in cf-in-light" id="cf-address" placeholder="Rue, ville, NPA — Suisse"/></div>
           <div class="cf-group"><label class="cf-lbl cf-lbl-light">Message</label><textarea class="cf-ta cf-ta-light" id="cf-message" placeholder="Question, demande spéciale, message cadeau…"></textarea></div>
-          <button class="cf-btn cf-btn-rose" id="cf-btn" onclick="submitContact()">💙 Passer à Twint →</button>
+          <button class="cf-btn cf-btn-rose" id="cf-btn" onclick="submitContact()">💳 Payer par carte →</button>
         </div>
         <div class="form-success" id="cf-success">
-          <div class="form-success-ic">💙</div>
-          <div class="form-success-t">Payer par Twint</div>
-          <p class="form-success-s">Clique ci-dessous pour payer directement dans l'app Twint.</p>
-          <div id="cf-twint-box" style="background:rgba(0,135,232,.07);border:1.5px solid rgba(0,135,232,.22);border-radius:14px;padding:1.2rem;margin:1rem 0 0">
+          <div class="form-success-ic">💳</div>
+          <div class="form-success-t">Payer par carte</div>
+          <p class="form-success-s">Clique ci-dessous pour payer en toute sécurité via Stripe.</p>
+          <div id="cf-twint-box" style="background:rgba(99,91,255,.07);border:1.5px solid rgba(99,91,255,.22);border-radius:14px;padding:1.2rem;margin:1rem 0 0">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;font-size:.84rem;color:var(--mid);font-weight:300">
               <span>Montant</span>
-              <strong id="cf-twint-amount" style="color:#0087e8;font-size:1rem;font-weight:700;user-select:none;pointer-events:none" unselectable="on"></strong>
+              <strong id="cf-twint-amount" style="color:#635bff;font-size:1rem;font-weight:700;"></strong>
             </div>
-            <div style="font-size:.74rem;color:var(--muted);margin-bottom:.6rem;line-height:1.6">Mets ton prénom + <strong>"Yumiya"</strong> dans le message Twint. 🕯️</div>
-            <div style="font-size:.78rem;background:#fff3cd;border:1.5px solid #f0ad00;border-radius:9px;padding:.6rem .9rem;margin-bottom:.9rem;color:#7a5500;font-weight:500;line-height:1.5">⚠️ Le montant est déjà pré-rempli — merci de ne pas le modifier.</div>
-            <a id="cf-twint-link" href="#" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:.5rem;background:#0087e8;color:#fff;border-radius:10px;padding:.8rem 1rem;font-size:.95rem;font-weight:700;text-decoration:none">
-              💙 Payer maintenant avec Twint
+            <div style="font-size:.74rem;color:var(--muted);margin-bottom:.9rem;line-height:1.6">Paiement 100% sécurisé · Visa, Mastercard, American Express 🔒</div>
+            <a id="cf-twint-link" href="#" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:.5rem;background:#635bff;color:#fff;border-radius:10px;padding:.8rem 1rem;font-size:.95rem;font-weight:700;text-decoration:none">
+              💳 Payer maintenant par carte
             </a>
           </div>
         </div>
@@ -818,8 +816,8 @@ function render() {
     </div>
     <div class="cart-ft" id="cart-ft" style="display:none">
       <div class="cart-tot-row"><span class="cart-tot-lbl">Total estimé</span><span class="cart-tot-amt" id="cart-total">0.00 CHF</span></div>
-      <button class="cart-order-btn" onclick="openOrderModal()">💙 Payer par Twint</button>
-      <p class="cart-order-note">Paiement direct par Twint · Livraison rapide 🇨🇭</p>
+      <button class="cart-order-btn" onclick="openOrderModal()">💳 Payer par carte</button>
+      <p class="cart-order-note">Paiement sécurisé par carte · Livraison rapide 🇨🇭</p>
     </div>
   </div>
 
@@ -830,7 +828,7 @@ function render() {
         <div id="order-form">
           <div class="modal-icon">📦</div>
           <div class="modal-title">Livraison & paiement</div>
-          <p class="modal-sub">Remplis ton adresse de livraison, puis paye directement par Twint.</p>
+          <p class="modal-sub">Remplis ton adresse de livraison, puis paye par carte via Stripe.</p>
           <div class="order-summary" id="order-summary"></div>
 
           <!-- Adresse de livraison -->
@@ -845,20 +843,19 @@ function render() {
               <div class="cf-group" style="margin-bottom:0"><label class="cf-lbl cf-lbl-light">Ville *</label><input class="cf-in cf-in-light" id="ord-city" placeholder="Berne" type="text"/></div>
             </div>
             <div class="cf-group" style="margin-top:.7rem"><label class="cf-lbl cf-lbl-light">Téléphone *</label><input class="cf-in cf-in-light" id="ord-phone" placeholder="+41 78 000 00 00" type="tel"/></div>
-            <button class="cf-btn cf-btn-rose" style="margin-top:.3rem" onclick="submitOrderAddress()">Continuer vers Twint →</button>
+            <button class="cf-btn cf-btn-rose" style="margin-top:.3rem" onclick="submitOrderAddress()">Continuer vers Stripe →</button>
           </div>
 
-          <!-- Twint (caché jusqu'à validation adresse) -->
-          <div id="order-twint-box" style="display:none">
+          <!-- Stripe (affiché après validation adresse) -->
+          <div id="order-stripe-box" style="display:none">
             <div style="background:rgba(0,135,232,.07);border:1.5px solid rgba(0,135,232,.22);border-radius:14px;padding:1.3rem;margin:.8rem 0">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;font-size:.85rem;color:var(--mid);font-weight:300">
                 <span>Montant</span>
-                <strong id="twint-amount" style="color:#0087e8;font-size:1.15rem;font-weight:700;user-select:none;pointer-events:none" unselectable="on"></strong>
+                <strong id="stripe-amount" style="color:#635bff;font-size:1.15rem;font-weight:700;"></strong>
               </div>
-              <div style="font-size:.75rem;color:var(--muted);margin-bottom:.6rem;line-height:1.6">Mets ton prénom + <strong>"Yumiya"</strong> dans le message Twint. 🕯️</div>
-            <div style="font-size:.78rem;background:#fff3cd;border:1.5px solid #f0ad00;border-radius:9px;padding:.6rem .9rem;margin-bottom:.9rem;color:#7a5500;font-weight:500;line-height:1.5">⚠️ Le montant est déjà pré-rempli — merci de ne pas le modifier.</div>
-              <a id="twint-link" href="#" target="_blank" onclick="onTwintClick()" style="display:flex;align-items:center;justify-content:center;gap:.6rem;background:#0087e8;color:#fff;border-radius:11px;padding:.9rem 1rem;font-size:1rem;font-weight:700;text-decoration:none;letter-spacing:.01em">
-                💙 Payer maintenant avec Twint
+              <div style="font-size:.75rem;color:var(--muted);margin-bottom:.9rem;line-height:1.6">Paiement 100% sécurisé · Visa, Mastercard, Amex 🔒</div>
+              <a id="stripe-link" href="#" target="_blank" onclick="onStripeClick()" style="display:flex;align-items:center;justify-content:center;gap:.6rem;background:#635bff;color:#fff;border-radius:11px;padding:.9rem 1rem;font-size:1rem;font-weight:700;text-decoration:none;letter-spacing:.01em">
+                💳 Payer maintenant par carte
               </a>
             </div>
             <p style="font-size:.74rem;color:var(--muted);line-height:1.6;text-align:center">On te confirme la livraison dès réception du paiement.</p>
@@ -922,8 +919,7 @@ function render() {
           <div class="adm-group"><label class="adm-lbl">Nom du site</label><input class="adm-in" id="g-name" /></div>
           <div class="adm-group"><label class="adm-lbl">Instagram</label><input class="adm-in" id="g-insta" /></div>
           <div class="adm-group"><label class="adm-lbl">Email de contact</label><input class="adm-in" id="g-email" /></div>
-          <div class="adm-group"><label class="adm-lbl">💙 Numéro Twint (ex: +41 78 000 00 00)</label><input class="adm-in" id="g-twint" placeholder="+41 78 000 00 00" /></div>
-          <div class="adm-group"><label class="adm-lbl">💙 Twint Paylink (go.twint.ch/...)</label><input class="adm-in" id="g-twint-paylink" placeholder="https://go.twint.ch/..." /></div>
+          <div class="adm-group"><label class="adm-lbl">💳 Stripe Payment Link (buy.stripe.com/...)</label><input class="adm-in" id="g-stripe-paylink" placeholder="https://buy.stripe.com/..." /></div>
           <div class="adm-group"><label class="adm-lbl">Localisation (footer)</label><input class="adm-in" id="g-location" /></div>
           <div class="adm-group"><label class="adm-lbl">Texte du footer</label><textarea class="adm-ta" id="g-footer-desc"></textarea></div>
         </div>
@@ -1204,13 +1200,12 @@ function openOrderModal(directPrice) {
     rows += '<div class="os-total"><span>Total</span><span>' + tot.toFixed(2) + ' CHF</span></div>';
   }
   document.getElementById('order-summary').innerHTML = rows;
-  var baseLink = (D && D.twint_paylink) ? D.twint_paylink.replace(/[&?]amount=[^&]*/g, '') : '';
-  var payLink = baseLink + '&amount=' + tot.toFixed(2) + '&cur=CHF&trxInfo=Yumiya+Candle';
-  document.getElementById('twint-amount').textContent = tot.toFixed(2) + ' CHF';
-  document.getElementById('twint-link').href = payLink;
+  var stripeLink = (D && D.stripe_paylink) ? D.stripe_paylink : 'https://buy.stripe.com/7sYdRa1Kj9Oxetp1VL9k400';
+  document.getElementById('stripe-amount').textContent = tot.toFixed(2) + ' CHF';
+  document.getElementById('stripe-link').href = stripeLink;
   document.getElementById('order-form').style.display = 'block';
   document.getElementById('order-address-form').style.display = 'block';
-  document.getElementById('order-twint-box').style.display = 'none';
+  document.getElementById('order-stripe-box').style.display = 'none';
   openModal('order-bg');
 }
 async function submitOrderAddress() {
@@ -1238,7 +1233,7 @@ async function submitOrderAddress() {
   if (!ok) return;
 
   // Résumé commande
-  var montant = document.getElementById('twint-amount').textContent || '?';
+  var montant = document.getElementById('stripe-amount').textContent || '?';
   var lignes = [];
   document.querySelectorAll('#order-summary .os-row').forEach(function(r){
     lignes.push(r.innerText.replace(/\s+/g,' ').trim());
@@ -1249,34 +1244,17 @@ async function submitOrderAddress() {
   var btn = document.querySelector('#order-address-form .cf-btn-rose');
   if (btn) { btn.textContent = 'Envoi…'; btn.disabled = true; }
 
-  try {
-    await fetch('https://formspree.io/f/xjgpegvy', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        prenom: fname,
-        nom: lname,
-        adresse: address,
-        npa: npa,
-        ville: city,
-        telephone: phone,
-        commande: commande,
-        montant: montant
-      })
-    });
-  } catch(e) { console.warn('Formspree error', e); }
-
-  if (btn) { btn.textContent = 'Continuer vers Twint →'; btn.disabled = false; }
+  if (btn) { btn.textContent = 'Continuer vers Stripe →'; btn.disabled = false; }
   document.getElementById('order-address-form').style.display = 'none';
-  document.getElementById('order-twint-box').style.display = 'block';
+  document.getElementById('order-stripe-box').style.display = 'block';
 }
 
 function backToAddress() {
-  document.getElementById('order-twint-box').style.display = 'none';
+  document.getElementById('order-stripe-box').style.display = 'none';
   document.getElementById('order-address-form').style.display = 'block';
 }
 
-function onTwintClick() {
+function onStripeClick() {
   setTimeout(function() { if (typeof clearCart === 'function') clearCart(); }, 800);
 }
 function openNotifyModal() { document.getElementById('notify-form').style.display='block'; document.getElementById('notify-success').style.display='none'; openModal('notify-bg'); }
@@ -1328,12 +1306,9 @@ function submitContact() {
     }
   }
 
-  var baseLink = (D && D.twint_paylink) ? D.twint_paylink.replace(/[&?]amount=[^&]*/g, '') : '';
-  var payLink = amountNum > 0
-    ? baseLink + '&amount=' + amountNum.toFixed(2) + '&cur=CHF&trxInfo=Yumiya+Candle'
-    : baseLink;
+  var stripeLink = (D && D.stripe_paylink) ? D.stripe_paylink : 'https://buy.stripe.com/7sYdRa1Kj9Oxetp1VL9k400';
   document.getElementById('cf-twint-amount').textContent = amountStr;
-  document.getElementById('cf-twint-link').href = payLink;
+  document.getElementById('cf-twint-link').href = stripeLink;
   document.getElementById('cf-form-content').style.display = 'none';
   document.getElementById('cf-success').style.display = 'block';
 }
@@ -1400,8 +1375,7 @@ function admFill() {
   document.getElementById('g-name').value = D.site_name;
   document.getElementById('g-insta').value = D.site_instagram;
   document.getElementById('g-email').value = D.site_email;
-  document.getElementById('g-twint').value = D.twint_phone || '';
-  document.getElementById('g-twint-paylink').value = D.twint_paylink || '';
+  document.getElementById('g-stripe-paylink').value = D.stripe_paylink || '';
   document.getElementById('g-location').value = D.site_location;
   document.getElementById('g-footer-desc').value = D.footer_desc;
   // Accueil
@@ -1480,8 +1454,7 @@ function admSave() {
   const gf = id => parseFloat(document.getElementById(id)?.value) || 0;
 
   D.site_name = g('g-name'); D.site_instagram = g('g-insta'); D.site_email = g('g-email');
-  D.twint_phone = g('g-twint');
-  D.twint_paylink = g('g-twint-paylink');
+  D.stripe_paylink = g('g-stripe-paylink');
   D.site_location = g('g-location'); D.footer_desc = g('g-footer-desc');
   D.hero_title = g('a-hero-t'); D.hero_title_em = g('a-hero-em'); D.hero_subtitle = g('a-hero-sub');
   D.hero_desc = g('a-hero-desc'); D.hero_btn1 = g('a-hero-btn1'); D.hero_btn2 = g('a-hero-btn2');
@@ -1532,5 +1505,270 @@ function admReset() {
 }
 
 </script>
+
+<!-- ═══ YUMIYA AI CHATBOT WIDGET ═══ -->
+<style>
+  /* Floating button */
+  #yumiya-chat-btn {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 9998;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--burg, #6e1628), var(--rose, #c8455a));
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(110,22,40,.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: transform .2s, box-shadow .2s;
+  }
+  #yumiya-chat-btn:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(110,22,40,.45); }
+  #yumiya-chat-btn .badge {
+    position: absolute;
+    top: -2px; right: -2px;
+    width: 14px; height: 14px;
+    background: #7fffb2;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    animation: pulse-badge 2s infinite;
+  }
+  @keyframes pulse-badge { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  /* Chat panel */
+  #yumiya-chat-panel {
+    position: fixed;
+    bottom: 5.5rem;
+    right: 1.5rem;
+    z-index: 9999;
+    width: 360px;
+    max-width: calc(100vw - 2rem);
+    height: 520px;
+    max-height: calc(100vh - 7rem);
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 50px rgba(110,22,40,.18), 0 1px 8px rgba(110,22,40,.08);
+    border: 1px solid #f5c5ab;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform-origin: bottom right;
+    transition: transform .25s cubic-bezier(.34,1.56,.64,1), opacity .2s;
+    transform: scale(0); opacity: 0; pointer-events: none;
+  }
+  #yumiya-chat-panel.open { transform: scale(1); opacity: 1; pointer-events: all; }
+
+  /* Header */
+  .yc-header {
+    background: linear-gradient(135deg, var(--burg, #6e1628), var(--rose, #c8455a));
+    padding: .9rem 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    flex-shrink: 0;
+  }
+  .yc-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,.18);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .yc-header-name { font-family:'Playfair Display',serif; font-size:.98rem; color:#fff; font-weight:500; line-height:1.2; }
+  .yc-header-status { font-size:.68rem; color:rgba(255,255,255,.75); letter-spacing:.1em; text-transform:uppercase; display:flex; align-items:center; gap:.3rem; margin-top:.1rem; }
+  .yc-dot { width:6px; height:6px; border-radius:50%; background:#7fffb2; animation:pulse-badge 2s infinite; }
+  .yc-close { margin-left:auto; background:none; border:none; color:rgba(255,255,255,.75); font-size:1.1rem; cursor:pointer; padding:.2rem; line-height:1; }
+  .yc-close:hover { color:#fff; }
+
+  /* Messages */
+  .yc-messages {
+    flex:1; overflow-y:auto; padding:.9rem .8rem;
+    display:flex; flex-direction:column; gap:.6rem;
+    background: var(--bg, #faf5f0); scroll-behavior:smooth;
+  }
+  .yc-messages::-webkit-scrollbar { width:3px; }
+  .yc-messages::-webkit-scrollbar-thumb { background: #f5c5ab; border-radius:3px; }
+
+  .yc-msg { display:flex; gap:.4rem; align-items:flex-end; animation: yc-fadein .22s ease; }
+  @keyframes yc-fadein { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+  .yc-msg.user { flex-direction:row-reverse; }
+  .yc-msg-av { width:26px; height:26px; border-radius:50%; background:#fce8e0; display:flex; align-items:center; justify-content:center; font-size:.8rem; flex-shrink:0; }
+  .yc-msg.user .yc-msg-av { background:var(--rose,#c8455a); }
+  .yc-bubble { max-width:80%; padding:.55rem .8rem; border-radius:16px; font-size:.82rem; line-height:1.6; color:var(--text,#1a080d); font-family:'DM Sans',sans-serif; }
+  .yc-msg.bot .yc-bubble { background:#fff; border-bottom-left-radius:4px; box-shadow:0 1px 5px rgba(110,22,40,.07); border:1px solid rgba(245,197,171,.4); }
+  .yc-msg.user .yc-bubble { background:var(--rose,#c8455a); color:#fff; border-bottom-right-radius:4px; }
+
+  /* Typing */
+  .yc-typing { display:flex; gap:3px; padding:.5rem .7rem; background:#fff; border-radius:16px; border-bottom-left-radius:4px; width:fit-content; box-shadow:0 1px 5px rgba(110,22,40,.07); border:1px solid rgba(245,197,171,.4); }
+  .yc-tdot { width:6px; height:6px; background:#f5c5ab; border-radius:50%; animation:yc-typing 1.2s infinite; }
+  .yc-tdot:nth-child(2){animation-delay:.2s} .yc-tdot:nth-child(3){animation-delay:.4s}
+  @keyframes yc-typing { 0%,60%,100%{transform:translateY(0);opacity:.5} 30%{transform:translateY(-4px);opacity:1} }
+
+  /* Quick replies */
+  .yc-qr { display:flex; flex-wrap:wrap; gap:.35rem; padding:.5rem .8rem; background:var(--bg,#faf5f0); border-top:1px solid rgba(245,197,171,.3); flex-shrink:0; }
+  .yc-qr-btn { background:#fff; border:1.5px solid #f5c5ab; color:var(--mid,#5c2434); border-radius:50px; padding:.3rem .7rem; font-size:.7rem; font-family:'DM Sans',sans-serif; letter-spacing:.07em; cursor:pointer; transition:all .16s; white-space:nowrap; }
+  .yc-qr-btn:hover { background:var(--rose,#c8455a); border-color:var(--rose,#c8455a); color:#fff; }
+
+  /* Input */
+  .yc-input-area { display:flex; align-items:center; gap:.5rem; padding:.6rem .8rem; background:#fff; border-top:1px solid rgba(245,197,171,.45); flex-shrink:0; }
+  .yc-input { flex:1; border:1.5px solid #f5c5ab; border-radius:50px; padding:.5rem .85rem; font-size:.82rem; font-family:'DM Sans',sans-serif; color:var(--text,#1a080d); background:var(--bg,#faf5f0); outline:none; transition:border-color .18s; }
+  .yc-input:focus { border-color:var(--rose,#c8455a); }
+  .yc-input::placeholder { color:var(--muted,#9a5060); font-weight:300; }
+  .yc-send { width:36px; height:36px; border-radius:50%; background:var(--rose,#c8455a); border:none; color:#fff; font-size:.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:background .18s,transform .1s; }
+  .yc-send:hover { background:var(--burg,#6e1628); }
+  .yc-send:active { transform:scale(.92); }
+  .yc-brand { text-align:center; font-size:.6rem; color:var(--muted,#9a5060); padding:.25rem 0 .4rem; background:#fff; letter-spacing:.07em; }
+  .yc-brand em { color:var(--rose,#c8455a); font-style:normal; }
+</style>
+
+<!-- Floating button -->
+<button id="yumiya-chat-btn" onclick="toggleYumiyaChat()" title="Discuter avec nous">
+  <span id="yc-btn-icon">🕯️</span>
+  <div class="badge"></div>
+</button>
+
+<!-- Chat panel -->
+<div id="yumiya-chat-panel">
+  <div class="yc-header">
+    <div class="yc-avatar">🕯️</div>
+    <div>
+      <div class="yc-header-name">Yumiya Candle</div>
+      <div class="yc-header-status"><div class="yc-dot"></div>Assistante disponible</div>
+    </div>
+    <button class="yc-close" onclick="toggleYumiyaChat()">✕</button>
+  </div>
+  <div class="yc-messages" id="yc-messages"></div>
+  <div class="yc-qr" id="yc-qr"></div>
+  <div class="yc-input-area">
+    <input class="yc-input" id="yc-input" type="text" placeholder="Pose ta question…" autocomplete="off"/>
+    <button class="yc-send" onclick="ycSend()" title="Envoyer">➤</button>
+  </div>
+  <div class="yc-brand">Assistante IA · <em>Yumiya Candle</em> 🇨🇭</div>
+</div>
+
+<script>
+(function(){
+  const SYSTEM = `Tu es l'assistante virtuelle de Yumiya Candle, une marque artisanale suisse de bougies gourmandes. Réponds toujours en français, avec un ton chaleureux, féminin et élégant.
+
+Infos boutique :
+- Marque : Yumiya Candle — Bougies Gourmandes Artisanales
+- Instagram : @yumiyacandle | Email : hello@yumiyacandle.ch
+- Suisse romande — fondée par 5 élèves de l'ESC La Neuveville
+
+Produits :
+1. Bougie Fête des Mères (DISPONIBLE maintenant)
+   - Senteur : Rose, fraise & vanille chaude
+   - Cire végétale de soja, mèche coton, verre transparent, sans paraffine
+   - Petite 90g : 8.90 CHF (~20h) | Grande 180g : 10.90 CHF (~30h)
+2. Bougie sur mesure (toujours disponible)
+   - Senteur, couleurs, message personnalisé, toute occasion
+   - Prix sur demande via hello@yumiyacandle.ch
+
+Commande & paiement :
+- Paiement par carte (Visa, Mastercard, Amex) via Stripe
+- Remplir formulaire sur le site → payer par carte → confirmation immédiate
+- Livraison rapide en Suisse
+
+Règles : sois concise (max 3-4 phrases), chaleureuse, utilise quelques emojis 🕯️🌸✨. Si tu ne sais pas, renvoie vers hello@yumiyacandle.ch.`;
+
+  let history = [];
+  let isOpen = false;
+  let initialized = false;
+
+  window.toggleYumiyaChat = function() {
+    isOpen = !isOpen;
+    const panel = document.getElementById('yumiya-chat-panel');
+    const icon = document.getElementById('yc-btn-icon');
+    panel.classList.toggle('open', isOpen);
+    icon.textContent = isOpen ? '✕' : '🕯️';
+    if (isOpen && !initialized) { initialized = true; ycInit(); }
+  };
+
+  function ycInit() {
+    setTimeout(() => {
+      ycAddMsg('bot', 'Bonjour ! 🕯️ Je suis l\'assistante Yumiya Candle. Comment puis-je t\'aider aujourd\'hui ?');
+      history.push({ role:'assistant', content:'Bonjour ! 🕯️ Je suis l\'assistante Yumiya Candle. Comment puis-je t\'aider aujourd\'hui ?' });
+      ycSetQR(['Prix des bougies 💰','Comment commander ? 🛒','Bougie sur mesure ✨','Livraison 📦']);
+    }, 300);
+  }
+
+  function ycAddMsg(role, text) {
+    const el = document.getElementById('yc-messages');
+    const div = document.createElement('div');
+    div.className = 'yc-msg ' + role;
+    div.innerHTML = `<div class="yc-msg-av">${role==='bot'?'🕯️':'👤'}</div><div class="yc-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+    el.appendChild(div);
+    el.scrollTop = el.scrollHeight;
+  }
+
+  function ycTyping(show) {
+    const el = document.getElementById('yc-messages');
+    const existing = document.getElementById('yc-typing');
+    if (show && !existing) {
+      const div = document.createElement('div');
+      div.className = 'yc-msg bot'; div.id = 'yc-typing';
+      div.innerHTML = '<div class="yc-msg-av">🕯️</div><div class="yc-typing"><div class="yc-tdot"></div><div class="yc-tdot"></div><div class="yc-tdot"></div></div>';
+      el.appendChild(div); el.scrollTop = el.scrollHeight;
+    } else if (!show && existing) { existing.remove(); }
+  }
+
+  function ycSetQR(replies) {
+    const c = document.getElementById('yc-qr');
+    c.innerHTML = '';
+    replies.forEach(r => {
+      const b = document.createElement('button');
+      b.className = 'yc-qr-btn'; b.textContent = r;
+      b.onclick = () => { document.getElementById('yc-input').value = r; ycSend(); };
+      c.appendChild(b);
+    });
+  }
+
+  window.ycSend = async function() {
+    const input = document.getElementById('yc-input');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    ycAddMsg('user', text);
+    document.getElementById('yc-qr').innerHTML = '';
+    history.push({ role:'user', content:text });
+    ycTyping(true);
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, system:SYSTEM, messages:history })
+      });
+      const data = await res.json();
+      ycTyping(false);
+      const reply = data.content?.[0]?.text || 'Désolée, une erreur est survenue. Contacte-nous à hello@yumiyacandle.ch 🌸';
+      ycAddMsg('bot', reply);
+      history.push({ role:'assistant', content:reply });
+
+      const low = text.toLowerCase();
+      if (low.includes('prix') || low.includes('combien') || low.includes('coût'))
+        ycSetQR(['Commander 🛒','Taille petite ou grande ?','Paiement carte 💳']);
+      else if (low.includes('command') || low.includes('acheter'))
+        ycSetQR(['Paiement carte 💳','Délai livraison 📦','Sur mesure ✨']);
+      else if (low.includes('mesure') || low.includes('personnali'))
+        ycSetQR(['Quel prix ? 💰','Contact 📩','Délai livraison 📦']);
+      else
+        ycSetQR(['Prix des bougies 💰','Sur mesure ✨','Commander 🛒']);
+    } catch(e) {
+      ycTyping(false);
+      ycAddMsg('bot','Oups, petite erreur technique 😕 Écris-nous à hello@yumiyacandle.ch ou @yumiyacandle 🌸');
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('yc-input').addEventListener('keydown', e => { if(e.key==='Enter') ycSend(); });
+  });
+})();
+</script>
+<!-- ═══ FIN CHATBOT ═══ -->
+
 </body>
 </html>
