@@ -100,7 +100,9 @@ const DEFAULT_DATA = {
   av4_ic: '✨', av4_t: 'Sur mesure',      av4_p: 'On crée ta bougie exactement comme tu l\'imagines.',
 
   // ── STRIPE
-  stripe_paylink: 'https://buy.stripe.com/7sYdRa1Kj9Oxetp1VL9k400',
+  stripe_petite: 'https://buy.stripe.com/28E5kE4Wve4N9950RH9k401',
+  stripe_grande: 'https://buy.stripe.com/fZu5kE88H2m5dpl0RH9k402',
+  stripe_custom: 'https://buy.stripe.com/8x2cN62One4N1GDcAp9k403',
 
   // ── PAGE COMMANDER
   contact_eyebrow: 'On discute ?',
@@ -919,7 +921,9 @@ function render() {
           <div class="adm-group"><label class="adm-lbl">Nom du site</label><input class="adm-in" id="g-name" /></div>
           <div class="adm-group"><label class="adm-lbl">Instagram</label><input class="adm-in" id="g-insta" /></div>
           <div class="adm-group"><label class="adm-lbl">Email de contact</label><input class="adm-in" id="g-email" /></div>
-          <div class="adm-group"><label class="adm-lbl">💳 Stripe Payment Link (buy.stripe.com/...)</label><input class="adm-in" id="g-stripe-paylink" placeholder="https://buy.stripe.com/..." /></div>
+          <div class="adm-group"><label class="adm-lbl">💳 Stripe — Bougie petite (8.90 CHF)</label><input class="adm-in" id="g-stripe-petite" placeholder="https://buy.stripe.com/..." /></div>
+          <div class="adm-group"><label class="adm-lbl">💳 Stripe — Bougie grande (10.90 CHF)</label><input class="adm-in" id="g-stripe-grande" placeholder="https://buy.stripe.com/..." /></div>
+          <div class="adm-group"><label class="adm-lbl">💳 Stripe — Bougie personnalisée</label><input class="adm-in" id="g-stripe-custom" placeholder="https://buy.stripe.com/..." /></div>
           <div class="adm-group"><label class="adm-lbl">Localisation (footer)</label><input class="adm-in" id="g-location" /></div>
           <div class="adm-group"><label class="adm-lbl">Texte du footer</label><textarea class="adm-ta" id="g-footer-desc"></textarea></div>
         </div>
@@ -1200,7 +1204,15 @@ function openOrderModal(directPrice) {
     rows += '<div class="os-total"><span>Total</span><span>' + tot.toFixed(2) + ' CHF</span></div>';
   }
   document.getElementById('order-summary').innerHTML = rows;
-  var stripeLink = (D && D.stripe_paylink) ? D.stripe_paylink : 'https://buy.stripe.com/7sYdRa1Kj9Oxetp1VL9k400';
+  var stripeLink;
+  if (directPrice && directPrice > 0) {
+    stripeLink = (shopSize === 'grande') ? D.stripe_grande : D.stripe_petite;
+  } else {
+    // cart: pick link based on first item size
+    var firstItem = cart[0];
+    if (firstItem && firstItem.size === 'grande') stripeLink = D.stripe_grande;
+    else stripeLink = D.stripe_petite;
+  }
   document.getElementById('stripe-amount').textContent = tot.toFixed(2) + ' CHF';
   document.getElementById('stripe-link').href = stripeLink;
   document.getElementById('order-form').style.display = 'block';
@@ -1306,7 +1318,14 @@ function submitContact() {
     }
   }
 
-  var stripeLink = (D && D.stripe_paylink) ? D.stripe_paylink : 'https://buy.stripe.com/7sYdRa1Kj9Oxetp1VL9k400';
+  var stripeLink;
+  if (t === 'custom') {
+    stripeLink = D.stripe_custom;
+  } else {
+    var productEl2 = document.getElementById('cf-product');
+    var idx2 = productEl2 ? productEl2.selectedIndex : 0;
+    stripeLink = (idx2 === 1) ? D.stripe_grande : D.stripe_petite;
+  }
   document.getElementById('cf-twint-amount').textContent = amountStr;
   document.getElementById('cf-twint-link').href = stripeLink;
   document.getElementById('cf-form-content').style.display = 'none';
@@ -1375,7 +1394,9 @@ function admFill() {
   document.getElementById('g-name').value = D.site_name;
   document.getElementById('g-insta').value = D.site_instagram;
   document.getElementById('g-email').value = D.site_email;
-  document.getElementById('g-stripe-paylink').value = D.stripe_paylink || '';
+  document.getElementById('g-stripe-petite').value = D.stripe_petite || '';
+  document.getElementById('g-stripe-grande').value = D.stripe_grande || '';
+  document.getElementById('g-stripe-custom').value = D.stripe_custom || '';
   document.getElementById('g-location').value = D.site_location;
   document.getElementById('g-footer-desc').value = D.footer_desc;
   // Accueil
@@ -1454,7 +1475,10 @@ function admSave() {
   const gf = id => parseFloat(document.getElementById(id)?.value) || 0;
 
   D.site_name = g('g-name'); D.site_instagram = g('g-insta'); D.site_email = g('g-email');
-  D.stripe_paylink = g('g-stripe-paylink');
+  D.stripe_paylink = '';
+  D.stripe_petite = g('g-stripe-petite');
+  D.stripe_grande = g('g-stripe-grande');
+  D.stripe_custom = g('g-stripe-custom');
   D.site_location = g('g-location'); D.footer_desc = g('g-footer-desc');
   D.hero_title = g('a-hero-t'); D.hero_title_em = g('a-hero-em'); D.hero_subtitle = g('a-hero-sub');
   D.hero_desc = g('a-hero-desc'); D.hero_btn1 = g('a-hero-btn1'); D.hero_btn2 = g('a-hero-btn2');
@@ -1669,6 +1693,9 @@ Produits :
 
 Commande & paiement :
 - Paiement par carte (Visa, Mastercard, Amex) via Stripe
+- Bougie petite Fête des Mères : 8.90 CHF
+- Bougie grande Fête des Mères : 10.90 CHF
+- Bougie sur mesure : prix sur demande
 - Remplir formulaire sur le site → payer par carte → confirmation immédiate
 - Livraison rapide en Suisse
 
