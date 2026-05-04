@@ -26,7 +26,7 @@ const DEFAULT_DATA = {
   site_name: 'Yumiya Candle',
   site_tagline: 'Bougies Gourmandes Artisanales',
   site_instagram: '@yumiyacandle',
-  site_email: 'hello@yumiyacandle.ch',
+  site_email: 'Yumiya@businesspiazza.ch',
   site_location: 'Suisse romande',
 
   // ── PAGE ACCUEIL — Hero
@@ -41,7 +41,7 @@ const DEFAULT_DATA = {
   coll_title: 'Nos collections',
   coll_subtitle: 'Une bougie pour chaque occasion',
 
-  // ── PAGE ACCUEIL — Feature St-Valentin
+  // ── PAGE ACCUEIL — Feature Fête des Mères
   feat_tag: '✦ Collection du moment',
   feat_eyebrow: 'En ce moment',
   feat_title: 'Bougie',
@@ -75,13 +75,14 @@ const DEFAULT_DATA = {
   testi2_stars: '★★★★★', testi2_quote: '« Parfaite comme cadeau. Ma moitié a adoré la senteur rose-vanille. »', testi2_name: '— Sarah M., Genève',
   testi3_stars: '★★★★★', testi3_quote: '« J\'ai commandé une bougie personnalisée pour mon mariage. Le résultat était magique ! »', testi3_name: '— Laura T., Fribourg',
 
-  // ── BOUTIQUE — St-Valentin
+  // ── BOUTIQUE — Fête des Mères
   val_active: true,
   val_collection: 'Collection Fête des Mères',
   val_name: 'Bougie Fête des Mères',
   val_desc: 'Rose, fraise & vanille chaude. Cire végétale, mèche coton. Un parfum enveloppant pour l\'amour.',
   val_price_petite: 8.90,
   val_price_grande: 10.90,
+  shipping_fee: 5.00,
 
   // ── PAGE NOTRE HISTOIRE
   about_eyebrow: 'Notre histoire',
@@ -1170,7 +1171,7 @@ function renderCart() {
         </div>
       </div>
     </div>`).join('');
-  document.getElementById('cart-total').textContent = cartTotal().toFixed(2) + ' CHF';
+  document.getElementById('cart-total').textContent = (cartTotal() + (parseFloat(D.shipping_fee) || 0)).toFixed(2) + ' CHF';
 }
 let cartOpen = false;
 function openCart()  { cartOpen=true;  document.getElementById('cart-overlay').classList.add('on');  document.getElementById('cart-panel').classList.add('on');  document.body.style.overflow='hidden'; }
@@ -1196,12 +1197,16 @@ function openOrderModal(directPrice) {
   var rows = '';
   if (cart.length) {
     rows = cart.map(function(i) { tot += i.price * i.qty; return '<div class="os-row"><span>' + i.name + ' <em>' + i.size + ' ×' + i.qty + '</em></span><span>' + (i.price*i.qty).toFixed(2) + ' CHF</span></div>'; }).join('');
+    // Ajouter les frais de livraison
+    tot += parseFloat(D.shipping_fee) || 0;
+    rows += '<div class="os-row"><span>Frais de livraison</span><span>' + (D.shipping_fee || 0).toFixed(2) + ' CHF</span></div>';
     rows += '<div class="os-total"><span>Total</span><span>' + tot.toFixed(2) + ' CHF</span></div>';
   }
   // Si appelé directement depuis "Commander" (sans panier), utiliser shopPrice
   if (tot === 0 && directPrice && directPrice > 0) {
-    tot = directPrice;
-    rows = '<div class="os-row"><span>' + (D.val_name || 'Bougie') + ' <em>' + shopSize + ' ×1</em></span><span>' + tot.toFixed(2) + ' CHF</span></div>';
+    tot = directPrice + (parseFloat(D.shipping_fee) || 0);
+    rows = '<div class="os-row"><span>' + (D.val_name || 'Bougie') + ' <em>' + shopSize + ' ×1</em></span><span>' + directPrice.toFixed(2) + ' CHF</span></div>';
+    rows += '<div class="os-row"><span>Frais de livraison</span><span>' + (D.shipping_fee || 0).toFixed(2) + ' CHF</span></div>';
     rows += '<div class="os-total"><span>Total</span><span>' + tot.toFixed(2) + ' CHF</span></div>';
   }
   document.getElementById('order-summary').innerHTML = rows;
@@ -1336,6 +1341,8 @@ function submitContact() {
       } else {
         amountNum = parseFloat(D.val_price_grande) || 0;
       }
+      // Ajouter les frais de livraison
+      amountNum += parseFloat(D.shipping_fee) || 0;
       if (amountNum > 0) amountStr = amountNum.toFixed(2) + ' CHF';
     }
   }
@@ -1725,7 +1732,7 @@ function admReset() {
       return 'Nos bougies sont disponibles en deux tailles 🕯️' + br + br +
         '• Petite 90g — 8.90 CHF (~20h de combustion)' + br +
         '• Grande 180g — 10.90 CHF (~30h de combustion)' + br + br +
-        'Pour une bougie sur mesure, écris-nous à hello@yumiyacandle.ch ✨';
+        'Pour une bougie sur mesure, écris-nous à Yumiya@businesspiazza.ch ✨';
     }
     if (/command|achet|panier|veux|voudrais|prendre|order/.test(t)) {
       return 'Pour passer commande, c\'est simple ! 🛒' + br + br +
@@ -1737,7 +1744,7 @@ function admReset() {
     if (/livr|envoi|expedi|delai|quand|recevoir|poste|suisse/.test(t)) {
       return 'Nous livrons partout en Suisse 🇨🇭' + br + br +
         'La livraison est rapide après confirmation de ta commande.' + br + br +
-        'Des questions sur les délais ? Écris-nous 📧 hello@yumiyacandle.ch';
+        'Des questions sur les délais ? Écris-nous 📧 Yumiya@businesspiazza.ch';
     }
     if (/mesure|personnali|custom|special|unique|cadeau|occasion|message|prenom/.test(t)) {
       return 'Nos bougies sur mesure sont parfaites pour chaque occasion ! ✨' + br + br +
