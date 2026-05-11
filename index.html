@@ -1400,6 +1400,25 @@ async function submitOrderAddress() {
   var btn = document.querySelector('#order-address-form .cf-btn-rose');
   if (btn) { btn.textContent = 'Envoi…'; btn.disabled = true; }
 
+  // Envoyer les infos à Formspree
+  try {
+    await fetch('https://formspree.io/f/xlgzandp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        prenom: fname,
+        nom: lname,
+        email: email,
+        telephone: phone,
+        adresse: address,
+        npa: npa,
+        ville: city,
+        commande: commande,
+        montant: montant
+      })
+    });
+  } catch(e) { console.warn('Formspree error:', e); }
+
   if (btn) { btn.textContent = 'Continuer vers le paiement →'; btn.disabled = false; }
   document.getElementById('order-address-form').style.display = 'none';
   document.getElementById('order-stripe-box').style.display = 'block';
