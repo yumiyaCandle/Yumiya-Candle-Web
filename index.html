@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Yumiya Candle – Expérience 3D & Bougies Gourmandes</title>
-    <meta name="description" content="Bougies gourmandes artisanales faites à la main en Suisse. Expérience interactive 3D."/>
+    <title>Yumiya Candle – Studio 3D Réaliste & Carrousel</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
     
-    <!-- Tailwind CSS pour un design moderne et épuré -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -31,11 +30,10 @@
                 }
             }
         }
-    </p>
+    </script>
     
-    <!-- Three.js pour l'interface 3D interactive -->
+    <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <style>
         body {
@@ -44,8 +42,8 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
         }
-        /* Custom scrollbar style like Ciao Energy */
         ::-webkit-scrollbar {
+            height: 6px;
             width: 6px;
         }
         ::-webkit-scrollbar-track {
@@ -57,225 +55,143 @@
         }
         #canvas-container {
             width: 100%;
-            height: 450px;
+            height: 420px;
             cursor: grab;
         }
         #canvas-container:active {
             cursor: grabbing;
         }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
 <body class="bg-darkbg text-stone-100 antialiased selection:bg-accent selection:text-darkbg">
 
-    <!-- Navigation Minimaliste -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-darkbg/80 backdrop-blur-md border-b border-stone-800/50">
+    <!-- Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-darkbg/85 backdrop-blur-md border-b border-stone-800/50">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <a href="#" class="font-serif text-2xl font-bold tracking-wider text-stone-100 flex items-center gap-2">
                 <span class="w-3 h-3 rounded-full bg-accent inline-block animate-pulse"></span>
                 YUMIYA<span class="text-accent font-light">CANDLE</span>
             </a>
             <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide text-stone-400">
-                <a href="#collection" class="hover:text-stone-100 transition-colors">COLLECTION</a>
                 <a href="#experience3d" class="hover:text-stone-100 transition-colors">STUDIO 3D</a>
-                <a href="#artisanat" class="hover:text-stone-100 transition-colors">SAVOIR-FAIRE</a>
-                <a href="#contact" class="hover:text-stone-100 transition-colors">CONTACT</a>
+                <a href="#collection" class="hover:text-stone-100 transition-colors">COLLECTION</a>
             </nav>
-            <div>
-                <a href="#experience3d" class="px-5 py-2.5 text-xs font-semibold tracking-widest bg-stone-100 text-darkbg rounded-full hover:bg-accent transition-all duration-300">
-                    CONFIGURATEUR 3D
-                </a>
-            </div>
         </div>
     </header>
 
-    <!-- Hero Section Immersive Style Ciao Energy -->
-    <section class="relative min-h-screen flex items-center justify-center pt-24 px-6 overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#d4a373_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
-        
-        <div class="max-w-5xl mx-auto text-center z-10">
-            <span class="inline-block py-1 px-4 rounded-full bg-stone-800/80 border border-stone-700 text-accent text-xs font-semibold tracking-widest uppercase mb-6">
-                Fait main en Suisse • Expérience 3D Interactive
-            </span>
-            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-none">
-                L'ÉLÉGANCE <br><span class="italic font-normal text-accent">GOURMANDE</span>
-            </h1>
-            <p class="max-w-2xl mx-auto text-stone-400 text-base md:text-lg font-light mb-10 leading-relaxed">
-                Redécouvrez l'art de la bougie. Des créations artisanales uniques mariant des textures ultra-gourmandes à des fragrances d'exception, sublimées par une interface numérique immersive.
-            </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#experience3d" class="w-full sm:w-auto px-8 py-4 bg-accent text-darkbg font-semibold rounded-full hover:bg-accentlight transition-all tracking-wider text-sm shadow-lg shadow-accent/10">
-                    TESTER LE STUDIO 3D
-                </a>
-                <a href="#collection" class="w-full sm:w-auto px-8 py-4 bg-stone-900 border border-stone-700 text-stone-300 font-semibold rounded-full hover:bg-stone-800 transition-all tracking-wider text-sm">
-                    VOIR LA COLLECTION
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION INTERACTIVE 3D (Style Ciao Energy Product Viewer) -->
-    <section id="experience3d" class="py-28 px-6 bg-cardbg border-y border-stone-800/60">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="text-accent text-xs font-bold tracking-widest uppercase block mb-3">INTERACTIF & IMMERSIF</span>
-                <h2 class="font-serif text-3xl md:text-5xl font-bold mb-4">LE STUDIO 3D YUMIYA</h2>
-                <p class="text-stone-400 text-sm">Cliquez et faites glisser pour inspecter notre modèle 3D exclusif sous tous les angles. Personnalisez votre bougie en temps réel.</p>
+    <!-- SECTION STUDIO 3D RÉALISTE & CARROUSEL AVEC VRAIES PHOTOS -->
+    <section id="experience3d" class="py-32 px-6 bg-cardbg border-b border-stone-800/60">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-accent text-xs font-bold tracking-widest uppercase block mb-3">EXPÉDITION & SUR-MESURE</span>
+                <h2 class="font-serif text-3xl md:text-5xl font-bold mb-4">STUDIO 3D ULTRA-RÉALISTE</h2>
+                <p class="text-stone-400 text-sm">Sélectionnez une bougie dans le carrousel ci-dessous pour l'inspecter en 3D réaliste et voir sa photo officielle.</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center bg-darkbg p-6 md:p-12 rounded-3xl border border-stone-800 shadow-2xl">
-                <!-- Colonne 3D Canvas -->
-                <div class="lg:col-span-7 flex flex-col items-center relative bg-stone-950/50 rounded-2xl border border-stone-900 overflow-hidden">
-                    <div class="absolute top-4 left-4 z-10 flex items-center gap-2 bg-stone-900/80 backdrop-blur px-3 py-1.5 rounded-full border border-stone-800 text-xs text-stone-400">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Mode 3D Actif
-                    </div>
-                    <div id="canvas-container"></div>
-                    <p class="text-xs text-stone-500 pb-4 tracking-wider">MAINTENEZ LE CLIC & GLISSEZ POUR TOURNER</p>
-                </div>
-
-                <!-- Colonne Options / Commandes -->
-                <div class="lg:col-span-5 space-y-8">
-                    <div>
-                        <div class="text-accent text-xs font-semibold tracking-widest uppercase mb-2">Édition Limitée</div>
-                        <h3 class="font-serif text-3xl font-bold text-stone-100" id="candle-title">Bougie Vanille & Ambre</h3>
-                        <p class="text-stone-400 text-sm mt-2 leading-relaxed" id="candle-desc">Coulée à la main avec de la cire de soja 100% végétale et des mèches en coton naturel. Notes douces et envoûtantes.</p>
-                    </div>
-
-                    <!-- Sélecteur de Parfums / Modèles 3D -->
-                    <div class="space-y-3">
-                        <label class="text-xs font-semibold tracking-wider text-stone-400 uppercase">Choisir une fragrance :</label>
-                        <div class="grid grid-cols-3 gap-3">
-                            <button onclick="changeCandleModel('vanilla')" class="flavor-btn p-3 rounded-xl border border-accent bg-accent/10 text-stone-200 text-xs font-medium transition-all text-center">
-                                Vanille Ambre
-                            </button>
-                            <button onclick="changeCandleModel('caramel')" class="flavor-btn p-3 rounded-xl border border-stone-800 bg-stone-900 text-stone-400 text-xs font-medium transition-all text-center hover:border-stone-700">
-                                Caramel Beurre
-                            </button>
-                            <button onclick="changeCandleModel('matcha')" class="flavor-btn p-3 rounded-xl border border-stone-800 bg-stone-900 text-stone-400 text-xs font-medium transition-all text-center hover:border-stone-700">
-                                Matcha Latte
-                            </button>
+            <!-- Grille Principale (3D à gauche, Infos & Photo officielle à droite) -->
+            <div class="bg-darkbg p-6 md:p-10 rounded-3xl border border-stone-800 shadow-2xl mb-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- Colonne 3D Réaliste -->
+                    <div class="lg:col-span-7 flex flex-col items-center bg-stone-950/60 rounded-2xl border border-stone-900 overflow-hidden relative">
+                        <div class="absolute top-4 left-4 z-10 flex items-center gap-2 bg-stone-900/90 backdrop-blur px-3 py-1.5 rounded-full border border-stone-800 text-xs text-stone-400">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Rendu 3D Réaliste Actif
                         </div>
+                        <div id="canvas-container"></div>
+                        <p class="text-[11px] text-stone-500 pb-3 tracking-widest uppercase">Glissez pour pivoter sous tous les angles</p>
                     </div>
 
-                    <div class="pt-4 border-t border-stone-800 flex items-center justify-between">
+                    <!-- Colonne Détails & Photo Officielle -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <!-- Emplacement de la vraie photo du site -->
+                        <div class="w-full h-48 bg-stone-900 rounded-2xl overflow-hidden border border-stone-800 relative">
+                            <img id="candle-real-photo" src="https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&q=80&w=600" alt="Photo de la bougie" class="w-full h-full object-cover transition-opacity duration-500">
+                            <span class="absolute bottom-3 right-3 bg-darkbg/80 backdrop-blur px-2.5 py-1 rounded-md text-[10px] text-stone-300 uppercase tracking-wider">Photo Originale</span>
+                        </div>
+
                         <div>
-                            <span class="text-xs text-stone-500 block">Prix TTC</span>
-                            <span class="font-serif text-2xl font-bold text-stone-100">34.00 CHF</span>
+                            <span id="candle-badge" class="text-xs font-semibold text-accent tracking-widest uppercase">Édition Classique</span>
+                            <h3 id="candle-title" class="font-serif text-3xl font-bold text-stone-100 mt-1">Bougie Vanille & Ambre</h3>
+                            <p id="candle-desc" class="text-stone-400 text-sm mt-2 leading-relaxed">Cire de soja 100% végétale coulée à la main. Notes douces, chaudes et enveloppantes.</p>
                         </div>
-                        <button onclick="alert('Ajouté au panier avec succès !')" class="px-8 py-4 bg-accent text-darkbg font-semibold rounded-full hover:bg-accentlight transition-all text-sm tracking-wider">
-                            COMMANDER LA BOUGIE
-                        </button>
+
+                        <div class="pt-4 border-t border-stone-800 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs text-stone-500 block">Prix TTC</span>
+                                <span id="candle-price" class="font-serif text-2xl font-bold text-stone-100">34.00 CHF</span>
+                            </div>
+                            <button onclick="alert('Ajouté au panier !')" class="px-6 py-3.5 bg-accent text-darkbg font-semibold rounded-full hover:bg-accentlight transition-all text-xs tracking-wider uppercase">
+                                Acheter
+                            </button>
+                        </div>
                     </div>
+
                 </div>
             </div>
+
+            <!-- CARROUSEL HORIZONTAL DES BOUGIES -->
+            <div class="relative">
+                <div class="flex items-center justify-between mb-4">
+                    <h4 class="text-xs font-semibold tracking-widest text-stone-400 uppercase">Choisissez votre bougie (Défilement horizontal) :</h4>
+                    <span class="text-xs text-stone-500">Glissez ou scrollez horizontalement →</span>
+                </div>
+
+                <div id="carousel-track" class="flex gap-4 overflow-x-auto no-scrollbar pb-4 pt-1 px-1 scroll-smooth">
+                    
+                    <!-- Bougie 1 : Vanille -->
+                    <div onclick="selectCandle('vanilla', 0xfaedcd, 0.2, 'Bougie Vanille & Ambre', 'Cire de soja 100% végétale coulée à la main. Notes douces, chaudes et enveloppantes.', '34.00 CHF', 'Édition Classique', 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&q=80&w=600', this)" 
+                         class="carousel-card flex-shrink-0 w-52 bg-stone-900 border-2 border-accent rounded-2xl p-3 cursor-pointer transition-all">
+                        <div class="h-28 bg-stone-950 rounded-xl mb-3 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover">
+                        </div>
+                        <span class="text-[10px] font-semibold text-accent uppercase">Vanille Ambre</span>
+                        <h5 class="font-serif font-bold text-stone-100 text-xs mt-0.5">34.00 CHF</h5>
+                    </div>
+
+                    <!-- Bougie 2 : Caramel -->
+                    <div onclick="selectCandle('caramel', 0xd8a47f, 0.25, 'Bougie Caramel Beurre', 'Une immersion olfactive ultra-gourmande aux accents de caramel fondu.', '32.00 CHF', 'Best-Seller', 'https://images.unsplash.com/photo-1572721546871-3305d27bc9bf?auto=format&fit=crop&q=80&w=600', this)" 
+                         class="carousel-card flex-shrink-0 w-52 bg-stone-900 border-2 border-stone-800 rounded-2xl p-3 cursor-pointer transition-all">
+                        <div class="h-28 bg-stone-950 rounded-xl mb-3 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1572721546871-3305d27bc9bf?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover">
+                        </div>
+                        <span class="text-[10px] font-semibold text-accent uppercase">Caramel Beurre</span>
+                        <h5 class="font-serif font-bold text-stone-100 text-xs mt-0.5">32.00 CHF</h5>
+                    </div>
+
+                    <!-- Bougie 3 : Matcha -->
+                    <div onclick="selectCandle('matcha', 0xc2d6be, 0.3, 'Bougie Matcha Coton', 'Un accord poudré et végétal unique inspiré de la fraîcheur du thé vert.', '35.00 CHF', 'Nouveauté', 'https://images.unsplash.com/photo-1577003837679-d5c246f9e8dc?auto=format&fit=crop&q=80&w=600', this)" 
+                         class="carousel-card flex-shrink-0 w-52 bg-stone-900 border-2 border-stone-800 rounded-2xl p-3 cursor-pointer transition-all">
+                        <div class="h-28 bg-stone-950 rounded-xl mb-3 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1577003837679-d5c246f9e8dc?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover">
+                        </div>
+                        <span class="text-[10px] font-semibold text-accent uppercase">Matcha Coton</span>
+                        <h5 class="font-serif font-bold text-stone-100 text-xs mt-0.5">35.00 CHF</h5>
+                    </div>
+
+                    <!-- Bougie 4 : Noisette -->
+                    <div onclick="selectCandle('hazelnut', 0xb08968, 0.2, 'Bougie Gourmandise Noisette', 'Notes riches de praliné et de noisettes grillées.', '33.00 CHF', 'Édition Limitée', 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=600', this)" 
+                         class="carousel-card flex-shrink-0 w-52 bg-stone-900 border-2 border-stone-800 rounded-2xl p-3 cursor-pointer transition-all">
+                        <div class="h-28 bg-stone-950 rounded-xl mb-3 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=300" class="w-full h-full object-cover">
+                        </div>
+                        <span class="text-[10px] font-semibold text-accent uppercase">Noisette Praliné</span>
+                        <h5 class="font-serif font-bold text-stone-100 text-xs mt-0.5">33.00 CHF</h5>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- Collection Grid -->
-    <section id="collection" class="py-28 px-6 max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
-            <div>
-                <span class="text-accent text-xs font-bold tracking-widest uppercase block mb-3">NOS CRÉATIONS</span>
-                <h2 class="font-serif text-3xl md:text-5xl font-bold">LA COLLECTION GOURMANDE</h2>
-            </div>
-            <p class="text-stone-400 text-sm max-w-md mt-4 md:mt-0">
-                Chaque pièce est unique, façonnée à la main dans notre atelier suisse avec le plus grand soin.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Produit 1 -->
-            <div class="group bg-cardbg rounded-2xl border border-stone-800/80 overflow-hidden transition-all duration-300 hover:border-accent/50">
-                <div class="h-80 bg-stone-900 relative overflow-hidden flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-t from-darkbg/80 to-transparent z-10"></div>
-                    <div class="w-32 h-40 bg-gradient-to-b from-amber-100 to-amber-200 rounded-2xl shadow-2xl transform group-hover:scale-105 transition-transform duration-500 flex items-center justify-center relative">
-                        <div class="w-2 h-6 bg-stone-800 absolute -top-4 rounded-t"></div>
-                        <span class="font-serif font-bold text-darkbg/40 text-xs">YUMIYA</span>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <span class="text-xs font-semibold text-accent tracking-widest uppercase">Édition Spéciale</span>
-                    <h3 class="font-serif text-xl font-bold mt-1 text-stone-100">Gourmandise Noisette</h3>
-                    <p class="text-stone-400 text-xs mt-2 leading-relaxed">Notes riches de praliné, noisettes grillées et touche de vanille bourbon.</p>
-                    <div class="mt-6 flex items-center justify-between pt-4 border-t border-stone-800">
-                        <span class="font-serif font-bold text-lg">29.00 CHF</span>
-                        <button class="text-xs font-semibold text-accent hover:text-stone-100 transition-colors tracking-wider">DÉCOUVRIR →</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Produit 2 -->
-            <div class="group bg-cardbg rounded-2xl border border-stone-800/80 overflow-hidden transition-all duration-300 hover:border-accent/50">
-                <div class="h-80 bg-stone-900 relative overflow-hidden flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-t from-darkbg/80 to-transparent z-10"></div>
-                    <div class="w-32 h-40 bg-gradient-to-b from-orange-100 to-orange-200 rounded-2xl shadow-2xl transform group-hover:scale-105 transition-transform duration-500 flex items-center justify-center relative">
-                        <div class="w-2 h-6 bg-stone-800 absolute -top-4 rounded-t"></div>
-                        <span class="font-serif font-bold text-darkbg/40 text-xs">YUMIYA</span>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <span class="text-xs font-semibold text-accent tracking-widest uppercase">Best-Seller</span>
-                    <h3 class="font-serif text-xl font-bold mt-1 text-stone-100">Fleur de Vanille</h3>
-                    <p class="text-stone-400 text-xs mt-2 leading-relaxed">La douceur intemporelle de gousses de vanille de Madagascar infusées.</p>
-                    <div class="mt-6 flex items-center justify-between pt-4 border-t border-stone-800">
-                        <span class="font-serif font-bold text-lg">32.00 CHF</span>
-                        <button class="text-xs font-semibold text-accent hover:text-stone-100 transition-colors tracking-wider">DÉCOUVRIR →</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Produit 3 -->
-            <div class="group bg-cardbg rounded-2xl border border-stone-800/80 overflow-hidden transition-all duration-300 hover:border-accent/50">
-                <div class="h-80 bg-stone-900 relative overflow-hidden flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-t from-darkbg/80 to-transparent z-10"></div>
-                    <div class="w-32 h-40 bg-gradient-to-b from-emerald-100 to-emerald-200 rounded-2xl shadow-2xl transform group-hover:scale-105 transition-transform duration-500 flex items-center justify-center relative">
-                        <div class="w-2 h-6 bg-stone-800 absolute -top-4 rounded-t"></div>
-                        <span class="font-serif font-bold text-darkbg/40 text-xs">YUMIYA</span>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <span class="text-xs font-semibold text-accent tracking-widest uppercase">Nouveauté</span>
-                    <h3 class="font-serif text-xl font-bold mt-1 text-stone-100">Matcha Coton</h3>
-                    <p class="text-stone-400 text-xs mt-2 leading-relaxed">Un accord frais et poudré inspiré des rituels de thé japonais.</p>
-                    <div class="mt-6 flex items-center justify-between pt-4 border-t border-stone-800">
-                        <span class="font-serif font-bold text-lg">34.00 CHF</span>
-                        <button class="text-xs font-semibold text-accent hover:text-stone-100 transition-colors tracking-wider">DÉCOUVRIR →</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact" class="bg-cardbg border-t border-stone-800 py-16 px-6">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-            <div class="md:col-span-2 space-y-4">
-                <h2 class="font-serif text-2xl font-bold">YUMIYA CANDLE</h2>
-                <p class="text-stone-400 text-sm max-w-sm">Bougies gourmandes d'exception coulées à la main en Suisse. Design minimaliste, matières nobles et écoresponsables.</p>
-            </div>
-            <div>
-                <h4 class="text-xs font-semibold uppercase tracking-widest text-accent mb-4">Navigation</h4>
-                <ul class="space-y-2 text-sm text-stone-400">
-                    <li><a href="#collection" class="hover:text-stone-100 transition-colors">Collection</a></li>
-                    <li><a href="#experience3d" class="hover:text-stone-100 transition-colors">Studio 3D</a></li>
-                    <li><a href="#artisanat" class="hover:text-stone-100 transition-colors">Savoir-faire</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-xs font-semibold uppercase tracking-widest text-accent mb-4">Légal</h4>
-                <ul class="space-y-2 text-sm text-stone-400">
-                    <li><a href="#" class="hover:text-stone-100 transition-colors">Mentions Légales</a></li>
-                    <li><a href="#" class="hover:text-stone-100 transition-colors">Conditions Générales</a></li>
-                    <li><a href="#" class="hover:text-stone-100 transition-colors">Politique de Confidentialité</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto pt-8 border-t border-stone-800/60 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500">
-            <p>&copy; 2026 Yumiya Candle. Tous droits réservés.</p>
-            <p class="mt-2 sm:mt-0">Fait avec passion en Suisse 🇨🇭</p>
-        </div>
-    </footer>
-
-    <!-- Script Three.js (Gestion de la 3D interactive style Ciao Energy) -->
+    <!-- Script 3D Réaliste & Gestion du Carrousel -->
     <script>
         let scene, camera, renderer, candleGroup;
         let isDragging = false;
@@ -285,38 +201,38 @@
             const container = document.getElementById('canvas-container');
             if (!container) return;
 
-            // Scène
             scene = new THREE.Scene();
-
-            // Caméra
             camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-            camera.position.set(0, 2, 7);
+            camera.position.set(0, 2.2, 7.5);
 
-            // Rendu
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             renderer.setSize(container.clientWidth, container.clientHeight);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
             container.appendChild(renderer.domElement);
 
-            // Lumières
-            const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
-            scene.add(ambientLight);
+            // Éclairage studio professionnel pour un rendu ultra-réaliste
+            scene.add(new THREE.AmbientLight(0xffffff, 1.0));
 
-            const pointLight = new THREE.PointLight(0xd4a373, 2, 10);
-            pointLight.position.set(2, 3, 2);
-            scene.add(pointLight);
+            const keyLight = new THREE.DirectionalLight(0xfff5e6, 2.0);
+            keyLight.position.set(4, 6, 4);
+            scene.add(keyLight);
 
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-            directionalLight.position.set(5, 5, 5);
-            scene.add(directionalLight);
+            const fillLight = new THREE.DirectionalLight(0xd4a373, 1.0);
+            fillLight.position.set(-4, 2, -2);
+            scene.add(fillLight);
 
-            // Groupe 3D de la Bougie
+            const rimLight = new THREE.DirectionalLight(0xffffff, 1.5);
+            rimLight.position.set(0, -3, -5);
+            scene.add(rimLight);
+
             candleGroup = new THREE.Group();
             scene.add(candleGroup);
 
-            createCandleMesh(0xfaedcd); // Couleur par défaut (Vanille)
+            // Création initiale avec la première bougie
+            createRealisticCandle(0xfaedcd, 0.2);
 
-            // Écouteurs de souris pour rotation interactive 3D
+            // Contrôles de rotation fluide à la souris
             container.addEventListener('mousedown', (e) => {
                 isDragging = true;
                 previousMousePosition = { x: e.clientX, y: e.clientY };
@@ -326,132 +242,107 @@
                 if (!isDragging) return;
                 const deltaX = e.clientX - previousMousePosition.x;
                 const deltaY = e.clientY - previousMousePosition.y;
-
                 candleGroup.rotation.y += deltaX * 0.008;
                 candleGroup.rotation.x += deltaY * 0.008;
-
-                // Limiter l'inclinaison verticale
-                candleGroup.rotation.x = Math.max(-0.5, Math.min(0.5, candleGroup.rotation.x));
-
+                candleGroup.rotation.x = Math.max(-0.4, Math.min(0.4, candleGroup.rotation.x));
                 previousMousePosition = { x: e.clientX, y: e.clientY };
             });
 
-            window.addEventListener('mouseup', () => {
-                isDragging = false;
-            });
+            window.addEventListener('mouseup', () => { isDragging = false; });
 
-            // Support tactile mobile
+            // Support tactile pour mobiles
             container.addEventListener('touchstart', (e) => {
                 isDragging = true;
                 previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
             });
-
             window.addEventListener('touchmove', (e) => {
                 if (!isDragging) return;
                 const deltaX = e.touches[0].clientX - previousMousePosition.x;
                 candleGroup.rotation.y += deltaX * 0.008;
                 previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
             });
+            window.addEventListener('touchend', () => { isDragging = false; });
 
-            window.addEventListener('touchend', () => {
-                isDragging = false;
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
             });
 
-            // Redimensionnement de la fenêtre
-            window.addEventListener('resize', onWindowResize);
-
-            // Boucle d'animation
             animate();
         }
 
-        function createCandleMesh(colorHex) {
-            // Nettoyer les anciens meshes du groupe
+        // Fonction pour générer un modèle 3D ultra-réaliste de bougie (Cire texturée + mèche détaillée + lueur)
+        function createRealisticCandle(colorHex, roughnessVal) {
             while(candleGroup.children.length > 0){ 
                 candleGroup.remove(candleGroup.children[0]); 
             }
 
-            // Corps de la bougie (Cylindre)
-            const bodyGeometry = new THREE.CylinderGeometry(1.1, 1.1, 2.5, 32);
+            // Pot / Corps de la bougie
+            const bodyGeometry = new THREE.CylinderGeometry(1.15, 1.15, 2.4, 64);
             const bodyMaterial = new THREE.MeshStandardMaterial({
                 color: colorHex,
-                roughness: 0.3,
-                metalness: 0.1
+                roughness: roughnessVal,
+                metalness: 0.15
             });
             const candleBody = new THREE.Mesh(bodyGeometry, bodyMaterial);
             candleGroup.add(candleBody);
 
-            // Cire fondue / relief supérieur
-            const topGeometry = new THREE.CylinderGeometry(1.08, 1.08, 0.1, 32);
+            // Surface de la cire fondue (effet brillant réaliste)
+            const topGeometry = new THREE.CylinderGeometry(1.12, 1.12, 0.08, 64);
             const topMaterial = new THREE.MeshStandardMaterial({
                 color: colorHex,
-                roughness: 0.1,
-                metalness: 0.3
+                roughness: 0.05,
+                metalness: 0.4
             });
             const candleTop = new THREE.Mesh(topGeometry, topMaterial);
-            candleTop.position.y = 1.25;
+            candleTop.position.y = 1.2;
             candleGroup.add(candleTop);
 
-            // Mèche
-            const wickGeometry = new THREE.CylinderGeometry(0.03, 0.03, 0.4, 8);
-            const wickMaterial = new THREE.MeshBasicMaterial({ color: 0x221e1d });
+            // Mèche torsadée réaliste
+            const wickGeometry = new THREE.CylinderGeometry(0.025, 0.025, 0.35, 8);
+            const wickMaterial = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.9 });
             const wick = new THREE.Mesh(wickGeometry, wickMaterial);
-            wick.position.y = 1.45;
+            wick.position.y = 1.4;
             candleGroup.add(wick);
 
-            // Petite lueur au sommet (style magique 3D)
-            const glowGeometry = new THREE.SphereGeometry(0.08, 16, 16);
-            const glowMaterial = new THREE.MeshBasicMaterial({ color: 0xffaa33 });
-            const glow = new THREE.Mesh(glowGeometry, glowMaterial);
-            glow.position.set(0, 1.7, 0);
-            candleGroup.add(glow);
+            // Flamme lumineuse subtile au sommet
+            const flameGeometry = new THREE.SphereGeometry(0.06, 16, 16);
+            const flameMaterial = new THREE.MeshBasicMaterial({ color: 0xffaa33 });
+            const flame = new THREE.Mesh(flameGeometry, flameMaterial);
+            flame.position.set(0, 1.62, 0);
+            candleGroup.add(flame);
         }
 
         function animate() {
             requestAnimationFrame(animate);
-            // Légère rotation automatique au repos si l'utilisateur ne clique pas
             if (!isDragging) {
-                candleGroup.rotation.y += 0.004;
+                candleGroup.rotation.y += 0.003; // Rotation lente automatique au repos
             }
             renderer.render(scene, camera);
         }
 
-        function onWindowResize() {
-            const container = document.getElementById('canvas-container');
-            if (!container) return;
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
-        }
+        // Fonction déclenchée au clic dans le carrousel horizontal pour tout synchroniser
+        function selectCandle(type, colorHex, roughness, titleText, descText, priceText, badgeText, photoUrl, element) {
+            // 1. Mettre à jour la 3D réaliste
+            createRealisticCandle(colorHex, roughness);
 
-        // Fonction pour changer de modèle 3D / Fragrance dynamiquement
-        function changeCandleModel(type) {
-            const title = document.getElementById('candle-title');
-            const desc = document.getElementById('candle-desc');
-            const buttons = document.querySelectorAll('.flavor-btn');
+            // 2. Mettre à jour les textes et la vraie photo officielle
+            document.getElementById('candle-title').innerText = titleText;
+            document.getElementById('candle-desc').innerText = descText;
+            document.getElementById('candle-price').innerText = priceText;
+            document.getElementById('candle-badge').innerText = badgeText;
+            document.getElementById('candle-real-photo').src = photoUrl;
 
-            buttons.forEach(btn => {
-                btn.classList.remove('border-accent', 'bg-accent/15', 'text-stone-200');
-                btn.classList.add('border-stone-800', 'bg-stone-900', 'text-stone-400');
+            // 3. Gérer le style visuel de sélection dans le carrousel
+            document.querySelectorAll('.carousel-card').forEach(card => {
+                card.classList.remove('border-accent');
+                card.classList.add('border-stone-800');
             });
-            event.currentTarget.classList.remove('border-stone-800', 'bg-stone-900', 'text-stone-400');
-            event.currentTarget.classList.add('border-accent', 'bg-accent/15', 'text-stone-200');
-
-            if (type === 'vanilla') {
-                createCandleModel(0xfaedcd);
-                title.innerText = "Bougie Vanille & Ambre";
-                desc.innerText = "Coulée à la main avec de la cire de soja 100% végétale et des mèches en coton naturel. Notes douces et envoûtantes.";
-            } else if (type === 'caramel') {
-                createCandleModel(0xd8a47f);
-                title.innerText = "Bougie Caramel Beurre";
-                desc.innerText = "Une immersion olfactive ultra-gourmande aux accents de caramel fondu et de touches vanillées chaleureuses.";
-            } else if (type === 'matcha') {
-                createCandleModel(0xc2d6be);
-                title.innerText = "Bougie Matcha Latte";
-                desc.innerText = "Un accord poudré et végétal unique inspiré de la fraîcheur du thé vert matcha et d'une touche de lait onctueux.";
-            }
+            element.classList.remove('border-stone-800');
+            element.classList.add('border-accent');
         }
 
-        // Lancer la 3D au chargement de la page
         window.addEventListener('DOMContentLoaded', init3D);
     </script>
 </body>
