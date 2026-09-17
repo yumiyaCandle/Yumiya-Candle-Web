@@ -489,6 +489,99 @@ footer{background:var(--text);padding:4rem 5vw 2.5rem;color:rgba(255,255,255,.6)
 
 @media(max-width:900px){.hero,.feature,.custom-inner{grid-template-columns:1fr}.hero-r{height:50vw;min-height:260px}.vals,.testi-grid,.about-vals-grid{grid-template-columns:1fr 1fr}.coll-grid{grid-template-columns:1fr 1fr}.about-body,.contact-wrap{grid-template-columns:1fr;gap:2.5rem}.footer-grid{grid-template-columns:1fr 1fr}.footer-grid>div:first-child{grid-column:1/-1}.adm-panel{width:100%;max-width:100%;height:85vh;border-radius:20px 20px 0 0}.adm-overlay.on{align-items:flex-end;padding:0}}
 @media(max-width:640px){nav .nav-links{display:none}.burger{display:flex}.vals,.testi-grid,.about-vals-grid,.coll-grid,.shop-grid{grid-template-columns:1fr}.hero-l{padding:3rem 5vw}.cf-row,.adm-row{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}}
+
+/* ═══════════════════════════════════════════════
+   POLISH — refined typography, depth & micro-interactions
+   ═══════════════════════════════════════════════ */
+:root{
+  --shadow-sm:0 2px 8px rgba(100,20,40,.06);
+  --shadow-md:0 10px 30px -6px rgba(100,20,40,.14);
+  --shadow-lg:0 24px 60px -12px rgba(100,20,40,.22);
+  --shadow-gold:0 10px 26px -6px rgba(184,136,58,.28);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{font-feature-settings:"liga" 1,"kern" 1}
+::selection{background:var(--rose);color:#fff}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--peach);border-radius:10px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:var(--rose)}
+a,button,.btn,.sz,.shop-tab,.prd-btn,.cart-btn{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:4px}
+
+/* Refined heading rhythm */
+.h1,.h2,.hero-title,.custom-info h2,.cta-band h2,.adm-login-t,.coll-card-name,.prod-card-name,.val-t,.testi-quote{letter-spacing:-.01em}
+.eyebrow,.custom-eyebrow-el{font-weight:600}
+
+/* Softer, layered elevation on interactive surfaces */
+.btn{box-shadow:var(--shadow-md),0 1px 0 rgba(255,255,255,.18) inset}
+.btn:hover{box-shadow:var(--shadow-lg),0 1px 0 rgba(255,255,255,.14) inset;transform:translateY(-2px)}
+.btn:focus-visible{outline-offset:4px}
+.cart-btn{box-shadow:var(--shadow-sm)}
+.cart-btn:hover{box-shadow:var(--shadow-md)}
+.coll-card,.prod-card,.testi-card,.val-ic,.feat-specs,.custom-form-box,.adm-login-box{box-shadow:var(--shadow-sm);transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .3s}
+.prod-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:rgba(200,69,90,.28)}
+.coll-card:hover{box-shadow:var(--shadow-md)}
+.testi-card{transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.testi-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.val-ic{transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.val:hover .val-ic{transform:scale(1.08) rotate(-4deg);box-shadow:var(--shadow-gold)}
+
+/* Cleaner nav on scroll */
+nav{box-shadow:0 1px 0 rgba(100,20,40,.06)}
+nav.scrolled{box-shadow:var(--shadow-md)}
+
+/* Pill & badge polish */
+.prod-card-pill,.badge-available,.badge-custom{box-shadow:0 4px 12px rgba(0,0,0,.14)}
+.pill-soon{box-shadow:none}
+
+/* Section rhythm consistency */
+.testimonials,.vals,.custom-section,.cta-band{position:relative}
+
+/* Social icons lift */
+.soc{transition:transform .25s var(--ease),background .25s var(--ease),box-shadow .25s var(--ease)}
+.soc:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(200,69,90,.35)}
+
+/* Footer link underline instead of harsh glow */
+.footer-links a{position:relative}
+.footer-links a::after{content:'';position:absolute;left:0;bottom:-2px;width:0;height:1px;background:#fff;transition:width .25s var(--ease)}
+.footer-links a:hover::after{width:100%}
+
+/* Respect reduced motion & touch devices */
+@media (pointer:coarse){
+  #cur,#cur2{display:none}
+  body{cursor:auto}
+  .prod-card:hover,.coll-card:hover,.testi-card:hover,.btn:hover{transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+
+/* ═══ Paiement — refonte ═══ */
+.pay-amount-card{background:linear-gradient(135deg,var(--rose) 0%,var(--burg) 100%);border-radius:16px;padding:1.3rem 1.4rem;margin:.8rem 0 1rem;text-align:center;box-shadow:0 10px 26px -8px rgba(110,22,40,.35)}
+.pay-amount-lbl{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.78);font-weight:600;margin-bottom:.3rem}
+.pay-amount-val{font-family:'Playfair Display',serif;font-size:2rem;color:#fff;font-weight:600;line-height:1.1;margin-bottom:.7rem}
+.pay-copy-btn{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.38);color:#fff;padding:.5rem 1rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.72rem;letter-spacing:.06em;font-weight:600;cursor:pointer;transition:background .2s,transform .2s}
+.pay-copy-btn:hover{background:rgba(255,255,255,.28);transform:translateY(-1px)}
+.pay-copy-btn.copied{background:#fff;color:var(--burg)}
+.pay-steps{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.1rem}
+.pay-step{display:flex;align-items:center;gap:.65rem;font-size:.78rem;color:var(--mid);font-weight:300;line-height:1.4}
+.pay-step-n{flex-shrink:0;width:20px;height:20px;border-radius:50%;background:var(--blush);color:var(--rose);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.pay-divider{display:flex;align-items:center;gap:.5rem;margin:.9rem 0}
+.pay-divider::before,.pay-divider::after{content:'';flex:1;height:1px;background:rgba(0,0,0,.08)}
+.pay-divider span{font-size:.7rem;color:var(--muted);white-space:nowrap}
+.pay-btn{display:flex;align-items:center;justify-content:center;gap:.65rem;border:none;border-radius:50px;padding:1rem 1.5rem;font-size:.97rem;font-weight:800;width:100%;box-sizing:border-box;text-decoration:none;letter-spacing:.01em;cursor:pointer;font-family:inherit;transition:all .18s ease}
+.pay-btn-twint{background:#FFCC00;color:#0A0908;box-shadow:0 4px 16px rgba(255,204,0,.35)}
+.pay-btn-twint:hover{background:#FFD633;transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,204,0,.45)}
+.pay-btn-sumup{background:#0A0908;color:#FBFBF9;box-shadow:0 4px 16px rgba(10,9,8,.28)}
+.pay-btn-sumup:hover{background:#2A2928;box-shadow:0 6px 20px rgba(10,9,8,.38);transform:translateY(-1px)}
+.pay-cards-row{display:flex;gap:.4rem;margin:1rem 0 .5rem;justify-content:center;flex-wrap:wrap}
+.pay-card-badge{border:1px solid #e0e0e0;border-radius:5px;padding:.3rem .55rem;font-size:.69rem;color:#555;font-weight:700;background:#fafafa;letter-spacing:.03em}
+.pay-card-badge-dark{color:#0A0908}
+.pay-secure-note{font-size:.7rem;color:var(--muted);margin-top:.4rem;line-height:1.6;text-align:center}
+.pay-toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:#0A0908;color:#fff;padding:.7rem 1.2rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,.28);z-index:9999;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;display:flex;align-items:center;gap:.5rem;white-space:nowrap}
+.pay-toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>`);
 
 /* ═══════════════════════════════════════════════
@@ -880,25 +973,25 @@ function render() {
         </div>
         <div class="form-success" id="cf-success">
           <div class="form-success-ic">💳</div>
-          <div class="form-success-t">Payer par carte</div>
-          <p class="form-success-s">Clique ci-dessous pour payer en toute sécurité via Stripe.</p>
-          <div id="cf-twint-box" style="background:rgba(99,91,255,.07);border:1.5px solid rgba(99,91,255,.22);border-radius:14px;padding:1.2rem;margin:1rem 0 0">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;font-size:.84rem;color:var(--mid);font-weight:300">
-              <span>Montant</span>
-              <strong id="cf-twint-amount" style="color:#635bff;font-size:1rem;font-weight:700;"></strong>
+          <div class="form-success-t">Merci ! Plus qu'une étape</div>
+          <p class="form-success-s">Choisis ton mode de paiement — le montant est copié pour toi.</p>
+          <div id="cf-twint-box" style="margin:1rem 0 0">
+            <div class="pay-amount-card" style="padding:1.1rem 1.2rem">
+              <div class="pay-amount-lbl">Montant</div>
+              <div class="pay-amount-val" id="cf-twint-amount" style="font-size:1.6rem">—</div>
+              <button type="button" class="pay-copy-btn" onclick="copyPaymentAmountFrom('cf-twint-amount',this)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Copier le montant</span>
+              </button>
             </div>
-            <div style="font-size:.74rem;color:var(--muted);margin-bottom:.9rem;line-height:1.6">Paiement 100% sécurisé · Visa, Mastercard, American Express 🔒</div>
-            <a id="cf-twint-link" href="#" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:.5rem;background:#635bff;color:#fff;border-radius:10px;padding:.8rem 1rem;font-size:.95rem;font-weight:700;text-decoration:none">
-              💳 Payer maintenant par carte
+            <a id="cf-twint-link" href="#" target="_blank" rel="noopener noreferrer" class="pay-btn pay-btn-sumup" onclick="return handlePayClickFrom('cf-twint-amount',event)">
+              💳 Payer par carte avec SumUp
             </a>
-            <div style="display:flex;align-items:center;gap:.5rem;margin:.9rem 0">
-              <div style="flex:1;height:1px;background:rgba(0,0,0,.08)"></div>
-              <span style="font-size:.7rem;color:var(--muted);white-space:nowrap">ou</span>
-              <div style="flex:1;height:1px;background:rgba(0,0,0,.08)"></div>
-            </div>
-            <a id="cf-twint-real-link" href="#" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;gap:.5rem;background:#FFCC00;color:#0A0908;border-radius:10px;padding:.8rem 1rem;font-size:.95rem;font-weight:700;text-decoration:none">
+            <div class="pay-divider"><span>ou</span></div>
+            <a id="cf-twint-real-link" href="#" target="_blank" rel="noopener noreferrer" class="pay-btn pay-btn-twint" onclick="return handlePayClickFrom('cf-twint-amount',event)">
               📱 Payer avec TWINT
             </a>
+            <div class="pay-secure-note">🔒 Paiement 100% sécurisé · Visa, Mastercard, Amex</div>
           </div>
         </div>
       </div>
@@ -954,52 +1047,41 @@ function render() {
             <button class="cf-btn cf-btn-rose" style="margin-top:.3rem" onclick="submitOrderAddress()">Continuer vers le paiement →</button>
           </div>
 
-          <!-- Paiement SumUp -->
+          <!-- Paiement -->
           <div id="order-stripe-box" style="display:none">
-            <div style="background:rgba(10,9,8,.04);border:1.5px solid rgba(10,9,8,.15);border-radius:14px;padding:1.3rem;margin:.8rem 0">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;font-size:.85rem;color:var(--mid);font-weight:300">
-                <span>Montant total</span>
-                <strong id="stripe-amount" style="color:#0A0908;font-size:1.15rem;font-weight:700;"></strong>
-              </div>
-              
-              <div style="background:rgba(10,9,8,.05);border:1.5px solid rgba(10,9,8,.15);border-radius:12px;padding:.9rem 1rem;margin-bottom:1rem;display:flex;gap:.7rem;align-items:flex-start">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:.1rem"><rect x="2" y="5" width="20" height="14" rx="2.5" fill="#0A0908"/><rect x="2" y="9" width="20" height="3" fill="#FBFBF9"/><rect x="4.5" y="14" width="6" height="2" rx="1" fill="#FBFBF9"/></svg>
-                <div>
-                  <div style="font-size:.85rem;color:#0A0908;font-weight:700;margin-bottom:.2rem">Paiement sécurisé via SumUp</div>
-                  <div style="font-size:.78rem;color:var(--muted);line-height:1.6">Carte bancaire · Transaction chiffrée 🔒</div>
-                </div>
-              </div>
-              
-              <div id="sumup-button-container" style="margin-bottom:.9rem"></div>
-
-              <div style="display:flex;align-items:center;gap:.5rem;margin:.9rem 0">
-                <div style="flex:1;height:1px;background:rgba(0,0,0,.08)"></div>
-                <span style="font-size:.7rem;color:var(--muted);white-space:nowrap">ou</span>
-                <div style="flex:1;height:1px;background:rgba(0,0,0,.08)"></div>
-              </div>
-
-              <a id="twint-pay-link" href="#" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;gap:.65rem;background:#FFCC00;color:#0A0908;border:none;border-radius:50px;padding:1rem 1.5rem;font-size:.97rem;font-weight:800;width:100%;box-sizing:border-box;box-shadow:0 4px 16px rgba(255,204,0,.35);text-decoration:none;letter-spacing:.01em">
-                <span style="font-size:1.05rem">📱</span>
-                <span>Payer avec TWINT</span>
-              </a>
-
-              <div style="display:flex;align-items:center;gap:.5rem;margin:.9rem 0 .65rem">
-                <div style="flex:1;height:1px;background:rgba(0,0,0,.08)"></div>
-                <span style="font-size:.7rem;color:var(--muted);white-space:nowrap">cartes acceptées</span>
-                <div style="flex:1;height:1px;background:rgba(0,0,0,.08)"></div>
-              </div>
-              <div style="display:flex;gap:.4rem;margin-bottom:.5rem;justify-content:center">
-                <div style="border:1px solid #e0e0e0;border-radius:5px;padding:.3rem .55rem;font-size:.69rem;color:#555;font-weight:700;background:#fafafa;letter-spacing:.03em">VISA</div>
-                <div style="border:1px solid #e0e0e0;border-radius:5px;padding:.3rem .55rem;font-size:.69rem;color:#555;font-weight:700;background:#fafafa">Mastercard</div>
-                <div style="border:1px solid #e0e0e0;border-radius:5px;padding:.3rem .55rem;font-size:.69rem;color:#555;font-weight:700;background:#fafafa">Amex</div>
-                <div style="border:1px solid #e0e0e0;border-radius:5px;padding:.3rem .55rem;font-size:.69rem;color:#0A0908;font-weight:700;background:#fafafa">SumUp</div>
-              </div>
-
-              <div style="font-size:.7rem;color:var(--muted);margin-top:.6rem;line-height:1.6;text-align:center">
-                🔒 Redirection sécurisée vers SumUp
-              </div>
+            <div class="pay-amount-card">
+              <div class="pay-amount-lbl">Montant à payer</div>
+              <div class="pay-amount-val" id="stripe-amount">0.00 CHF</div>
+              <button type="button" class="pay-copy-btn" id="pay-copy-btn" onclick="copyPaymentAmount(this)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Copier le montant</span>
+              </button>
             </div>
-            <p style="font-size:.74rem;color:var(--muted);line-height:1.6;text-align:center">Livraison confirmée dès réception du paiement 🌸</p>
+
+            <div class="pay-steps">
+              <div class="pay-step"><span class="pay-step-n">1</span><span>Choisis ton mode de paiement ci-dessous</span></div>
+              <div class="pay-step"><span class="pay-step-n">2</span><span>Le montant est copié automatiquement pour toi</span></div>
+              <div class="pay-step"><span class="pay-step-n">3</span><span>Colle-le si la page te le demande, puis confirme 🔒</span></div>
+            </div>
+
+            <div id="sumup-button-container" style="margin-bottom:.7rem"></div>
+
+            <div class="pay-divider"><span>ou</span></div>
+
+            <a id="twint-pay-link" href="#" target="_blank" rel="noopener noreferrer" class="pay-btn pay-btn-twint" onclick="return handlePayClick(event,'twint')">
+              <span style="font-size:1.05rem">📱</span>
+              <span>Payer avec TWINT</span>
+            </a>
+
+            <div class="pay-cards-row">
+              <div class="pay-card-badge">VISA</div>
+              <div class="pay-card-badge">Mastercard</div>
+              <div class="pay-card-badge">Amex</div>
+              <div class="pay-card-badge pay-card-badge-dark">SumUp</div>
+            </div>
+            <div class="pay-secure-note">🔒 Paiement sécurisé · Livraison confirmée dès réception</div>
+
+            <p style="font-size:.74rem;color:var(--muted);line-height:1.6;text-align:center;margin-top:.9rem">Une question sur ta commande ? Écris-nous, on répond vite 🌸</p>
             <button class="btn" style="margin-top:.5rem;width:100%;font-size:.78rem;background:transparent;color:var(--muted);border:1.5px solid var(--peach)" onclick="backToAddress()">← Modifier l'adresse</button>
           </div>
 
@@ -1629,20 +1711,29 @@ function submitContact() {
     }
   }
 
-  var stripeLink;
-  if (t === 'custom') {
-    stripeLink = D.stripe_custom;
-  } else {
-    var productEl2 = document.getElementById('cf-product');
-    var idx2 = productEl2 ? productEl2.selectedIndex : 0;
-    stripeLink = (idx2 === 1) ? D.stripe_grande : D.stripe_petite;
-  }
   document.getElementById('cf-twint-amount').textContent = amountStr;
-  document.getElementById('cf-twint-link').href = stripeLink;
+  document.getElementById('cf-twint-link').href = 'https://pay.sumup.com/b2c/QHKF9ZF6';
   var cfTwintRealLink = document.getElementById('cf-twint-real-link');
   if (cfTwintRealLink) cfTwintRealLink.href = D.twint_link || '#';
   document.getElementById('cf-form-content').style.display = 'none';
   document.getElementById('cf-success').style.display = 'block';
+}
+function copyPaymentAmountFrom(elId, btn) {
+  var el = document.getElementById(elId);
+  var text = el ? el.textContent.trim() : '';
+  var justNumber = text.replace(/CHF/gi, '').trim();
+  var doToast = function() { showPayToast(text && text !== '—' ? ('✓ Montant copié : ' + text) : 'Montant à régler indiqué ci-dessus'); };
+  if (navigator.clipboard && window.isSecureContext && text && text !== '—') {
+    navigator.clipboard.writeText(justNumber).then(doToast).catch(doToast);
+  } else { doToast(); }
+  if (btn) {
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.classList.remove('copied'); }, 1800);
+  }
+}
+function handlePayClickFrom(elId, e) {
+  copyPaymentAmountFrom(elId, null);
+  return true;
 }
 function doReveal() { document.querySelectorAll('.reveal').forEach(el => { const r=el.getBoundingClientRect(); if(r.top < window.innerHeight-60) el.classList.add('show'); }); }
 window.addEventListener('scroll', doReveal, { passive: true });
@@ -2171,27 +2262,7 @@ function initSumUp() {
   link.href = url;
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
-  link.style.cssText = [
-    'display:flex',
-    'align-items:center',
-    'justify-content:center',
-    'gap:.65rem',
-    'background:#0A0908',
-    'color:#FBFBF9',
-    'border:none',
-    'border-radius:50px',
-    'padding:1rem 1.5rem',
-    'font-size:.97rem',
-    'font-weight:800',
-    'width:100%',
-    'box-sizing:border-box',
-    'box-shadow:0 4px 16px rgba(10,9,8,.28)',
-    'cursor:pointer',
-    'font-family:inherit',
-    'text-decoration:none',
-    'transition:all 0.18s ease',
-    'letter-spacing:.01em'
-  ].join(';');
+  link.className = 'pay-btn pay-btn-sumup';
 
   link.innerHTML = [
     '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">',
@@ -2202,19 +2273,55 @@ function initSumUp() {
     '<span>Payer CHF ' + priceStr + ' avec SumUp</span>'
   ].join('');
 
-  link.addEventListener('mouseover', function() {
-    this.style.background = '#2A2928';
-    this.style.boxShadow = '0 6px 20px rgba(10,9,8,.38)';
-    this.style.transform = 'translateY(-1px)';
-  });
-  link.addEventListener('mouseout', function() {
-    this.style.background = '#0A0908';
-    this.style.boxShadow = '0 4px 16px rgba(10,9,8,.28)';
-    this.style.transform = 'translateY(0)';
-  });
+  link.addEventListener('click', function(e) { handlePayClick(e, 'sumup'); });
 
   container.appendChild(link);
   sumupRendered = true;
+}
+
+// ── Copier le montant + rediriger proprement vers SumUp / TWINT ──
+function getPaymentAmountText() {
+  var el = document.getElementById('stripe-amount');
+  return el ? el.textContent.trim() : '';
+}
+function copyPaymentAmount(btn) {
+  var amountText = getPaymentAmountText();
+  var justNumber = amountText.replace(/CHF/gi, '').trim();
+  var doToast = function(ok) {
+    showPayToast(ok ? ('✓ Montant copié : ' + amountText) : ('Montant à régler : ' + amountText));
+    if (btn) {
+      btn.classList.add('copied');
+      var span = btn.querySelector('span:last-child');
+      var original = span ? span.textContent : '';
+      if (span) span.textContent = '✓ Copié';
+      setTimeout(function() {
+        if (btn) btn.classList.remove('copied');
+        if (span) span.textContent = original || 'Copier le montant';
+      }, 1800);
+    }
+  };
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(justNumber).then(function(){ doToast(true); }).catch(function(){ doToast(false); });
+  } else {
+    doToast(false);
+  }
+}
+function handlePayClick(e, method) {
+  copyPaymentAmount(null);
+  return true; // laisse le lien s'ouvrir normalement dans un nouvel onglet
+}
+function showPayToast(msg) {
+  var t = document.getElementById('pay-toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'pay-toast';
+    t.className = 'pay-toast';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(window._payToastTimer);
+  window._payToastTimer = setTimeout(function(){ t.classList.remove('on'); }, 3200);
 }
 </script>
 
