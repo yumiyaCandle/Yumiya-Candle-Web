@@ -453,6 +453,26 @@ footer{background:var(--text);padding:4rem 5vw 2.5rem;color:rgba(255,255,255,.6)
 .adm-tab:hover:not(.on){border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.7)}
 .adm-body{flex:1;overflow-y:auto;padding:1.4rem 1.6rem}
 .adm-section{display:none}.adm-section.on{display:block}
+.adm-vt-tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
+.adm-vt-tab{padding:.5rem 1rem;border-radius:10px;font-size:.72rem;letter-spacing:.03em;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.5);font-family:'DM Sans',sans-serif;font-weight:500;transition:all .2s}
+.adm-vt-tab.on{background:rgba(255,255,255,.08);border-color:var(--rose);color:#fff}
+.adm-vt-tab:hover:not(.on){border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.75)}
+.adm-vt-section{display:none}.adm-vt-section.on{display:block}
+.adm-vt-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.adm-vt-btn{padding:.5rem .9rem;border-radius:8px;font-size:.7rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.85);cursor:pointer;font-family:'DM Sans',sans-serif}
+.adm-vt-btn:hover{background:rgba(255,255,255,.14)}
+.adm-vt-btn-danger{color:#ff9d9d;border-color:rgba(255,120,120,.3)}
+.adm-vt-btn-danger:hover{background:rgba(255,90,90,.14)}
+.adm-vt-stats{margin-bottom:1rem;font-size:.85rem;color:rgba(255,255,255,.8)}
+.adm-vt-stats b{color:var(--rose);font-family:'Playfair Display',serif;font-size:1.1rem}
+.adm-vt-empty{padding:2rem 1rem;text-align:center;color:rgba(255,255,255,.4);font-size:.85rem;border:1px dashed rgba(255,255,255,.15);border-radius:10px}
+.adm-vt-card{border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.9rem 1rem;margin-bottom:.7rem;background:rgba(255,255,255,.03)}
+.adm-vt-card-top{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;margin-bottom:.4rem;flex-wrap:wrap}
+.adm-vt-card-name{font-family:'Playfair Display',serif;font-size:1rem;color:#fff}
+.adm-vt-card-date{font-size:.68rem;color:rgba(255,255,255,.4)}
+.adm-vt-card-amt{font-size:.85rem;color:var(--rose);font-weight:600}
+.adm-vt-card-row{font-size:.78rem;color:rgba(255,255,255,.7);margin:.15rem 0}
+.adm-vt-card-row b{color:rgba(255,255,255,.9);font-weight:600}
 .adm-group{margin-bottom:1rem}
 .adm-lbl{display:block;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.35rem;font-weight:500}
 .adm-in,.adm-ta,.adm-sel{width:100%;padding:.6rem .85rem;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.09);border-radius:8px;color:#fff;font-family:'DM Sans',sans-serif;font-size:.86rem;outline:none;transition:border-color .2s;-webkit-appearance:none}
@@ -1133,6 +1153,7 @@ function render() {
         <button class="adm-tab" onclick="switchAdmTab('about',this)">Histoire</button>
         <button class="adm-tab" onclick="switchAdmTab('contact',this)">Contact</button>
         <button class="adm-tab" onclick="switchAdmTab('avis',this)">Avis</button>
+        <button class="adm-tab" onclick="switchAdmTab('ventes',this)">📊 Ventes & demandes</button>
       </div>
       <div class="adm-body">
 
@@ -1296,6 +1317,44 @@ function render() {
           <div class="adm-group"><label class="adm-lbl">Étoiles</label><input class="adm-in" id="t3s" /></div>
           <div class="adm-group"><label class="adm-lbl">Citation</label><textarea class="adm-ta" id="t3q" style="min-height:65px"></textarea></div>
           <div class="adm-group"><label class="adm-lbl">Nom</label><input class="adm-in" id="t3n" /></div>
+        </div>
+
+        <!-- VENTES & DEMANDES (employés) -->
+        <div class="adm-section" id="adm-ventes">
+          <div class="adm-tip">💡 Ces données viennent du navigateur utilisé pour la commande/demande, <b>et</b> sont envoyées par email (Formspree) à chaque fois — l'email reste la source la plus fiable si une commande a été passée depuis un autre appareil.</div>
+          <div class="adm-vt-tabs">
+            <button class="adm-vt-tab on" onclick="switchAdmVentesTab('orders',this)">🛒 Commandes (<span id="adm-vt-count-orders">0</span>)</button>
+            <button class="adm-vt-tab" onclick="switchAdmVentesTab('custom',this)">🎨 Demandes personnalisées (<span id="adm-vt-count-custom">0</span>)</button>
+            <button class="adm-vt-tab" onclick="switchAdmVentesTab('messages',this)">✉️ Messages / commandes contact (<span id="adm-vt-count-messages">0</span>)</button>
+          </div>
+
+          <div class="adm-vt-section on" id="adm-vt-orders">
+            <div class="adm-vt-stats" id="adm-vt-stats-orders"></div>
+            <div class="adm-vt-actions">
+              <button class="adm-vt-btn" onclick="admFillVentes()">🔄 Actualiser</button>
+              <button class="adm-vt-btn" onclick="exportVentesCSV('yumiya_orders','commandes')">⬇️ Export CSV</button>
+              <button class="adm-vt-btn adm-vt-btn-danger" onclick="clearVentes('yumiya_orders','commandes')">🗑️ Vider</button>
+            </div>
+            <div id="adm-vt-table-orders"></div>
+          </div>
+
+          <div class="adm-vt-section" id="adm-vt-custom">
+            <div class="adm-vt-actions">
+              <button class="adm-vt-btn" onclick="admFillVentes()">🔄 Actualiser</button>
+              <button class="adm-vt-btn" onclick="exportVentesCSV('yumiya_custom_requests','demandes_personnalisees')">⬇️ Export CSV</button>
+              <button class="adm-vt-btn adm-vt-btn-danger" onclick="clearVentes('yumiya_custom_requests','demandes personnalisées')">🗑️ Vider</button>
+            </div>
+            <div id="adm-vt-table-custom"></div>
+          </div>
+
+          <div class="adm-vt-section" id="adm-vt-messages">
+            <div class="adm-vt-actions">
+              <button class="adm-vt-btn" onclick="admFillVentes()">🔄 Actualiser</button>
+              <button class="adm-vt-btn" onclick="exportVentesCSV('yumiya_contact_orders','messages_contact')">⬇️ Export CSV</button>
+              <button class="adm-vt-btn adm-vt-btn-danger" onclick="clearVentes('yumiya_contact_orders','messages')">🗑️ Vider</button>
+            </div>
+            <div id="adm-vt-table-messages"></div>
+          </div>
         </div>
 
       </div>
@@ -1672,12 +1731,35 @@ function submitNotify() {
 function submitCustom() {
   const n=document.getElementById('cm-name').value.trim();
   const e=document.getElementById('cm-email').value.trim();
+  const insta=document.getElementById('cm-insta').value.trim();
   const o=document.getElementById('cm-occasion').value;
+  const scent=document.getElementById('cm-scent').value.trim();
+  const qty=document.getElementById('cm-qty').value;
+  const colors=document.getElementById('cm-colors').value.trim();
   const v=document.getElementById('cm-vision').value.trim();
   let ok=true;
   [[n,'cm-name',x=>x.length>1],[e,'cm-email',x=>x.includes('@')],[o,'cm-occasion',x=>x.length>0],[v,'cm-vision',x=>x.length>5]].forEach(([val,id,t])=>{const el=document.getElementById(id);if(!t(val)){ok=false;el.style.borderColor='rgba(200,69,90,.7)';setTimeout(()=>{el.style.borderColor='';},1200);}});
   if(!ok)return;
   const btn=document.getElementById('cm-btn');btn.textContent='Envoi…';btn.disabled=true;
+
+  const requestData = {
+    prenom: n, email: e, instagram: insta, occasion: o,
+    senteur: scent, quantite: qty, couleurs: colors, vision: v,
+    date: new Date().toLocaleString('fr-CH')
+  };
+  try {
+    let list = JSON.parse(localStorage.getItem('yumiya_custom_requests') || '[]');
+    list.push(requestData);
+    localStorage.setItem('yumiya_custom_requests', JSON.stringify(list));
+  } catch(err) { console.warn('localStorage error:', err.message); }
+  try {
+    fetch('https://formspree.io/f/xlgzandp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(Object.assign({ _subject: 'Nouvelle demande personnalisée — Yumiya Candle', type: 'Demande personnalisée' }, requestData, { _replyto: e }))
+    }).catch(function(err){ console.warn('Formspree indisponible (données sauvegardées localement):', err.message); });
+  } catch(err) { console.warn('Formspree indisponible:', err.message); }
+
   setTimeout(()=>{document.getElementById('custom-form-content').style.display='none';document.getElementById('custom-success').style.display='block';btn.textContent='Envoyer ma demande ✨';btn.disabled=false;},1200);
 }
 function toggleCfType() {
@@ -1715,6 +1797,34 @@ function submitContact() {
   document.getElementById('cf-twint-link').href = 'https://pay.sumup.com/b2c/QHKF9ZF6';
   var cfTwintRealLink = document.getElementById('cf-twint-real-link');
   if (cfTwintRealLink) cfTwintRealLink.href = D.twint_link || '#';
+
+  var insta = document.getElementById('cf-insta').value.trim();
+  var occasion = document.getElementById('cf-occasion') ? document.getElementById('cf-occasion').value.trim() : '';
+  var scent = document.getElementById('cf-scent') ? document.getElementById('cf-scent').value.trim() : '';
+  var message = document.getElementById('cf-message').value.trim();
+  var produit = '';
+  if (t === 'standard') {
+    var pEl = document.getElementById('cf-product');
+    if (pEl) produit = pEl.options[pEl.selectedIndex].text;
+  }
+  var msgData = {
+    prenom: n, email: e, instagram: insta, type: (t === 'standard' ? 'Commande standard' : 'Demande personnalisée'),
+    produit: produit, occasion: occasion, senteur: scent, adresse: a, message: message,
+    montant: amountStr, date: new Date().toLocaleString('fr-CH')
+  };
+  try {
+    let list = JSON.parse(localStorage.getItem('yumiya_contact_orders') || '[]');
+    list.push(msgData);
+    localStorage.setItem('yumiya_contact_orders', JSON.stringify(list));
+  } catch(err) { console.warn('localStorage error:', err.message); }
+  try {
+    fetch('https://formspree.io/f/xlgzandp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(Object.assign({ _subject: 'Nouvelle commande/message (page Contact) — Yumiya Candle' }, msgData, { _replyto: e }))
+    }).catch(function(err){ console.warn('Formspree indisponible (données sauvegardées localement):', err.message); });
+  } catch(err) { console.warn('Formspree indisponible:', err.message); }
+
   document.getElementById('cf-form-content').style.display = 'none';
   document.getElementById('cf-success').style.display = 'block';
 }
@@ -1780,6 +1890,7 @@ function checkAdminPw() {
 }
 function openAdminPanel() {
   admFill();
+  admFillVentes();
   document.getElementById('adm-overlay').classList.add('on');
   document.body.style.overflow = 'hidden';
 }
@@ -1791,6 +1902,108 @@ function switchAdmTab(tab, el) {
   document.querySelectorAll('.adm-tab').forEach(t => t.classList.remove('on')); el.classList.add('on');
   document.querySelectorAll('.adm-section').forEach(s => s.classList.remove('on'));
   document.getElementById('adm-' + tab).classList.add('on');
+  if (tab === 'ventes') admFillVentes();
+}
+function switchAdmVentesTab(tab, el) {
+  document.querySelectorAll('.adm-vt-tab').forEach(t => t.classList.remove('on')); el.classList.add('on');
+  document.querySelectorAll('.adm-vt-section').forEach(s => s.classList.remove('on'));
+  document.getElementById('adm-vt-' + tab).classList.add('on');
+}
+
+/* ── Ventes & demandes (employés) ── */
+function admVtEscape(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function admVtGet(key) {
+  try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) { return []; }
+}
+function admFillVentes() {
+  var orders = admVtGet('yumiya_orders').slice().reverse();
+  var custom = admVtGet('yumiya_custom_requests').slice().reverse();
+  var messages = admVtGet('yumiya_contact_orders').slice().reverse();
+
+  document.getElementById('adm-vt-count-orders').textContent = orders.length;
+  document.getElementById('adm-vt-count-custom').textContent = custom.length;
+  document.getElementById('adm-vt-count-messages').textContent = messages.length;
+
+  // Stats commandes
+  var total = 0, nb = 0;
+  orders.forEach(function(o) {
+    var v = parseFloat(String(o.montant || '').replace(',', '.').replace(/[^\d.]/g, ''));
+    if (!isNaN(v)) { total += v; nb++; }
+  });
+  document.getElementById('adm-vt-stats-orders').innerHTML =
+    '<b>' + orders.length + '</b> commande' + (orders.length > 1 ? 's' : '') +
+    (nb ? '  ·  <b>' + total.toFixed(2) + ' CHF</b> de ventes enregistrées (sur cet appareil)' : '');
+
+  admVtRenderOrders(orders);
+  admVtRenderCustom(custom);
+  admVtRenderMessages(messages);
+}
+function admVtRenderOrders(list) {
+  var el = document.getElementById('adm-vt-table-orders');
+  if (!list.length) { el.innerHTML = '<div class="adm-vt-empty">Aucune commande enregistrée sur ce navigateur pour l\'instant.</div>'; return; }
+  el.innerHTML = list.map(function(o) {
+    return '<div class="adm-vt-card">' +
+      '<div class="adm-vt-card-top"><span class="adm-vt-card-name">' + admVtEscape(o.prenom) + ' ' + admVtEscape(o.nom) + '</span>' +
+      '<span class="adm-vt-card-amt">' + admVtEscape(o.montant || '—') + '</span></div>' +
+      '<div class="adm-vt-card-date">' + admVtEscape(o.date) + '</div>' +
+      '<div class="adm-vt-card-row"><b>Commande :</b> ' + admVtEscape(o.commande) + '</div>' +
+      '<div class="adm-vt-card-row"><b>Email :</b> ' + admVtEscape(o.email) + '  ·  <b>Tél :</b> ' + admVtEscape(o.telephone) + '</div>' +
+      '<div class="adm-vt-card-row"><b>Adresse :</b> ' + admVtEscape(o.adresse) + ', ' + admVtEscape(o.npa) + ' ' + admVtEscape(o.ville) + '</div>' +
+      '</div>';
+  }).join('');
+}
+function admVtRenderCustom(list) {
+  var el = document.getElementById('adm-vt-table-custom');
+  if (!list.length) { el.innerHTML = '<div class="adm-vt-empty">Aucune demande de personnalisation enregistrée sur ce navigateur pour l\'instant.</div>'; return; }
+  el.innerHTML = list.map(function(r) {
+    return '<div class="adm-vt-card">' +
+      '<div class="adm-vt-card-top"><span class="adm-vt-card-name">' + admVtEscape(r.prenom) + '</span>' +
+      '<span class="adm-vt-card-amt">' + admVtEscape(r.occasion || '') + '</span></div>' +
+      '<div class="adm-vt-card-date">' + admVtEscape(r.date) + '</div>' +
+      '<div class="adm-vt-card-row"><b>Email :</b> ' + admVtEscape(r.email) + (r.instagram ? '  ·  <b>Insta :</b> ' + admVtEscape(r.instagram) : '') + '</div>' +
+      '<div class="adm-vt-card-row"><b>Senteur(s) :</b> ' + admVtEscape(r.senteur || '—') + '  ·  <b>Quantité :</b> ' + admVtEscape(r.quantite || '—') + '</div>' +
+      '<div class="adm-vt-card-row"><b>Couleurs / ambiance :</b> ' + admVtEscape(r.couleurs || '—') + '</div>' +
+      '<div class="adm-vt-card-row"><b>Vision :</b> ' + admVtEscape(r.vision) + '</div>' +
+      '</div>';
+  }).join('');
+}
+function admVtRenderMessages(list) {
+  var el = document.getElementById('adm-vt-table-messages');
+  if (!list.length) { el.innerHTML = '<div class="adm-vt-empty">Aucun message / commande via la page Contact pour l\'instant.</div>'; return; }
+  el.innerHTML = list.map(function(m) {
+    return '<div class="adm-vt-card">' +
+      '<div class="adm-vt-card-top"><span class="adm-vt-card-name">' + admVtEscape(m.prenom) + '</span>' +
+      '<span class="adm-vt-card-amt">' + admVtEscape(m.montant || '') + '</span></div>' +
+      '<div class="adm-vt-card-date">' + admVtEscape(m.date) + '</div>' +
+      '<div class="adm-vt-card-row"><b>Type :</b> ' + admVtEscape(m.type) + '  ·  <b>Email :</b> ' + admVtEscape(m.email) + (m.instagram ? '  ·  <b>Insta :</b> ' + admVtEscape(m.instagram) : '') + '</div>' +
+      (m.produit ? '<div class="adm-vt-card-row"><b>Produit :</b> ' + admVtEscape(m.produit) + '</div>' : '') +
+      (m.occasion || m.senteur ? '<div class="adm-vt-card-row"><b>Occasion :</b> ' + admVtEscape(m.occasion || '—') + '  ·  <b>Senteur :</b> ' + admVtEscape(m.senteur || '—') + '</div>' : '') +
+      '<div class="adm-vt-card-row"><b>Adresse :</b> ' + admVtEscape(m.adresse) + '</div>' +
+      (m.message ? '<div class="adm-vt-card-row"><b>Message :</b> ' + admVtEscape(m.message) + '</div>' : '') +
+      '</div>';
+  }).join('');
+}
+function exportVentesCSV(key, filename) {
+  var list = admVtGet(key);
+  if (!list.length) { alert('Rien à exporter pour le moment.'); return; }
+  var cols = Object.keys(list.reduce(function(a, o) { return Object.assign(a, o); }, {}));
+  var rows = [cols.join(';')].concat(list.map(function(o) {
+    return cols.map(function(c) { return '"' + String(o[c] == null ? '' : o[c]).replace(/"/g, '""') + '"'; }).join(';');
+  }));
+  var blob = new Blob(['\uFEFF' + rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename + '_' + new Date().toISOString().slice(0,10) + '.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+function clearVentes(key, label) {
+  if (!confirm('Effacer définitivement les ' + label + ' enregistrées sur ce navigateur ?\n(Les emails déjà envoyés ne sont pas affectés.)')) return;
+  localStorage.removeItem(key);
+  admFillVentes();
 }
 
 function admFill() {
