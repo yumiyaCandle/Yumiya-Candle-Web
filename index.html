@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
 </head>
 <body>
 <div id="app"></div>
@@ -438,62 +439,53 @@ footer{background:var(--text);padding:4rem 5vw 2.5rem;color:rgba(255,255,255,.6)
 .modal-success-t{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--rose);margin-bottom:.5rem}
 .modal-success-s{font-size:.9rem;color:var(--muted);line-height:1.75;max-width:340px;margin:0 auto;font-weight:300}
 
-/* ── ADMIN ── */
+/* ── ADMIN : TABLEAU DE BORD COMMANDES ── */
 .adm-overlay{position:fixed;inset:0;background:rgba(10,3,5,.7);z-index:2000;display:none;backdrop-filter:blur(8px)}
 .adm-overlay.on{display:flex;align-items:flex-start;justify-content:flex-end;padding:1rem}
-.adm-panel{background:#12060a;width:520px;max-width:100%;height:calc(100vh - 2rem);border-radius:20px;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.06);overflow:hidden}
+.adm-panel{background:#12060a;width:660px;max-width:100%;height:calc(100vh - 2rem);border-radius:20px;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.06);overflow:hidden}
 .adm-hd{padding:1.2rem 1.6rem;border-bottom:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
 .adm-hd-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;font-weight:500}
 .adm-hd-sub{font-size:.68rem;color:rgba(255,255,255,.3);margin-top:.1rem;letter-spacing:.08em}
 .adm-close-btn{background:rgba(255,255,255,.07);border:none;color:rgba(255,255,255,.5);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center}
 .adm-close-btn:hover{background:rgba(200,69,90,.3);color:#fff}
-.adm-tabs{display:flex;gap:.3rem;padding:.8rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;flex-wrap:wrap}
-.adm-tab{padding:.4rem .9rem;border-radius:50px;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.4);font-family:'DM Sans',sans-serif;font-weight:500;transition:all .2s;white-space:nowrap}
-.adm-tab.on{background:var(--rose);border-color:var(--rose);color:#fff}
-.adm-tab:hover:not(.on){border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.7)}
 .adm-body{flex:1;overflow-y:auto;padding:1.4rem 1.6rem}
-.adm-section{display:none}.adm-section.on{display:block}
-.adm-vt-tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
-.adm-vt-tab{padding:.5rem 1rem;border-radius:10px;font-size:.72rem;letter-spacing:.03em;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:transparent;color:rgba(255,255,255,.5);font-family:'DM Sans',sans-serif;font-weight:500;transition:all .2s}
-.adm-vt-tab.on{background:rgba(255,255,255,.08);border-color:var(--rose);color:#fff}
-.adm-vt-tab:hover:not(.on){border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.75)}
-.adm-vt-section{display:none}.adm-vt-section.on{display:block}
+.adm-tip{background:rgba(200,69,90,.08);border:1px solid rgba(200,69,90,.15);border-radius:8px;padding:.75rem .9rem;font-size:.75rem;color:rgba(255,255,255,.4);line-height:1.6;margin-bottom:1.2rem}
+.adm-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-bottom:1.3rem}
+.adm-kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:.9rem 1rem}
+.adm-kpi-label{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.5rem;font-weight:500}
+.adm-kpi-val{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:#fff;line-height:1}
+.adm-kpi-sub{font-size:.66rem;color:rgba(255,255,255,.32);margin-top:.35rem}
+.adm-chart-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1.1rem 1.2rem;margin-bottom:1.3rem}
+.adm-chart-hd{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.6rem;margin-bottom:.9rem;font-size:.78rem;color:rgba(255,255,255,.6);font-weight:600}
+.adm-seg{display:flex;background:rgba(255,255,255,.05);border-radius:8px;padding:.18rem;gap:.1rem}
+.adm-seg button{border:none;background:transparent;padding:.32rem .65rem;border-radius:6px;font-size:.66rem;font-weight:600;color:rgba(255,255,255,.45);cursor:pointer}
+.adm-seg button.on{background:var(--rose);color:#fff}
+.adm-chart-wrap{position:relative;height:190px}
+.adm-list-hd{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.6rem;margin-bottom:.9rem}
+.adm-search{position:relative;flex:1;min-width:180px}
+.adm-search input{width:100%;padding:.55rem .9rem .55rem 2rem;border:1.5px solid rgba(255,255,255,.1);border-radius:50px;background:rgba(255,255,255,.05);color:#fff;font-family:'DM Sans',sans-serif;font-size:.78rem;outline:none}
+.adm-search input:focus{border-color:var(--rose)}
+.adm-search input::placeholder{color:rgba(255,255,255,.25)}
+.adm-search::before{content:'🔍';position:absolute;left:.75rem;top:50%;transform:translateY(-50%);font-size:.7rem;opacity:.5}
+.adm-count-tag{font-size:.72rem;color:rgba(255,255,255,.35);white-space:nowrap}
 .adm-vt-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
 .adm-vt-btn{padding:.5rem .9rem;border-radius:8px;font-size:.7rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.85);cursor:pointer;font-family:'DM Sans',sans-serif}
 .adm-vt-btn:hover{background:rgba(255,255,255,.14)}
 .adm-vt-btn-danger{color:#ff9d9d;border-color:rgba(255,120,120,.3)}
 .adm-vt-btn-danger:hover{background:rgba(255,90,90,.14)}
-.adm-vt-stats{margin-bottom:1rem;font-size:.85rem;color:rgba(255,255,255,.8)}
-.adm-vt-stats b{color:var(--rose);font-family:'Playfair Display',serif;font-size:1.1rem}
 .adm-vt-empty{padding:2rem 1rem;text-align:center;color:rgba(255,255,255,.4);font-size:.85rem;border:1px dashed rgba(255,255,255,.15);border-radius:10px}
-.adm-vt-card{border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.9rem 1rem;margin-bottom:.7rem;background:rgba(255,255,255,.03)}
+.adm-vt-card{border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.9rem 1rem;margin-bottom:.7rem;background:rgba(255,255,255,.03);cursor:pointer;transition:border-color .18s}
+.adm-vt-card:hover{border-color:rgba(200,69,90,.4)}
 .adm-vt-card-top{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;margin-bottom:.4rem;flex-wrap:wrap}
 .adm-vt-card-name{font-family:'Playfair Display',serif;font-size:1rem;color:#fff}
 .adm-vt-card-date{font-size:.68rem;color:rgba(255,255,255,.4)}
 .adm-vt-card-amt{font-size:.85rem;color:var(--rose);font-weight:600}
+.adm-vt-card-brief{font-size:.76rem;color:rgba(255,255,255,.5);margin-top:.2rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.adm-vt-card-detail{display:none;margin-top:.6rem;padding-top:.6rem;border-top:1px dashed rgba(255,255,255,.1)}
+.adm-vt-card.open .adm-vt-card-detail{display:block}
 .adm-vt-card-row{font-size:.78rem;color:rgba(255,255,255,.7);margin:.15rem 0}
 .adm-vt-card-row b{color:rgba(255,255,255,.9);font-weight:600}
-.adm-group{margin-bottom:1rem}
-.adm-lbl{display:block;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.35rem;font-weight:500}
-.adm-in,.adm-ta,.adm-sel{width:100%;padding:.6rem .85rem;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.09);border-radius:8px;color:#fff;font-family:'DM Sans',sans-serif;font-size:.86rem;outline:none;transition:border-color .2s;-webkit-appearance:none}
-.adm-ta{resize:vertical;min-height:70px;line-height:1.5}
-.adm-sel option{color:var(--text);background:#fff}
-.adm-in:focus,.adm-ta:focus,.adm-sel:focus{border-color:rgba(200,69,90,.55)}
-.adm-in::placeholder,.adm-ta::placeholder{color:rgba(255,255,255,.18)}
-.adm-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
-.adm-sep{height:1px;background:rgba(255,255,255,.06);margin:1.4rem 0}
-.adm-sub{font-size:.7rem;color:rgba(255,255,255,.25);letter-spacing:.16em;text-transform:uppercase;margin-bottom:.9rem;margin-top:1.4rem;display:flex;align-items:center;gap:.5rem}
-.adm-sub::before{content:'';display:inline-block;width:16px;height:1px;background:rgba(255,255,255,.2)}
-.adm-toggle{display:flex;gap:.5rem}
-.adm-toggle label{flex:1;display:flex;align-items:center;justify-content:center;gap:.45rem;cursor:pointer;padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,.09);font-size:.76rem;color:rgba(255,255,255,.55);transition:all .2s}
-.adm-toggle label:has(input:checked){background:rgba(200,69,90,.18);border-color:rgba(200,69,90,.4);color:#fff}
-.adm-toggle input{accent-color:var(--rose)}
-.adm-ft{padding:1rem 1.4rem;border-top:1px solid rgba(255,255,255,.07);display:flex;gap:.6rem;flex-shrink:0}
-.adm-save{flex:1;padding:.8rem;background:var(--rose);color:#fff;border:none;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-weight:500;transition:background .2s}
-.adm-save:hover{background:var(--burg)}
-.adm-reset{padding:.8rem 1rem;background:transparent;color:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.1);border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.74rem;cursor:pointer;white-space:nowrap}
-.adm-reset:hover{color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.25)}
-.adm-tip{background:rgba(200,69,90,.08);border:1px solid rgba(200,69,90,.15);border-radius:8px;padding:.75rem .9rem;font-size:.75rem;color:rgba(255,255,255,.4);line-height:1.6;margin-bottom:1rem}
+.adm-ft{padding:1rem 1.4rem;border-top:1px solid rgba(255,255,255,.07);display:flex;gap:.5rem;flex-shrink:0;flex-wrap:wrap}
 
 /* Login */
 .adm-login{position:fixed;inset:0;background:rgba(10,3,5,.8);z-index:2001;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
@@ -1139,228 +1131,63 @@ function render() {
     </div>
   </div>
 
-  <!-- ADMIN PANEL -->
+  <!-- ADMIN PANEL : TABLEAU DE BORD COMMANDES -->
   <div class="adm-overlay" id="adm-overlay">
     <div class="adm-panel">
       <div class="adm-hd">
-        <div><div class="adm-hd-title">⚙️ Administration</div><div class="adm-hd-sub">Triple-clic logo · Mot de passe : yumiya2025</div></div>
+        <div><div class="adm-hd-title">🕯️ Commandes</div><div class="adm-hd-sub">Triple-clic logo · Mot de passe : yumiya2025</div></div>
         <button class="adm-close-btn" onclick="closeAdminPanel()">✕</button>
       </div>
-      <div class="adm-tabs" id="adm-tabs">
-        <button class="adm-tab on" onclick="switchAdmTab('general',this)">Général</button>
-        <button class="adm-tab" onclick="switchAdmTab('accueil',this)">Accueil</button>
-        <button class="adm-tab" onclick="switchAdmTab('boutique',this)">Boutique</button>
-        <button class="adm-tab" onclick="switchAdmTab('about',this)">Histoire</button>
-        <button class="adm-tab" onclick="switchAdmTab('contact',this)">Contact</button>
-        <button class="adm-tab" onclick="switchAdmTab('avis',this)">Avis</button>
-        <button class="adm-tab" onclick="switchAdmTab('ventes',this)">📊 Ventes & demandes</button>
-      </div>
       <div class="adm-body">
+        <div class="adm-tip">💡 Ces données viennent du navigateur utilisé pour la commande, <b>et</b> sont envoyées par email (Formspree) à chaque fois — l'email reste la source la plus fiable si une commande a été passée depuis un autre appareil.</div>
 
-        <!-- GÉNÉRAL -->
-        <div class="adm-section on" id="adm-general">
-          <div class="adm-tip">💡 Triple-clic sur le logo pour ouvrir cet admin. Les modifs sont sauvegardées dans ton navigateur.</div>
-          <div class="adm-group"><label class="adm-lbl">Nom du site</label><input class="adm-in" id="g-name" /></div>
-          <div class="adm-group"><label class="adm-lbl">Instagram</label><input class="adm-in" id="g-insta" /></div>
-          <div class="adm-group"><label class="adm-lbl">Email de contact</label><input class="adm-in" id="g-email" /></div>
-          <div class="adm-group"><label class="adm-lbl">💳 Stripe — Bougie petite (8.90 CHF)</label><input class="adm-in" id="g-stripe-petite" placeholder="https://buy.stripe.com/..." /></div>
-          <div class="adm-group"><label class="adm-lbl">💳 Stripe — Bougie grande (10.90 CHF)</label><input class="adm-in" id="g-stripe-grande" placeholder="https://buy.stripe.com/..." /></div>
-          <div class="adm-group"><label class="adm-lbl">💳 Stripe — Bougie personnalisée</label><input class="adm-in" id="g-stripe-custom" placeholder="https://buy.stripe.com/..." /></div>
-          <div class="adm-group"><label class="adm-lbl">📱 Twint — Numéro de téléphone</label><input class="adm-in" id="g-twint-number" placeholder="+41 78 000 00 00" /></div>
-          <div class="adm-group"><label class="adm-lbl">📱 Twint — Lien de paiement</label><input class="adm-in" id="g-twint-link" placeholder="https://go.twint.ch/..." /></div>
-          <div class="adm-group"><label class="adm-lbl">Localisation (footer)</label><input class="adm-in" id="g-location" /></div>
-          <div class="adm-group"><label class="adm-lbl">Texte du footer</label><textarea class="adm-ta" id="g-footer-desc"></textarea></div>
+        <div class="adm-kpis">
+          <div class="adm-kpi">
+            <div class="adm-kpi-label">Commandes</div>
+            <div class="adm-kpi-val" id="adm-kpi-count">0</div>
+            <div class="adm-kpi-sub" id="adm-kpi-count-sub">au total</div>
+          </div>
+          <div class="adm-kpi">
+            <div class="adm-kpi-label">Chiffre d'affaires</div>
+            <div class="adm-kpi-val" id="adm-kpi-revenue">0 CHF</div>
+            <div class="adm-kpi-sub">sur cet appareil</div>
+          </div>
+          <div class="adm-kpi">
+            <div class="adm-kpi-label">Panier moyen</div>
+            <div class="adm-kpi-val" id="adm-kpi-avg">0 CHF</div>
+            <div class="adm-kpi-sub">par commande</div>
+          </div>
+          <div class="adm-kpi">
+            <div class="adm-kpi-label">7 derniers jours</div>
+            <div class="adm-kpi-val" id="adm-kpi-week">0</div>
+            <div class="adm-kpi-sub">nouvelles commandes</div>
+          </div>
         </div>
 
-        <!-- ACCUEIL -->
-        <div class="adm-section" id="adm-accueil">
-          <div class="adm-sub">Hero</div>
-          <div class="adm-row">
-            <div class="adm-group"><label class="adm-lbl">Titre (ex: Bougies)</label><input class="adm-in" id="a-hero-t" /></div>
-            <div class="adm-group"><label class="adm-lbl">Titre en italique</label><input class="adm-in" id="a-hero-em" /></div>
-          </div>
-          <div class="adm-group"><label class="adm-lbl">Sous-titre</label><input class="adm-in" id="a-hero-sub" /></div>
-          <div class="adm-group"><label class="adm-lbl">Description</label><textarea class="adm-ta" id="a-hero-desc"></textarea></div>
-          <div class="adm-row">
-            <div class="adm-group"><label class="adm-lbl">Bouton 1</label><input class="adm-in" id="a-hero-btn1" /></div>
-            <div class="adm-group"><label class="adm-lbl">Bouton 2</label><input class="adm-in" id="a-hero-btn2" /></div>
-          </div>
-          <div class="adm-sep"></div>
-          <div class="adm-sub">Section collections</div>
-          <div class="adm-group"><label class="adm-lbl">Eyebrow</label><input class="adm-in" id="a-coll-title" /></div>
-          <div class="adm-group"><label class="adm-lbl">Sous-titre</label><input class="adm-in" id="a-coll-sub" /></div>
-          <div class="adm-sep"></div>
-          <div class="adm-sub">Section produit vedette</div>
-          <div class="adm-row">
-            <div class="adm-group"><label class="adm-lbl">Tag photo</label><input class="adm-in" id="a-feat-tag" /></div>
-            <div class="adm-group"><label class="adm-lbl">Eyebrow</label><input class="adm-in" id="a-feat-ey" /></div>
-          </div>
-          <div class="adm-row">
-            <div class="adm-group"><label class="adm-lbl">Titre</label><input class="adm-in" id="a-feat-t" /></div>
-            <div class="adm-group"><label class="adm-lbl">Titre italique</label><input class="adm-in" id="a-feat-em" /></div>
-          </div>
-          <div class="adm-group"><label class="adm-lbl">Spec 1</label><input class="adm-in" id="a-spec1" /></div>
-          <div class="adm-group"><label class="adm-lbl">Spec 2</label><input class="adm-in" id="a-spec2" /></div>
-          <div class="adm-group"><label class="adm-lbl">Spec 3</label><input class="adm-in" id="a-spec3" /></div>
-          <div class="adm-group"><label class="adm-lbl">Spec 4</label><input class="adm-in" id="a-spec4" /></div>
-          <div class="adm-sep"></div>
-          <div class="adm-sub">Section CTA (bannière rose)</div>
-          <div class="adm-row">
-            <div class="adm-group"><label class="adm-lbl">Titre</label><input class="adm-in" id="a-cta-t" /></div>
-            <div class="adm-group"><label class="adm-lbl">Titre italique</label><input class="adm-in" id="a-cta-em" /></div>
-          </div>
-          <div class="adm-group"><label class="adm-lbl">Description</label><textarea class="adm-ta" id="a-cta-desc"></textarea></div>
-          <div class="adm-group"><label class="adm-lbl">Texte du bouton</label><input class="adm-in" id="a-cta-btn" /></div>
-          <div class="adm-sep"></div>
-          <div class="adm-sub">3 valeurs</div>
-          <div class="adm-row"><div class="adm-group"><label class="adm-lbl">Icône 1</label><input class="adm-in" id="a-v1ic" /></div><div class="adm-group"><label class="adm-lbl">Titre 1</label><input class="adm-in" id="a-v1t" /></div></div>
-          <div class="adm-group"><label class="adm-lbl">Texte 1</label><input class="adm-in" id="a-v1p" /></div>
-          <div class="adm-row"><div class="adm-group"><label class="adm-lbl">Icône 2</label><input class="adm-in" id="a-v2ic" /></div><div class="adm-group"><label class="adm-lbl">Titre 2</label><input class="adm-in" id="a-v2t" /></div></div>
-          <div class="adm-group"><label class="adm-lbl">Texte 2</label><input class="adm-in" id="a-v2p" /></div>
-          <div class="adm-row"><div class="adm-group"><label class="adm-lbl">Icône 3</label><input class="adm-in" id="a-v3ic" /></div><div class="adm-group"><label class="adm-lbl">Titre 3</label><input class="adm-in" id="a-v3t" /></div></div>
-          <div class="adm-group"><label class="adm-lbl">Texte 3</label><input class="adm-in" id="a-v3p" /></div>
-          <div class="adm-sep"></div>
-          <div class="adm-sub">Section sur mesure</div>
-          <div class="adm-row">
-            <div class="adm-group"><label class="adm-lbl">Eyebrow</label><input class="adm-in" id="a-cust-ey" /></div>
-            <div class="adm-group"><label class="adm-lbl">Titre</label><input class="adm-in" id="a-cust-t" /></div>
-          </div>
-          <div class="adm-group"><label class="adm-lbl">Titre italique</label><input class="adm-in" id="a-cust-em" /></div>
-          <div class="adm-group"><label class="adm-lbl">Description</label><textarea class="adm-ta" id="a-cust-desc"></textarea></div>
-          <div class="adm-group"><label class="adm-lbl">Titre formulaire</label><input class="adm-in" id="a-cust-ft" /></div>
-          <div class="adm-group"><label class="adm-lbl">Sous-titre formulaire</label><textarea class="adm-ta" id="a-cust-fs" style="min-height:55px"></textarea></div>
-        </div>
-
-        <!-- BOUTIQUE -->
-        <div class="adm-section" id="adm-boutique">
-          <div class="adm-sub">Collection Fête des Mères</div>
-          <div class="adm-group"><label class="adm-lbl">Affichage</label>
-            <div class="adm-toggle">
-              <label><input type="radio" name="adm-val" id="adm-val-on" value="1"/> ✅ Disponible</label>
-              <label><input type="radio" name="adm-val" id="adm-val-off" value="0"/> 🚫 Masquée</label>
+        <div class="adm-chart-card">
+          <div class="adm-chart-hd">
+            <span>Évolution des ventes</span>
+            <div class="adm-seg">
+              <button class="on" id="adm-seg-14" onclick="setAdmRange(14)">14j</button>
+              <button id="adm-seg-30" onclick="setAdmRange(30)">30j</button>
+              <button id="adm-seg-90" onclick="setAdmRange(90)">90j</button>
             </div>
           </div>
-          <div class="adm-group"><label class="adm-lbl">Nom de la collection</label><input class="adm-in" id="b-vcol" /></div>
-          <div class="adm-group"><label class="adm-lbl">Nom du produit</label><input class="adm-in" id="b-vname" /></div>
-          <div class="adm-group"><label class="adm-lbl">Description</label><textarea class="adm-ta" id="b-vdesc"></textarea></div>
-          <div class="adm-row">
-            <div class="adm-group"><label class="adm-lbl">Prix petite (CHF)</label><input class="adm-in" id="b-vpp" type="number" step="0.10" min="0" /></div>
-            <div class="adm-group"><label class="adm-lbl">Prix grande (CHF)</label><input class="adm-in" id="b-vpg" type="number" step="0.10" min="0" /></div>
-          </div>
+          <div class="adm-chart-wrap"><canvas id="adm-chart"></canvas></div>
         </div>
 
-        <!-- HISTOIRE -->
-        <div class="adm-section" id="adm-about">
-          <div class="adm-sub">Hero page histoire</div>
-          <div class="adm-group"><label class="adm-lbl">Eyebrow</label><input class="adm-in" id="ab-ey" /></div>
-          <div class="adm-row">
-            <div class="adm-group"><label class="adm-lbl">Titre</label><input class="adm-in" id="ab-t" /></div>
-            <div class="adm-group"><label class="adm-lbl">Titre italique</label><input class="adm-in" id="ab-em" /></div>
-          </div>
-          <div class="adm-group"><label class="adm-lbl">Intro</label><textarea class="adm-ta" id="ab-intro"></textarea></div>
-          <div class="adm-sep"></div>
-          <div class="adm-sub">Section fondatrice</div>
-          <div class="adm-group"><label class="adm-lbl">Eyebrow</label><input class="adm-in" id="ab-fey" /></div>
-          <div class="adm-row">
-            <div class="adm-group"><label class="adm-lbl">Titre</label><input class="adm-in" id="ab-ft" /></div>
-            <div class="adm-group"><label class="adm-lbl">Titre italique</label><input class="adm-in" id="ab-fem" /></div>
-          </div>
-          <div class="adm-group"><label class="adm-lbl">Paragraphe 1</label><textarea class="adm-ta" id="ab-p1"></textarea></div>
-          <div class="adm-group"><label class="adm-lbl">Paragraphe 2</label><textarea class="adm-ta" id="ab-p2"></textarea></div>
-          <div class="adm-group"><label class="adm-lbl">Paragraphe 3</label><textarea class="adm-ta" id="ab-p3"></textarea></div>
-          <div class="adm-sep"></div>
-          <div class="adm-sub">4 engagements</div>
-          <div class="adm-row"><div class="adm-group"><label class="adm-lbl">Icône 1</label><input class="adm-in" id="av1ic" /></div><div class="adm-group"><label class="adm-lbl">Titre 1</label><input class="adm-in" id="av1t" /></div></div>
-          <div class="adm-group"><label class="adm-lbl">Texte 1</label><input class="adm-in" id="av1p" /></div>
-          <div class="adm-row"><div class="adm-group"><label class="adm-lbl">Icône 2</label><input class="adm-in" id="av2ic" /></div><div class="adm-group"><label class="adm-lbl">Titre 2</label><input class="adm-in" id="av2t" /></div></div>
-          <div class="adm-group"><label class="adm-lbl">Texte 2</label><input class="adm-in" id="av2p" /></div>
-          <div class="adm-row"><div class="adm-group"><label class="adm-lbl">Icône 3</label><input class="adm-in" id="av3ic" /></div><div class="adm-group"><label class="adm-lbl">Titre 3</label><input class="adm-in" id="av3t" /></div></div>
-          <div class="adm-group"><label class="adm-lbl">Texte 3</label><input class="adm-in" id="av3p" /></div>
-          <div class="adm-row"><div class="adm-group"><label class="adm-lbl">Icône 4</label><input class="adm-in" id="av4ic" /></div><div class="adm-group"><label class="adm-lbl">Titre 4</label><input class="adm-in" id="av4t" /></div></div>
-          <div class="adm-group"><label class="adm-lbl">Texte 4</label><input class="adm-in" id="av4p" /></div>
+        <div class="adm-vt-actions">
+          <button class="adm-vt-btn" onclick="admFillVentes()">🔄 Actualiser</button>
+          <button class="adm-vt-btn" onclick="exportVentesCSV()">⬇️ Export CSV</button>
+          <button class="adm-vt-btn adm-vt-btn-danger" onclick="clearVentes()">🗑️ Vider</button>
         </div>
 
-        <!-- CONTACT -->
-        <div class="adm-section" id="adm-contact">
-          <div class="adm-sub">Hero page commander</div>
-          <div class="adm-group"><label class="adm-lbl">Eyebrow</label><input class="adm-in" id="c-ey" /></div>
-          <div class="adm-row">
-            <div class="adm-group"><label class="adm-lbl">Titre</label><input class="adm-in" id="c-t" /></div>
-            <div class="adm-group"><label class="adm-lbl">Titre italique</label><input class="adm-in" id="c-em" /></div>
-          </div>
-          <div class="adm-group"><label class="adm-lbl">Description</label><textarea class="adm-ta" id="c-intro"></textarea></div>
-          <div class="adm-sep"></div>
-          <div class="adm-sub">Étapes</div>
-          <div class="adm-group"><label class="adm-lbl">Étape 1</label><input class="adm-in" id="c-s1" /></div>
-          <div class="adm-group"><label class="adm-lbl">Étape 2</label><input class="adm-in" id="c-s2" /></div>
-          <div class="adm-group"><label class="adm-lbl">Étape 3</label><input class="adm-in" id="c-s3" /></div>
-          <div class="adm-sep"></div>
-          <div class="adm-sub">Formulaire</div>
-          <div class="adm-group"><label class="adm-lbl">Titre du formulaire</label><input class="adm-in" id="c-ft" /></div>
-          <div class="adm-group"><label class="adm-lbl">Description</label><textarea class="adm-ta" id="c-fs" style="min-height:55px"></textarea></div>
-          <div class="adm-group"><label class="adm-lbl">Note paiement</label><textarea class="adm-ta" id="c-note" style="min-height:55px"></textarea></div>
+        <div class="adm-list-hd">
+          <div class="adm-search"><input id="adm-search" placeholder="Rechercher un nom, un email…" oninput="renderAdmList()"/></div>
+          <span class="adm-count-tag" id="adm-list-count">0 commande</span>
         </div>
+        <div id="adm-orders-list"></div>
 
-        <!-- AVIS -->
-        <div class="adm-section" id="adm-avis">
-          <div class="adm-sub">Avis 1</div>
-          <div class="adm-group"><label class="adm-lbl">Étoiles</label><input class="adm-in" id="t1s" /></div>
-          <div class="adm-group"><label class="adm-lbl">Citation</label><textarea class="adm-ta" id="t1q" style="min-height:65px"></textarea></div>
-          <div class="adm-group"><label class="adm-lbl">Nom</label><input class="adm-in" id="t1n" /></div>
-          <div class="adm-sep"></div>
-          <div class="adm-sub">Avis 2</div>
-          <div class="adm-group"><label class="adm-lbl">Étoiles</label><input class="adm-in" id="t2s" /></div>
-          <div class="adm-group"><label class="adm-lbl">Citation</label><textarea class="adm-ta" id="t2q" style="min-height:65px"></textarea></div>
-          <div class="adm-group"><label class="adm-lbl">Nom</label><input class="adm-in" id="t2n" /></div>
-          <div class="adm-sep"></div>
-          <div class="adm-sub">Avis 3</div>
-          <div class="adm-group"><label class="adm-lbl">Étoiles</label><input class="adm-in" id="t3s" /></div>
-          <div class="adm-group"><label class="adm-lbl">Citation</label><textarea class="adm-ta" id="t3q" style="min-height:65px"></textarea></div>
-          <div class="adm-group"><label class="adm-lbl">Nom</label><input class="adm-in" id="t3n" /></div>
-        </div>
-
-        <!-- VENTES & DEMANDES (employés) -->
-        <div class="adm-section" id="adm-ventes">
-          <div class="adm-tip">💡 Ces données viennent du navigateur utilisé pour la commande/demande, <b>et</b> sont envoyées par email (Formspree) à chaque fois — l'email reste la source la plus fiable si une commande a été passée depuis un autre appareil.</div>
-          <div class="adm-vt-tabs">
-            <button class="adm-vt-tab on" onclick="switchAdmVentesTab('orders',this)">🛒 Commandes (<span id="adm-vt-count-orders">0</span>)</button>
-            <button class="adm-vt-tab" onclick="switchAdmVentesTab('custom',this)">🎨 Demandes personnalisées (<span id="adm-vt-count-custom">0</span>)</button>
-            <button class="adm-vt-tab" onclick="switchAdmVentesTab('messages',this)">✉️ Messages / commandes contact (<span id="adm-vt-count-messages">0</span>)</button>
-          </div>
-
-          <div class="adm-vt-section on" id="adm-vt-orders">
-            <div class="adm-vt-stats" id="adm-vt-stats-orders"></div>
-            <div class="adm-vt-actions">
-              <button class="adm-vt-btn" onclick="admFillVentes()">🔄 Actualiser</button>
-              <button class="adm-vt-btn" onclick="exportVentesCSV('yumiya_orders','commandes')">⬇️ Export CSV</button>
-              <button class="adm-vt-btn adm-vt-btn-danger" onclick="clearVentes('yumiya_orders','commandes')">🗑️ Vider</button>
-            </div>
-            <div id="adm-vt-table-orders"></div>
-          </div>
-
-          <div class="adm-vt-section" id="adm-vt-custom">
-            <div class="adm-vt-actions">
-              <button class="adm-vt-btn" onclick="admFillVentes()">🔄 Actualiser</button>
-              <button class="adm-vt-btn" onclick="exportVentesCSV('yumiya_custom_requests','demandes_personnalisees')">⬇️ Export CSV</button>
-              <button class="adm-vt-btn adm-vt-btn-danger" onclick="clearVentes('yumiya_custom_requests','demandes personnalisées')">🗑️ Vider</button>
-            </div>
-            <div id="adm-vt-table-custom"></div>
-          </div>
-
-          <div class="adm-vt-section" id="adm-vt-messages">
-            <div class="adm-vt-actions">
-              <button class="adm-vt-btn" onclick="admFillVentes()">🔄 Actualiser</button>
-              <button class="adm-vt-btn" onclick="exportVentesCSV('yumiya_contact_orders','messages_contact')">⬇️ Export CSV</button>
-              <button class="adm-vt-btn adm-vt-btn-danger" onclick="clearVentes('yumiya_contact_orders','messages')">🗑️ Vider</button>
-            </div>
-            <div id="adm-vt-table-messages"></div>
-          </div>
-        </div>
-
-      </div>
-      <div class="adm-ft">
-        <button class="adm-save" id="adm-save-btn" onclick="admSave()">💾 Enregistrer & appliquer</button>
-        <button class="adm-reset" onclick="admReset()">↺ Reset</button>
       </div>
     </div>
   </div>
@@ -1888,271 +1715,149 @@ function checkAdminPw() {
     setTimeout(() => document.getElementById('adm-pw-err').style.display = 'none', 2000);
   }
 }
+
+/* ── Tableau de bord commandes ── */
+let admChartInstance = null;
+let admRange = 14;
+
 function openAdminPanel() {
-  admFill();
-  admFillVentes();
   document.getElementById('adm-overlay').classList.add('on');
   document.body.style.overflow = 'hidden';
+  admFillVentes();
 }
 function closeAdminPanel() {
   document.getElementById('adm-overlay').classList.remove('on');
   document.body.style.overflow = '';
 }
-function switchAdmTab(tab, el) {
-  document.querySelectorAll('.adm-tab').forEach(t => t.classList.remove('on')); el.classList.add('on');
-  document.querySelectorAll('.adm-section').forEach(s => s.classList.remove('on'));
-  document.getElementById('adm-' + tab).classList.add('on');
-  if (tab === 'ventes') admFillVentes();
-}
-function switchAdmVentesTab(tab, el) {
-  document.querySelectorAll('.adm-vt-tab').forEach(t => t.classList.remove('on')); el.classList.add('on');
-  document.querySelectorAll('.adm-vt-section').forEach(s => s.classList.remove('on'));
-  document.getElementById('adm-vt-' + tab).classList.add('on');
-}
-
-/* ── Ventes & demandes (employés) ── */
-function admVtEscape(s) {
+function admEscape(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
   });
 }
-function admVtGet(key) {
-  try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) { return []; }
+function admParseAmount(m) {
+  var v = parseFloat(String(m || '').replace(',', '.').replace(/[^\d.]/g, ''));
+  return isNaN(v) ? 0 : v;
+}
+function admParseDate(d) {
+  var m = String(d || '').match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+  if (!m) return null;
+  return new Date(parseInt(m[3]), parseInt(m[2]) - 1, parseInt(m[1]));
+}
+function admGetOrders() {
+  try { return JSON.parse(localStorage.getItem('yumiya_orders') || '[]'); } catch(e) { return []; }
 }
 function admFillVentes() {
-  var orders = admVtGet('yumiya_orders').slice().reverse();
-  var custom = admVtGet('yumiya_custom_requests').slice().reverse();
-  var messages = admVtGet('yumiya_contact_orders').slice().reverse();
+  var orders = admGetOrders();
+  admRenderKPIs(orders);
+  admRenderChart(orders);
+  renderAdmList();
+}
+function admRenderKPIs(orders) {
+  var total = orders.length;
+  var revenue = orders.reduce(function(s, o) { return s + admParseAmount(o.montant); }, 0);
+  var avg = total ? revenue / total : 0;
+  var weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
+  var week = orders.filter(function(o) { var d = admParseDate(o.date); return d && d >= weekAgo; }).length;
 
-  document.getElementById('adm-vt-count-orders').textContent = orders.length;
-  document.getElementById('adm-vt-count-custom').textContent = custom.length;
-  document.getElementById('adm-vt-count-messages').textContent = messages.length;
-
-  // Stats commandes
-  var total = 0, nb = 0;
+  document.getElementById('adm-kpi-count').textContent = total;
+  document.getElementById('adm-kpi-count-sub').textContent = total > 1 ? 'commandes au total' : 'commande au total';
+  document.getElementById('adm-kpi-revenue').textContent = revenue.toFixed(2) + ' CHF';
+  document.getElementById('adm-kpi-avg').textContent = avg.toFixed(2) + ' CHF';
+  document.getElementById('adm-kpi-week').textContent = week;
+}
+function setAdmRange(n) {
+  admRange = n;
+  ['14','30','90'].forEach(function(r) { document.getElementById('adm-seg-' + r).classList.toggle('on', String(n) === r); });
+  admRenderChart(admGetOrders());
+}
+function admRenderChart(orders) {
+  var days = [];
+  var today = new Date(); today.setHours(0,0,0,0);
+  for (var i = admRange - 1; i >= 0; i--) {
+    var d = new Date(today); d.setDate(d.getDate() - i);
+    days.push(d);
+  }
+  var revenueByDay = days.map(function() { return 0; });
+  var countByDay = days.map(function() { return 0; });
   orders.forEach(function(o) {
-    var v = parseFloat(String(o.montant || '').replace(',', '.').replace(/[^\d.]/g, ''));
-    if (!isNaN(v)) { total += v; nb++; }
+    var d = admParseDate(o.date);
+    if (!d) return;
+    d.setHours(0,0,0,0);
+    days.forEach(function(day, i) {
+      if (day.getTime() === d.getTime()) { revenueByDay[i] += admParseAmount(o.montant); countByDay[i] += 1; }
+    });
   });
-  document.getElementById('adm-vt-stats-orders').innerHTML =
-    '<b>' + orders.length + '</b> commande' + (orders.length > 1 ? 's' : '') +
-    (nb ? '  ·  <b>' + total.toFixed(2) + ' CHF</b> de ventes enregistrées (sur cet appareil)' : '');
+  var labels = days.map(function(d) { return d.toLocaleDateString('fr-CH', { day: '2-digit', month: '2-digit' }); });
 
-  admVtRenderOrders(orders);
-  admVtRenderCustom(custom);
-  admVtRenderMessages(messages);
+  if (admChartInstance) admChartInstance.destroy();
+  var canvas = document.getElementById('adm-chart');
+  if (!canvas || typeof Chart === 'undefined') return;
+  var ctx = canvas.getContext('2d');
+  admChartInstance = new Chart(ctx, {
+    data: {
+      labels: labels,
+      datasets: [
+        { type: 'bar', label: "Chiffre d'affaires (CHF)", data: revenueByDay, backgroundColor: 'rgba(200,69,90,.75)', borderRadius: 4, yAxisID: 'y', order: 2 },
+        { type: 'line', label: 'Nombre de commandes', data: countByDay, borderColor: '#b8883a', backgroundColor: '#b8883a', tension: .35, pointRadius: 3, yAxisID: 'y1', order: 1 }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { position: 'top', labels: { color: 'rgba(255,255,255,.6)', font: { family: 'DM Sans', size: 10 }, boxWidth: 10, usePointStyle: true } } },
+      scales: {
+        y: { beginAtZero: true, position: 'left', grid: { color: 'rgba(255,255,255,.06)' }, ticks: { color: 'rgba(255,255,255,.4)', font: { size: 9 } } },
+        y1: { beginAtZero: true, position: 'right', grid: { display: false }, ticks: { color: 'rgba(255,255,255,.4)', precision: 0, font: { size: 9 } } },
+        x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,.4)', font: { size: 9 } } }
+      }
+    }
+  });
 }
-function admVtRenderOrders(list) {
-  var el = document.getElementById('adm-vt-table-orders');
-  if (!list.length) { el.innerHTML = '<div class="adm-vt-empty">Aucune commande enregistrée sur ce navigateur pour l\'instant.</div>'; return; }
+function renderAdmList() {
+  var q = (document.getElementById('adm-search').value || '').trim().toLowerCase();
+  var list = admGetOrders().slice().reverse();
+  if (q) {
+    list = list.filter(function(o) { return (o.prenom + ' ' + o.nom + ' ' + o.email).toLowerCase().indexOf(q) !== -1; });
+  }
+  document.getElementById('adm-list-count').textContent = list.length + (list.length > 1 ? ' commandes' : ' commande');
+  var el = document.getElementById('adm-orders-list');
+  if (!list.length) {
+    el.innerHTML = '<div class="adm-vt-empty">' + (admGetOrders().length ? 'Aucun résultat pour cette recherche.' : 'Aucune commande enregistrée sur ce navigateur pour l\'instant.') + '</div>';
+    return;
+  }
   el.innerHTML = list.map(function(o) {
-    return '<div class="adm-vt-card">' +
-      '<div class="adm-vt-card-top"><span class="adm-vt-card-name">' + admVtEscape(o.prenom) + ' ' + admVtEscape(o.nom) + '</span>' +
-      '<span class="adm-vt-card-amt">' + admVtEscape(o.montant || '—') + '</span></div>' +
-      '<div class="adm-vt-card-date">' + admVtEscape(o.date) + '</div>' +
-      '<div class="adm-vt-card-row"><b>Commande :</b> ' + admVtEscape(o.commande) + '</div>' +
-      '<div class="adm-vt-card-row"><b>Email :</b> ' + admVtEscape(o.email) + '  ·  <b>Tél :</b> ' + admVtEscape(o.telephone) + '</div>' +
-      '<div class="adm-vt-card-row"><b>Adresse :</b> ' + admVtEscape(o.adresse) + ', ' + admVtEscape(o.npa) + ' ' + admVtEscape(o.ville) + '</div>' +
+    return '<div class="adm-vt-card" onclick="this.classList.toggle(\'open\')">' +
+      '<div class="adm-vt-card-top"><span class="adm-vt-card-name">' + admEscape(o.prenom) + ' ' + admEscape(o.nom) + '</span>' +
+      '<span class="adm-vt-card-amt">' + admEscape(o.montant || '—') + '</span></div>' +
+      '<div class="adm-vt-card-date">' + admEscape(o.date) + '</div>' +
+      '<div class="adm-vt-card-brief">' + admEscape(o.commande) + '</div>' +
+      '<div class="adm-vt-card-detail">' +
+        '<div class="adm-vt-card-row"><b>Commande :</b> ' + admEscape(o.commande) + '</div>' +
+        '<div class="adm-vt-card-row"><b>Email :</b> ' + admEscape(o.email) + '  ·  <b>Tél :</b> ' + admEscape(o.telephone) + '</div>' +
+        '<div class="adm-vt-card-row"><b>Adresse :</b> ' + admEscape(o.adresse) + ', ' + admEscape(o.npa) + ' ' + admEscape(o.ville) + '</div>' +
+      '</div>' +
       '</div>';
   }).join('');
 }
-function admVtRenderCustom(list) {
-  var el = document.getElementById('adm-vt-table-custom');
-  if (!list.length) { el.innerHTML = '<div class="adm-vt-empty">Aucune demande de personnalisation enregistrée sur ce navigateur pour l\'instant.</div>'; return; }
-  el.innerHTML = list.map(function(r) {
-    return '<div class="adm-vt-card">' +
-      '<div class="adm-vt-card-top"><span class="adm-vt-card-name">' + admVtEscape(r.prenom) + '</span>' +
-      '<span class="adm-vt-card-amt">' + admVtEscape(r.occasion || '') + '</span></div>' +
-      '<div class="adm-vt-card-date">' + admVtEscape(r.date) + '</div>' +
-      '<div class="adm-vt-card-row"><b>Email :</b> ' + admVtEscape(r.email) + (r.instagram ? '  ·  <b>Insta :</b> ' + admVtEscape(r.instagram) : '') + '</div>' +
-      '<div class="adm-vt-card-row"><b>Senteur(s) :</b> ' + admVtEscape(r.senteur || '—') + '  ·  <b>Quantité :</b> ' + admVtEscape(r.quantite || '—') + '</div>' +
-      '<div class="adm-vt-card-row"><b>Couleurs / ambiance :</b> ' + admVtEscape(r.couleurs || '—') + '</div>' +
-      '<div class="adm-vt-card-row"><b>Vision :</b> ' + admVtEscape(r.vision) + '</div>' +
-      '</div>';
-  }).join('');
-}
-function admVtRenderMessages(list) {
-  var el = document.getElementById('adm-vt-table-messages');
-  if (!list.length) { el.innerHTML = '<div class="adm-vt-empty">Aucun message / commande via la page Contact pour l\'instant.</div>'; return; }
-  el.innerHTML = list.map(function(m) {
-    return '<div class="adm-vt-card">' +
-      '<div class="adm-vt-card-top"><span class="adm-vt-card-name">' + admVtEscape(m.prenom) + '</span>' +
-      '<span class="adm-vt-card-amt">' + admVtEscape(m.montant || '') + '</span></div>' +
-      '<div class="adm-vt-card-date">' + admVtEscape(m.date) + '</div>' +
-      '<div class="adm-vt-card-row"><b>Type :</b> ' + admVtEscape(m.type) + '  ·  <b>Email :</b> ' + admVtEscape(m.email) + (m.instagram ? '  ·  <b>Insta :</b> ' + admVtEscape(m.instagram) : '') + '</div>' +
-      (m.produit ? '<div class="adm-vt-card-row"><b>Produit :</b> ' + admVtEscape(m.produit) + '</div>' : '') +
-      (m.occasion || m.senteur ? '<div class="adm-vt-card-row"><b>Occasion :</b> ' + admVtEscape(m.occasion || '—') + '  ·  <b>Senteur :</b> ' + admVtEscape(m.senteur || '—') + '</div>' : '') +
-      '<div class="adm-vt-card-row"><b>Adresse :</b> ' + admVtEscape(m.adresse) + '</div>' +
-      (m.message ? '<div class="adm-vt-card-row"><b>Message :</b> ' + admVtEscape(m.message) + '</div>' : '') +
-      '</div>';
-  }).join('');
-}
-function exportVentesCSV(key, filename) {
-  var list = admVtGet(key);
+function exportVentesCSV() {
+  var list = admGetOrders();
   if (!list.length) { alert('Rien à exporter pour le moment.'); return; }
-  var cols = Object.keys(list.reduce(function(a, o) { return Object.assign(a, o); }, {}));
+  var cols = ['date','prenom','nom','email','telephone','adresse','npa','ville','commande','montant'];
   var rows = [cols.join(';')].concat(list.map(function(o) {
     return cols.map(function(c) { return '"' + String(o[c] == null ? '' : o[c]).replace(/"/g, '""') + '"'; }).join(';');
   }));
   var blob = new Blob(['\uFEFF' + rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
   var a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = filename + '_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.download = 'commandes_yumiya_' + new Date().toISOString().slice(0,10) + '.csv';
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
 }
-function clearVentes(key, label) {
-  if (!confirm('Effacer définitivement les ' + label + ' enregistrées sur ce navigateur ?\n(Les emails déjà envoyés ne sont pas affectés.)')) return;
-  localStorage.removeItem(key);
+function clearVentes() {
+  if (!confirm('Effacer définitivement toutes les commandes enregistrées sur ce navigateur ?\n(Les emails déjà envoyés ne sont pas affectés.)')) return;
+  localStorage.removeItem('yumiya_orders');
   admFillVentes();
 }
-
-function admFill() {
-  // Général
-  document.getElementById('g-name').value = D.site_name;
-  document.getElementById('g-insta').value = D.site_instagram;
-  document.getElementById('g-email').value = D.site_email;
-  document.getElementById('g-stripe-petite').value = D.stripe_petite || '';
-  document.getElementById('g-stripe-grande').value = D.stripe_grande || '';
-  document.getElementById('g-stripe-custom').value = D.stripe_custom || '';
-  document.getElementById('g-twint-number').value = D.twint_number || '';
-  document.getElementById('g-twint-link').value = D.twint_link || '';
-  document.getElementById('g-location').value = D.site_location;
-  document.getElementById('g-footer-desc').value = D.footer_desc;
-  // Accueil
-  document.getElementById('a-hero-t').value = D.hero_title;
-  document.getElementById('a-hero-em').value = D.hero_title_em;
-  document.getElementById('a-hero-sub').value = D.hero_subtitle;
-  document.getElementById('a-hero-desc').value = D.hero_desc;
-  document.getElementById('a-hero-btn1').value = D.hero_btn1;
-  document.getElementById('a-hero-btn2').value = D.hero_btn2;
-  document.getElementById('a-coll-title').value = D.coll_title;
-  document.getElementById('a-coll-sub').value = D.coll_subtitle;
-  document.getElementById('a-feat-tag').value = D.feat_tag;
-  document.getElementById('a-feat-ey').value = D.feat_eyebrow;
-  document.getElementById('a-feat-t').value = D.feat_title;
-  document.getElementById('a-feat-em').value = D.feat_title_em;
-  document.getElementById('a-spec1').value = D.feat_spec1;
-  document.getElementById('a-spec2').value = D.feat_spec2;
-  document.getElementById('a-spec3').value = D.feat_spec3;
-  document.getElementById('a-spec4').value = D.feat_spec4;
-  document.getElementById('a-cta-t').value = D.cta_title;
-  document.getElementById('a-cta-em').value = D.cta_title_em;
-  document.getElementById('a-cta-desc').value = D.cta_desc;
-  document.getElementById('a-cta-btn').value = D.cta_btn;
-  document.getElementById('a-v1ic').value = D.val1_ic; document.getElementById('a-v1t').value = D.val1_t; document.getElementById('a-v1p').value = D.val1_p;
-  document.getElementById('a-v2ic').value = D.val2_ic; document.getElementById('a-v2t').value = D.val2_t; document.getElementById('a-v2p').value = D.val2_p;
-  document.getElementById('a-v3ic').value = D.val3_ic; document.getElementById('a-v3t').value = D.val3_t; document.getElementById('a-v3p').value = D.val3_p;
-  document.getElementById('a-cust-ey').value = D.custom_eyebrow;
-  document.getElementById('a-cust-t').value = D.custom_title;
-  document.getElementById('a-cust-em').value = D.custom_title_em;
-  document.getElementById('a-cust-desc').value = D.custom_desc;
-  document.getElementById('a-cust-ft').value = D.custom_form_title;
-  document.getElementById('a-cust-fs').value = D.custom_form_sub;
-  // Boutique
-  document.getElementById('adm-val-on').checked = D.val_active;
-  document.getElementById('adm-val-off').checked = !D.val_active;
-  document.getElementById('b-vcol').value = D.val_collection;
-  document.getElementById('b-vname').value = D.val_name;
-  document.getElementById('b-vdesc').value = D.val_desc;
-  document.getElementById('b-vpp').value = D.val_price_petite;
-  document.getElementById('b-vpg').value = D.val_price_grande;
-  // Histoire
-  document.getElementById('ab-ey').value = D.about_eyebrow;
-  document.getElementById('ab-t').value = D.about_title;
-  document.getElementById('ab-em').value = D.about_title_em;
-  document.getElementById('ab-intro').value = D.about_intro;
-  document.getElementById('ab-fey').value = D.about_founder_eyebrow;
-  document.getElementById('ab-ft').value = D.about_founder_title;
-  document.getElementById('ab-fem').value = D.about_founder_title_em;
-  document.getElementById('ab-p1').value = D.about_p1;
-  document.getElementById('ab-p2').value = D.about_p2;
-  document.getElementById('ab-p3').value = D.about_p3;
-  document.getElementById('av1ic').value = D.av1_ic; document.getElementById('av1t').value = D.av1_t; document.getElementById('av1p').value = D.av1_p;
-  document.getElementById('av2ic').value = D.av2_ic; document.getElementById('av2t').value = D.av2_t; document.getElementById('av2p').value = D.av2_p;
-  document.getElementById('av3ic').value = D.av3_ic; document.getElementById('av3t').value = D.av3_t; document.getElementById('av3p').value = D.av3_p;
-  document.getElementById('av4ic').value = D.av4_ic; document.getElementById('av4t').value = D.av4_t; document.getElementById('av4p').value = D.av4_p;
-  // Contact
-  document.getElementById('c-ey').value = D.contact_eyebrow;
-  document.getElementById('c-t').value = D.contact_title;
-  document.getElementById('c-em').value = D.contact_title_em;
-  document.getElementById('c-intro').value = D.contact_intro;
-  document.getElementById('c-s1').value = D.contact_step1;
-  document.getElementById('c-s2').value = D.contact_step2;
-  document.getElementById('c-s3').value = D.contact_step3;
-  document.getElementById('c-ft').value = D.contact_form_title;
-  document.getElementById('c-fs').value = D.contact_form_sub;
-  document.getElementById('c-note').value = D.contact_note;
-  // Avis
-  document.getElementById('t1s').value = D.testi1_stars; document.getElementById('t1q').value = D.testi1_quote; document.getElementById('t1n').value = D.testi1_name;
-  document.getElementById('t2s').value = D.testi2_stars; document.getElementById('t2q').value = D.testi2_quote; document.getElementById('t2n').value = D.testi2_name;
-  document.getElementById('t3s').value = D.testi3_stars; document.getElementById('t3q').value = D.testi3_quote; document.getElementById('t3n').value = D.testi3_name;
-}
-
-function admSave() {
-  const g = id => document.getElementById(id)?.value || '';
-  const gb = id => document.getElementById(id)?.checked || false;
-  const gf = id => parseFloat(document.getElementById(id)?.value) || 0;
-
-  D.site_name = g('g-name'); D.site_instagram = g('g-insta'); D.site_email = g('g-email');
-  D.stripe_paylink = '';
-  D.stripe_petite = g('g-stripe-petite');
-  D.stripe_grande = g('g-stripe-grande');
-  D.stripe_custom = g('g-stripe-custom');
-  D.twint_number = g('g-twint-number');
-  D.twint_link = g('g-twint-link');
-  D.site_location = g('g-location'); D.footer_desc = g('g-footer-desc');
-  D.hero_title = g('a-hero-t'); D.hero_title_em = g('a-hero-em'); D.hero_subtitle = g('a-hero-sub');
-  D.hero_desc = g('a-hero-desc'); D.hero_btn1 = g('a-hero-btn1'); D.hero_btn2 = g('a-hero-btn2');
-  D.coll_title = g('a-coll-title'); D.coll_subtitle = g('a-coll-sub');
-  D.feat_tag = g('a-feat-tag'); D.feat_eyebrow = g('a-feat-ey'); D.feat_title = g('a-feat-t'); D.feat_title_em = g('a-feat-em');
-  D.feat_spec1 = g('a-spec1'); D.feat_spec2 = g('a-spec2'); D.feat_spec3 = g('a-spec3'); D.feat_spec4 = g('a-spec4');
-  D.cta_title = g('a-cta-t'); D.cta_title_em = g('a-cta-em'); D.cta_desc = g('a-cta-desc'); D.cta_btn = g('a-cta-btn');
-  D.val1_ic = g('a-v1ic'); D.val1_t = g('a-v1t'); D.val1_p = g('a-v1p');
-  D.val2_ic = g('a-v2ic'); D.val2_t = g('a-v2t'); D.val2_p = g('a-v2p');
-  D.val3_ic = g('a-v3ic'); D.val3_t = g('a-v3t'); D.val3_p = g('a-v3p');
-  D.custom_eyebrow = g('a-cust-ey'); D.custom_title = g('a-cust-t'); D.custom_title_em = g('a-cust-em');
-  D.custom_desc = g('a-cust-desc'); D.custom_form_title = g('a-cust-ft'); D.custom_form_sub = g('a-cust-fs');
-  D.val_active = gb('adm-val-on');
-  D.spring_active = true;
-  D.spring1_price = 6.30;
-  D.spring2_price = 6.30;
-  D.box_price = 13.30;
-  D.val_collection = g('b-vcol'); D.val_name = g('b-vname'); D.val_desc = g('b-vdesc');
-  D.val_price_petite = gf('b-vpp'); D.val_price_grande = gf('b-vpg');
-  D.about_eyebrow = g('ab-ey'); D.about_title = g('ab-t'); D.about_title_em = g('ab-em'); D.about_intro = g('ab-intro');
-  D.about_founder_eyebrow = g('ab-fey'); D.about_founder_title = g('ab-ft'); D.about_founder_title_em = g('ab-fem');
-  D.about_p1 = g('ab-p1'); D.about_p2 = g('ab-p2'); D.about_p3 = g('ab-p3');
-  D.av1_ic = g('av1ic'); D.av1_t = g('av1t'); D.av1_p = g('av1p');
-  D.av2_ic = g('av2ic'); D.av2_t = g('av2t'); D.av2_p = g('av2p');
-  D.av3_ic = g('av3ic'); D.av3_t = g('av3t'); D.av3_p = g('av3p');
-  D.av4_ic = g('av4ic'); D.av4_t = g('av4t'); D.av4_p = g('av4p');
-  D.contact_eyebrow = g('c-ey'); D.contact_title = g('c-t'); D.contact_title_em = g('c-em');
-  D.contact_intro = g('c-intro'); D.contact_step1 = g('c-s1'); D.contact_step2 = g('c-s2'); D.contact_step3 = g('c-s3');
-  D.contact_form_title = g('c-ft'); D.contact_form_sub = g('c-fs'); D.contact_note = g('c-note');
-  D.testi1_stars = g('t1s'); D.testi1_quote = g('t1q'); D.testi1_name = g('t1n');
-  D.testi2_stars = g('t2s'); D.testi2_quote = g('t2q'); D.testi2_name = g('t2n');
-  D.testi3_stars = g('t3s'); D.testi3_quote = g('t3q'); D.testi3_name = g('t3n');
-
-  saveD();
-  // Remember current page before re-render
-  const curPg = document.querySelector('.pg.on')?.id?.replace('pg-','') || 'home';
-  render(); initCursor();
-  navigate(curPg);
-  closeAdminPanel();
-
-  // Flash button
-  const btn = document.getElementById('adm-save-btn');
-  if(btn) { btn.textContent = '✓ Enregistré !'; btn.style.background = '#2d8a4e'; setTimeout(() => { btn.textContent = '💾 Enregistrer & appliquer'; btn.style.background = ''; openAdminPanel(); }, 1500); }
-}
-
-function admReset() {
-  if (!confirm('Remettre tous les textes par défaut ?')) return;
-  localStorage.removeItem('yumiya_site_data');
-  D = JSON.parse(JSON.stringify(DEFAULT_DATA));
-  const curPg = document.querySelector('.pg.on')?.id?.replace('pg-','') || 'home';
-  render(); initCursor(); navigate(curPg);
-}
-
 </script>
 
 <!-- ═══ YUMIYA CHATBOT ═══ -->
