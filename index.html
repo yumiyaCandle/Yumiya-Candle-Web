@@ -1121,9 +1121,10 @@ function render() {
     <div class="adm-login-box">
       <div class="adm-login-ic">⚙️</div>
       <div class="adm-login-t" style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:500">Accès admin</div>
-      <p class="adm-login-s" style="font-size:.82rem;color:var(--muted);margin-bottom:1.4rem;font-weight:300">Entre le mot de passe pour modifier le site</p>
+      <p class="adm-login-s" style="font-size:.82rem;color:var(--muted);margin-bottom:1.4rem;font-weight:300">Entre le mot de passe pour accéder aux commandes</p>
       <input id="adm-pw" class="adm-login-pw" type="password" placeholder="Mot de passe…"/>
       <div id="adm-pw-err" class="adm-login-err">❌ Mot de passe incorrect</div>
+      <div id="adm-pw-lock" class="adm-login-err" style="display:none">⏳ Trop d'essais — réessaie dans <span id="adm-pw-lock-t"></span></div>
       <div class="adm-login-btns" style="display:flex;gap:.6rem;margin-top:.3rem">
         <button onclick="checkAdminPw()" style="flex:1;padding:.82rem;background:var(--rose);color:#fff;border:none;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-weight:500">Entrer</button>
         <button onclick="closeAdminLogin()" style="flex:1;padding:.82rem;background:transparent;color:var(--muted);border:1.5px solid var(--peach);border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer">Annuler</button>
@@ -1135,7 +1136,7 @@ function render() {
   <div class="adm-overlay" id="adm-overlay">
     <div class="adm-panel">
       <div class="adm-hd">
-        <div><div class="adm-hd-title">🕯️ Commandes</div><div class="adm-hd-sub">Triple-clic logo · Mot de passe : yumiya2025</div></div>
+        <div><div class="adm-hd-title">🕯️ Commandes</div><div class="adm-hd-sub">Accès protégé</div></div>
         <button class="adm-close-btn" onclick="closeAdminPanel()">✕</button>
       </div>
       <div class="adm-body">
@@ -1680,8 +1681,43 @@ setTimeout(doReveal, 100);
 /* ═══════════════════════════════════════════════
    ADMIN
    ═══════════════════════════════════════════════ */
-const ADMIN_PW = 'yumiya2025';
+// Le mot de passe n'est jamais stocké en clair : seule son empreinte SHA-256 est présente ici.
+// Pour changer le mot de passe : ouvre la console du navigateur sur ce site et tape
+//   crypto.subtle.digest('SHA-256', new TextEncoder().encode('TON_NOUVEAU_MOT_DE_PASSE')).then(b=>console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
+// puis remplace la valeur ci-dessous par le résultat affiché.
+const ADMIN_PW_HASH = 'ce10cf7a379b50a469891d654f7a26a957a07c77a32250bf3723df82b964fd72';
 let adminUnlocked = false;
+const ADM_LOCK_KEY = 'yumiya_adm_lock';
+const ADM_MAX_TRIES = 5;
+const ADM_LOCK_MS = 5 * 60 * 1000; // 5 minutes
+
+async function admHash(txt) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(txt));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+function admGetLock() {
+  try { return JSON.parse(localStorage.getItem(ADM_LOCK_KEY) || 'null') || { tries: 0, until: 0 }; }
+  catch(e) { return { tries: 0, until: 0 }; }
+}
+function admSetLock(v) { localStorage.setItem(ADM_LOCK_KEY, JSON.stringify(v)); }
+function admCheckLockUI() {
+  const lock = admGetLock();
+  const remaining = lock.until - Date.now();
+  const btn = document.querySelector('#adm-login .adm-login-btns button:first-child');
+  if (remaining > 0) {
+    document.getElementById('adm-pw-err').style.display = 'none';
+    document.getElementById('adm-pw-lock').style.display = 'block';
+    document.getElementById('adm-pw-lock-t').textContent = Math.ceil(remaining / 1000) + 's';
+    document.getElementById('adm-pw').disabled = true;
+    if (btn) btn.disabled = true;
+    setTimeout(admCheckLockUI, 1000);
+    return true;
+  }
+  document.getElementById('adm-pw-lock').style.display = 'none';
+  document.getElementById('adm-pw').disabled = false;
+  if (btn) btn.disabled = false;
+  return false;
+}
 
 // Triple-clic sur le logo
 let clicks = 0, cTimer;
@@ -1696,23 +1732,32 @@ document.addEventListener('click', e => {
 function openAdminLogin() {
   if (adminUnlocked) { openAdminPanel(); return; }
   document.getElementById('adm-login').classList.add('on');
+  admCheckLockUI();
   setTimeout(() => document.getElementById('adm-pw').focus(), 100);
 }
 function closeAdminLogin() { document.getElementById('adm-login').classList.remove('on'); }
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && document.getElementById('adm-login').classList.contains('on')) checkAdminPw();
 });
-function checkAdminPw() {
+async function checkAdminPw() {
+  if (admCheckLockUI()) return;
   const pw = document.getElementById('adm-pw').value;
-  if (pw === ADMIN_PW) {
+  const hash = await admHash(pw);
+  if (hash === ADMIN_PW_HASH) {
+    admSetLock({ tries: 0, until: 0 });
     adminUnlocked = true;
     document.getElementById('adm-login').classList.remove('on');
     document.getElementById('adm-pw').value = '';
     openAdminPanel();
   } else {
+    const lock = admGetLock();
+    lock.tries = (lock.tries || 0) + 1;
+    if (lock.tries >= ADM_MAX_TRIES) { lock.until = Date.now() + ADM_LOCK_MS; lock.tries = 0; }
+    admSetLock(lock);
     document.getElementById('adm-pw-err').style.display = 'block';
     document.getElementById('adm-pw').value = '';
     setTimeout(() => document.getElementById('adm-pw-err').style.display = 'none', 2000);
+    admCheckLockUI();
   }
 }
 
