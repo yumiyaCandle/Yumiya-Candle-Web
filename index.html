@@ -2122,8 +2122,9 @@ function clearVentes() {
       reply: 'Pour passer commande, c\'est simple ! 🛒' + br + br +
         '1. Choisis ta bougie dans l\'onglet <strong>Boutique</strong>' + br +
         '2. Remplis le formulaire de commande' + br +
-        '3. Paie via <strong>SumUp</strong> (carte bancaire)' + br + br +
-        'Tu reçois une confirmation immédiate 🌸'
+        '3. Choisis ton mode de paiement : <strong>SumUp</strong> (carte) ou <strong>TWINT</strong>' + br +
+        '4. Le montant s\'affiche dans la <strong>case rouge</strong> — copie-le (bouton "Copier le montant") et colle-le dans l\'app de paiement si elle te le demande' + br + br +
+        'Tu reçois une confirmation dès le paiement validé 🌸'
     },
     {
       id: 'stock',
@@ -2165,10 +2166,11 @@ function clearVentes() {
     {
       id: 'paiement',
       words: ['paiement', 'payer', 'carte', 'visa', 'mastercard', 'stripe', 'apple pay', 'twint', 'sumup', 'securise', 'moyen de paiement'],
-      reply: 'Nous acceptons le paiement par SumUp 💳' + br + br +
-        '• Carte bancaire (Visa, Mastercard, Amex)' + br +
-        '• Paiement 100% sécurisé via SumUp' + br + br +
-        'Confirmation immédiate dès le paiement validé 🌸'
+      reply: 'Deux moyens de paiement possibles 💳' + br + br +
+        '• <strong>SumUp</strong> — carte bancaire (Visa, Mastercard, Amex)' + br +
+        '• <strong>TWINT</strong> — paiement mobile' + br + br +
+        '⚠️ Important : le montant à payer s\'affiche dans la <strong>case rouge</strong> sur la page de paiement. Clique sur "Copier le montant" puis colle-le dans SumUp ou TWINT si l\'app te le demande, pour éviter toute erreur de saisie ✨' + br + br +
+        'Paiement 100% sécurisé, confirmation immédiate 🌸'
     },
     {
       id: 'ingredients',
