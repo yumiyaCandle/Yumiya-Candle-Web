@@ -604,9 +604,9 @@ function footer() {
     <div class="footer-grid">
       <div><div class="footer-logo"><img src="${IMG_LOGO}" alt="${D.site_name}"/></div><p class="footer-desc">${D.footer_desc}</p></div>
       <div><div class="footer-title">Navigation</div><ul class="footer-links"><li><a data-pg="home">Accueil</a></li><li><a data-pg="shop">Boutique</a></li><li><a data-pg="about">Notre histoire</a></li></ul></div>
-      <div><div class="footer-title">Contact</div><ul class="footer-links"><li><a>Instagram : ${D.site_instagram}</a></li><li><a>${D.site_email}</a></li><li><a>${D.site_location}</a></li></ul></div>
+      <div><div class="footer-title">Contact</div><ul class="footer-links"><li><a href="https://www.instagram.com/${D.site_instagram.replace('@','')}/" target="_blank" rel="noopener">Instagram : ${D.site_instagram}</a></li><li><a href="mailto:${D.site_email}">${D.site_email}</a></li><li><a>${D.site_location}</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2025 ${D.site_name} · Tous droits réservés</span><div class="footer-socials"><div class="soc">📷</div><div class="soc">✉️</div></div></div>
+    <div class="footer-bottom"><span>© 2025 ${D.site_name} · Tous droits réservés</span><div class="footer-socials"><a class="soc" href="https://www.instagram.com/${D.site_instagram.replace('@','')}/" target="_blank" rel="noopener" style="text-decoration:none" aria-label="Instagram">📷</a><a class="soc" href="mailto:${D.site_email}" style="text-decoration:none" aria-label="Nous écrire par email">✉️</a></div></div>
   </footer>`;
 }
 
@@ -947,8 +947,8 @@ function render() {
           <div class="contact-chip reveal"><div class="contact-chip-ic">1️⃣</div><div><div class="cchip-lbl">Étape 1</div><div class="cchip-val">${D.contact_step1}</div></div></div>
           <div class="contact-chip reveal d1"><div class="contact-chip-ic">2️⃣</div><div><div class="cchip-lbl">Étape 2</div><div class="cchip-val">${D.contact_step2}</div></div></div>
           <div class="contact-chip reveal d2"><div class="contact-chip-ic">3️⃣</div><div><div class="cchip-lbl">Étape 3</div><div class="cchip-val">${D.contact_step3}</div></div></div>
-          <div class="contact-chip reveal d3"><div class="contact-chip-ic">📷</div><div><div class="cchip-lbl">Instagram</div><div class="cchip-val">${D.site_instagram}</div></div></div>
-          <div class="contact-chip reveal d4"><div class="contact-chip-ic">✉️</div><div><div class="cchip-lbl">Email</div><div class="cchip-val">${D.site_email}</div></div></div>
+          <div class="contact-chip reveal d3"><div class="contact-chip-ic">📷</div><div><div class="cchip-lbl">Instagram</div><a class="cchip-val" href="https://www.instagram.com/${D.site_instagram.replace('@','')}/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">${D.site_instagram}</a></div></div>
+          <div class="contact-chip reveal d4"><div class="contact-chip-ic">✉️</div><div><div class="cchip-lbl">Email</div><a class="cchip-val" href="mailto:${D.site_email}" style="text-decoration:underline;text-underline-offset:3px">${D.site_email}</a></div></div>
         </div>
       </div>
       <div class="contact-form-box reveal d1">
