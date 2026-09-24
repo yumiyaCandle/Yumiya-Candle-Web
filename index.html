@@ -2068,81 +2068,203 @@ function clearVentes() {
     });
   }
 
-  function ycAutoReply(text) {
-    var t = text.toLowerCase();
-    // normaliser accents
-    try { t = t.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); } catch(e) {}
-    var br = '<br>';
+  // ─────────────────────────────────────────────────────────────
+  // Moteur de réponses — règles pondérées par mots-clés.
+  // On calcule un score par sujet et on garde le mieux noté,
+  // au lieu de répondre au 1er mot-clé trouvé : plus robuste
+  // face aux phrases longues / mélangées.
+  // ─────────────────────────────────────────────────────────────
+  function ycNormalize(text) {
+    var t = (text || '').toLowerCase();
+    try { t = t.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); } catch (e) {}
+    t = t.replace(/[?!.,;:()"']/g, ' ').replace(/\s+/g, ' ').trim();
+    return t;
+  }
 
-    if (/prix|tarif|cout|combien|cher|chf|franc/.test(t)) {
-      return 'Nos bougies sont disponibles en deux tailles 🕯️' + br + br +
-        '• Petite 90g — 8.90 CHF (~20h de combustion)' + br +
-        '• Grande 180g — 10.90 CHF (~30h de combustion)' + br + br +
-        'Pour une bougie sur mesure, écris-nous à hello@yumiyacandle.ch ✨';
-    }
-    if (/command|achet|panier|veux|voudrais|prendre|order/.test(t)) {
-      return 'Pour passer commande, c\'est simple ! 🛒' + br + br +
+  var br = '<br>';
+
+  var YC_RULES = [
+    {
+      id: 'prix',
+      words: ['prix', 'tarif', 'tarifs', 'cout', 'coute', 'combien', 'cher', 'chf', 'franc', 'francs', 'budget'],
+      reply: 'Voici les prix actuels de la boutique 🕯️' + br + br +
+        '• <strong>Bougie Fête des Mères</strong> — Petite 90g : 8.90 CHF · Grande 180g : 10.90 CHF' + br +
+        '• <strong>Bougie Printanière — Tulipes Lila</strong> — 6.30 CHF' + br +
+        '• <strong>Bougie Printanière — Tulipes Roses</strong> — 6.30 CHF' + br +
+        '• <strong>Box Cadeau Yumiya</strong> (bougie florale + mini pot) — 13.30 CHF' + br + br +
+        'Pour une bougie sur mesure, écris-nous à hello@yumiyacandle.ch pour un devis ✨'
+    },
+    {
+      id: 'taille',
+      words: ['taille', 'tailles', 'petite ou grande', 'quelle taille', 'grandeur', 'format', 'gramme', 'grammes', '90g', '180g'],
+      reply: 'La <strong>Bougie Fête des Mères</strong> existe en deux formats 📏' + br + br +
+        '• <strong>Petite 90g</strong> — 8.90 CHF, ~20h de combustion, idéale à offrir ou tester une senteur' + br +
+        '• <strong>Grande 180g</strong> — 10.90 CHF, ~30h de combustion, parfaite en cadeau principal' + br + br +
+        '(Les bougies Printanières et la Box Cadeau sont en taille unique.)'
+    },
+    {
+      id: 'printaniere',
+      words: ['printaniere', 'printannier', 'tulipe', 'tulipes', 'lila', 'collection printaniere'],
+      reply: 'Notre collection Printanière 🌷' + br + br +
+        '• <strong>Bougie Printanière — Tulipes Lila</strong> — 6.30 CHF' + br +
+        '• <strong>Bougie Printanière — Tulipes Roses</strong> — 6.30 CHF' + br + br +
+        'Disponibles dans l\'onglet Boutique 🛒'
+    },
+    {
+      id: 'coffret',
+      words: ['coffret', 'box cadeau', 'mini pot', 'yumiya box'],
+      reply: 'La <strong>Box Cadeau Yumiya</strong> à 13.30 CHF 🎁' + br + br +
+        'Un coffret avec une bougie florale et son mini pot assorti, présentés dans une jolie boîte prête à offrir 🌸'
+    },
+    {
+      id: 'commande',
+      words: ['commander', 'commande', 'acheter', 'achat', 'panier', 'je veux', 'voudrais', 'prendre', 'order', 'passer commande', 'comment faire pour acheter'],
+      reply: 'Pour passer commande, c\'est simple ! 🛒' + br + br +
         '1. Choisis ta bougie dans l\'onglet <strong>Boutique</strong>' + br +
         '2. Remplis le formulaire de commande' + br +
         '3. Paie via <strong>SumUp</strong> (carte bancaire)' + br + br +
-        'Tu reçois une confirmation immédiate 🌸';
-    }
-    if (/livr|envoi|expedi|delai|quand|recevoir|poste|suisse/.test(t)) {
-      return 'Nous livrons partout en Suisse 🇨🇭' + br + br +
-        'La livraison est rapide après confirmation de ta commande.' + br + br +
-        'Des questions sur les délais ? Écris-nous 📧 hello@yumiyacandle.ch';
-    }
-    if (/mesure|personnali|custom|special|unique|cadeau|occasion|message|prenom/.test(t)) {
-      return 'Nos bougies sur mesure sont parfaites pour chaque occasion ! ✨' + br + br +
+        'Tu reçois une confirmation immédiate 🌸'
+    },
+    {
+      id: 'stock',
+      words: ['stock', 'disponible', 'dispo', 'rupture', 'reste-t-il', 'reste t il', 'en stock', 'plus disponible', 'epuise', 'epuisee'],
+      reply: 'Nos quantités sont limitées car chaque bougie est faite main 🕯️' + br + br +
+        'Pour connaître la disponibilité exacte en temps réel, le plus sûr est de consulter l\'onglet <strong>Boutique</strong> ou de nous écrire directement 📧 hello@yumiyacandle.ch'
+    },
+    {
+      id: 'livraison',
+      words: ['livraison', 'livrer', 'livre', 'envoi', 'envoyer', 'expedition', 'expedie', 'delai', 'delais', 'quand vais-je recevoir', 'recevoir', 'poste', 'suisse', 'colis', 'combien de temps'],
+      reply: 'Nous livrons partout en Suisse 🇨🇭' + br + br +
+        'La livraison est rapide après confirmation et paiement de ta commande — on t\'envoie un suivi dès l\'expédition 📦' + br + br +
+        'Des questions sur les délais précis ? Écris-nous 📧 hello@yumiyacandle.ch'
+    },
+    {
+      id: 'retour',
+      words: ['retour', 'retourner', 'rembours', 'annuler', 'annulation', 'echange', 'echanger', 'sav', 'probleme avec ma commande', 'colis casse', 'casse', 'abime', 'reclamation'],
+      reply: 'Pas de souci, on trouve toujours une solution ensemble 🙏' + br + br +
+        'Écris-nous directement en précisant ton numéro de commande et le souci rencontré :' + br +
+        '📧 hello@yumiyacandle.ch' + br + br +
+        'On te répond rapidement et on s\'occupe de toi 🌸'
+    },
+    {
+      id: 'mesure',
+      words: ['mesure', 'sur mesure', 'personnalis', 'custom', 'special', 'unique', 'cadeau personnalise', 'message cadeau', 'prenom', 'gravure', 'etiquette personnalisee'],
+      reply: 'Nos bougies sur mesure sont parfaites pour chaque occasion ! ✨' + br + br +
         '• Senteur au choix' + br +
         '• Couleur au choix' + br +
         '• Message personnalisé' + br + br +
-        'Contacte-nous à hello@yumiyacandle.ch ou sur @yumiyacandle 🌸';
-    }
-    if (/senteur|parfum|odeur|arome|rose|fraise|vanille|sent/.test(t)) {
-      return 'Notre bougie Fête des Mères a une senteur délicieuse 🌹🍓' + br + br +
+        'Contacte-nous à hello@yumiyacandle.ch ou sur @yumiyacandle pour organiser ça ensemble 🌸'
+    },
+    {
+      id: 'senteur',
+      words: ['senteur', 'senteurs', 'parfum', 'parfums', 'odeur', 'arome', 'rose', 'fraise', 'vanille', 'sent quoi', 'ca sent quoi', 'quelles odeurs'],
+      reply: 'Notre bougie Fête des Mères a une senteur délicieuse 🌹🍓' + br + br +
         '<strong>Rose · Fraise · Vanille chaude</strong>' + br + br +
-        'Cire végétale de soja, mèche en coton, sans paraffine — 100% naturelle ✨';
-    }
-    if (/paiement|payer|carte|visa|mastercard|stripe|apple|pay|sumup/.test(t)) {
-      return 'Nous acceptons le paiement par SumUp 💳' + br + br +
+        'Cire végétale de soja, mèche en coton, sans paraffine — 100% naturelle ✨'
+    },
+    {
+      id: 'paiement',
+      words: ['paiement', 'payer', 'carte', 'visa', 'mastercard', 'stripe', 'apple pay', 'twint', 'sumup', 'securise', 'moyen de paiement'],
+      reply: 'Nous acceptons le paiement par SumUp 💳' + br + br +
         '• Carte bancaire (Visa, Mastercard, Amex)' + br +
         '• Paiement 100% sécurisé via SumUp' + br + br +
-        'Confirmation immédiate 🌸';
-    }
-    if (/contact|joindre|parler|email|mail|instagram|reseaux|info/.test(t)) {
-      return 'Tu peux nous contacter facilement 🌸' + br + br +
-        '📧 hello@yumiyacandle.ch' + br +
-        '📱 @yumiyacandle sur Instagram' + br + br +
-        'Marque artisanale fondée par des élèves de l\'ESC La Neuveville 🇨🇭';
-    }
-    if (/ingredi|composit|nature|bio|soja|coton|paraffine|cire|fabri/.test(t)) {
-      return 'Nos bougies sont 100% artisanales et naturelles 🌿' + br + br +
+        'Confirmation immédiate dès le paiement validé 🌸'
+    },
+    {
+      id: 'ingredients',
+      words: ['ingredient', 'ingredients', 'composition', 'compose', 'nature', 'naturel', 'bio', 'soja', 'coton', 'paraffine', 'cire', 'fabrique', 'fabrication', 'artisanal', 'vegan', 'allergie', 'allergene'],
+      reply: 'Nos bougies sont 100% artisanales et naturelles 🌿' + br + br +
         '• Cire végétale de soja' + br +
         '• Mèche en coton' + br +
         '• Sans paraffine' + br +
-        '• Fabriquées à la main en Suisse 🇨🇭 ✨';
-    }
-    if (/fete|fête|mere|maman|mom|mother/.test(t)) {
-      return 'Notre bougie Fête des Mères est disponible maintenant ! 🌸' + br + br +
+        '• Fabriquées à la main en Suisse 🇨🇭 ✨' + br + br +
+        'Si tu as une allergie particulière, écris-nous avant de commander pour qu\'on te conseille au mieux 💌'
+    },
+    {
+      id: 'entretien',
+      words: ['entretien', 'entretenir', 'meche', 'couper', 'combustion', 'allumer', 'utiliser', 'conseil', 'conseils', 'combien de temps ca brule', 'temps de combustion', 'securite bougie'],
+      reply: 'Petits conseils pour profiter au mieux de ta bougie 🕯️' + br + br +
+        '• Coupe la mèche à ~5mm avant chaque allumage' + br +
+        '• Laisse-la brûler jusqu\'à ce que toute la surface soit fondue la 1ère fois (évite l\'effet tunnel)' + br +
+        '• Ne la laisse jamais sans surveillance' + br + br +
+        'Petite = ~20h · Grande = ~30h de combustion totale ✨'
+    },
+    {
+      id: 'fete-des-meres',
+      words: ['fete des meres', 'fete', 'mere', 'maman', 'mom', 'mother', 'cadeau maman'],
+      reply: 'Notre bougie Fête des Mères est disponible maintenant ! 🌸' + br + br +
         'Senteur rose, fraise & vanille chaude — un cadeau parfait pour maman 💝' + br + br +
         '• Petite 90g : <strong>8.90 CHF</strong>' + br +
         '• Grande 180g : <strong>10.90 CHF</strong>' + br + br +
-        'Commande depuis l\'onglet Boutique 🛒';
+        'Commande depuis l\'onglet Boutique 🛒'
+    },
+    {
+      id: 'emballage',
+      words: ['emballage', 'emballe', 'cadeau emballe', 'boite', 'papier cadeau', 'presentation'],
+      reply: 'Chaque bougie est soignée pour un bel effet cadeau 🎁' + br + br +
+        'Si tu veux un emballage cadeau spécifique ou un mot personnalisé à glisser dedans, précise-le dans ton message de commande ou écris-nous directement ✨'
+    },
+    {
+      id: 'marque',
+      words: ['qui etes vous', 'qui êtes-vous', 'histoire', 'marque', 'a propos', 'fondateur', 'fondatrice', 'esc', 'la neuveville', 'ecole', 'projet scolaire', 'artisan'],
+      reply: 'Yumiya Candle est une marque artisanale suisse 🇨🇭' + br + br +
+        'Fondée par des élèves de l\'<strong>ESC La Neuveville</strong>, chaque bougie est fabriquée à la main avec des matières naturelles ✨' + br + br +
+        'Merci de soutenir un petit projet local 🌸'
+    },
+    {
+      id: 'contact',
+      words: ['contact', 'joindre', 'parler', 'email', 'mail', 'instagram', 'reseaux', 'reseaux sociaux', 'info', 'numero', 'telephone', 'appeler', 'humain', 'quelqu\'un'],
+      reply: 'Tu peux nous contacter facilement 🌸' + br + br +
+        '📧 hello@yumiyacandle.ch' + br +
+        '📱 @yumiyacandle sur Instagram' + br + br +
+        'On répond généralement assez vite, avec plaisir ! ✨'
+    },
+    {
+      id: 'salutation',
+      words: ['bonjour', 'salut', 'hello', 'coucou', 'bonsoir', 'hi', 'hey', 'yo', 'bsr', 'slt'],
+      reply: 'Bonjour ! 🕯️ Ravie de te retrouver !' + br + br +
+        'Je peux t\'aider avec les prix, les commandes, la livraison, les senteurs ou les produits sur mesure 🌸'
+    },
+    {
+      id: 'remerciement',
+      words: ['merci', 'thanks', 'super', 'parfait', 'nickel', 'cool', 'genial', 'top', 'sympa'],
+      reply: 'Avec plaisir ! 🌸 N\'hésite pas si tu as d\'autres questions.' + br +
+        'Bonne journée chez Yumiya Candle 🕯️✨'
+    },
+    {
+      id: 'insatisfaction',
+      words: ['pas content', 'mecontent', 'decu', 'nul', 'mauvais', 'insatisfait', 'plainte', 'ca ne marche pas', 'bug', 'erreur'],
+      reply: 'Désolée d\'entendre ça, on va arranger ça ensemble 🙏' + br + br +
+        'Peux-tu nous écrire en détail à 📧 hello@yumiyacandle.ch ? On te répond personnellement et rapidement.'
     }
-    if (/^(bonjour|salut|hello|coucou|bonsoir|hi|hey|yo)/.test(t)) {
-      return 'Bonjour ! 🕯️ Ravie de te retrouver !' + br + br +
-        'Je peux t\'aider avec les prix, les commandes, la livraison ou les produits 🌸';
+  ];
+
+  function ycAutoReply(text) {
+    var t = ycNormalize(text);
+    if (!t) return ycFallback();
+
+    var best = null, bestScore = 0;
+    for (var i = 0; i < YC_RULES.length; i++) {
+      var rule = YC_RULES[i], score = 0;
+      for (var j = 0; j < rule.words.length; j++) {
+        var w = rule.words[j];
+        if (t.indexOf(w) !== -1) {
+          // les expressions plus longues comptent plus (plus précises)
+          score += 1 + Math.min(2, (w.split(' ').length - 1));
+        }
+      }
+      if (score > bestScore) { bestScore = score; best = rule; }
     }
-    if (/merci|thanks|super|parfait|nickel|cool|genial|top/.test(t)) {
-      return 'Avec plaisir ! 🌸 N\'hésite pas si tu as d\'autres questions.' + br +
-        'Bonne journée chez Yumiya Candle 🕯️✨';
-    }
-    return 'Merci pour ta question ! 🌸' + br + br +
-      'Pour y répondre au mieux, contacte-nous directement :' + br + br +
+
+    if (best) return best.reply;
+    return ycFallback();
+  }
+
+  function ycFallback() {
+    return 'Bonne question ! 🌸 Je n\'ai pas de réponse toute faite pour ça, mais on va s\'en occuper :' + br + br +
       '📧 hello@yumiyacandle.ch' + br +
       '📱 @yumiyacandle sur Instagram' + br + br +
-      'Nous serons ravies de t\'aider ! 🕯️';
+      'Sinon, je peux déjà t\'aider avec : prix, tailles, commande, livraison, paiement, senteurs, ingrédients, sur-mesure, retours ✨';
   }
 
   window.ycSend = function () {
@@ -2159,15 +2281,21 @@ function clearVentes() {
       var reply = ycAutoReply(text);
       ycAddMsg('bot', reply);
 
-      var t = text.toLowerCase();
-      if (/prix|combien|chf/.test(t))
-        ycSetQR(['Commander 🛒', 'Petite ou grande ?', 'Paiement 💳']);
-      else if (/command|achet/.test(t))
+      var t = ycNormalize(text);
+      if (/prix|combien|chf|tarif/.test(t))
+        ycSetQR(['Commander 🛒', 'Quelle taille ?', 'Paiement 💳']);
+      else if (/command|achet|stock|dispo/.test(t))
         ycSetQR(['Paiement 💳', 'Livraison 📦', 'Sur mesure ✨']);
-      else if (/mesure|cadeau/.test(t))
+      else if (/mesure|cadeau|emballage/.test(t))
         ycSetQR(['Quel prix ? 💰', 'Contact 📩', 'Livraison 📦']);
-      else
+      else if (/livraison|livrer|delai|colis/.test(t))
+        ycSetQR(['Prix des bougies 💰', 'Retour/problème 🔧', 'Contact 📩']);
+      else if (/senteur|parfum|ingredient|allergie/.test(t))
         ycSetQR(['Prix des bougies 💰', 'Sur mesure ✨', 'Commander 🛒']);
+      else if (/retour|rembours|probleme|casse/.test(t))
+        ycSetQR(['Contact 📩', 'Commander 🛒']);
+      else
+        ycSetQR(['Prix des bougies 💰', 'Sur mesure ✨', 'Commander 🛒', 'Contact 📩']);
     }, 700);
   };
 
