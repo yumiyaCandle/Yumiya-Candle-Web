@@ -49,9 +49,9 @@ const DEFAULT_DATA = {
   feat_tag: '✦ Collection du moment',
   feat_eyebrow: 'En ce moment',
   feat_title: 'Bougie',
-  feat_title_em: 'Fête des Mères',
+  feat_title_em: 'gourmande',
   feat_spec1: '🌿 Cire végétale · mèche coton',
-  feat_spec2: '🌸 Rose · Fraise · Vanille chaude',
+  feat_spec2: '🌸 Marshmallow · Framboise',
   feat_spec3: '⏱ ~20h petite · ~30h grande',
   feat_spec4: '📦 Verre transparent · livraison soignée',
 
@@ -82,8 +82,8 @@ const DEFAULT_DATA = {
   // ── BOUTIQUE — St-Valentin
   val_active: true,
   val_collection: 'Collection Fête des Mères',
-  val_name: 'Bougie Fête des Mères',
-  val_desc: 'Rose, fraise & vanille chaude. Cire végétale, mèche coton. Un parfum enveloppant pour l\'amour.',
+  val_name: 'Bougie gourmande',
+  val_desc: 'Marshmallow & framboise. Cire végétale, mèche coton. Un parfum enveloppant et gourmand.',
   val_price_petite: 8.90,
   val_price_grande: 10.90,
 
@@ -657,10 +657,10 @@ function render() {
     </section>
     <div class="marquee"><div class="marquee-t">
       <span class="mi">Cire de soja 100% végétale</span><span class="mi">Fait à la main avec amour</span>
-      <span class="mi">Commandes personnalisées</span><span class="mi">Fête des Mères disponible</span>
+      <span class="mi">Commandes personnalisées</span><span class="mi">Bougie gourmande disponible</span>
       <span class="mi">Livraison soignée en Suisse</span>
       <span class="mi">Cire de soja 100% végétale</span><span class="mi">Fait à la main avec amour</span>
-      <span class="mi">Commandes personnalisées</span><span class="mi">Fête des Mères disponible</span>
+      <span class="mi">Commandes personnalisées</span><span class="mi">Bougie gourmande disponible</span>
       <span class="mi">Livraison soignée en Suisse</span>
     </div></div>
 
@@ -672,9 +672,9 @@ function render() {
       </div>
       <div class="coll-grid">
         <div class="coll-card reveal" onclick="navigate('shop')" style="${!D.val_active?'opacity:.45;pointer-events:none':''}">
-          <div class="coll-card-img"><img src="${IMG_MAIN}" alt="Fête des Mères"/><div class="coll-card-overlay"></div>
+          <div class="coll-card-img"><img src="${IMG_MAIN}" alt="Bougie gourmande"/><div class="coll-card-overlay"></div>
             <span class="coll-card-badge badge-available">✦ ${D.val_active?'Disponible':'Indisponible'}</span>
-            <div class="coll-card-body"><div class="coll-card-name">Fête des Mères</div><div class="coll-card-sub">Rose · Fraise · Vanille chaude</div></div>
+            <div class="coll-card-body"><div class="coll-card-name">Bougie gourmande</div><div class="coll-card-sub">Marshmallow · Framboise</div></div>
           </div>
           <div class="coll-card-info"><span style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--rose)">dès ${pp.toFixed(2)} CHF</span><span class="coll-card-cta" style="color:var(--rose)">Voir <span>→</span></span></div>
         </div>
@@ -964,7 +964,7 @@ function render() {
           <div class="cf-group"><label class="cf-lbl cf-lbl-light">Type de commande *</label>
             <select class="cf-sel cf-sel-light" id="cf-type" onchange="toggleCfType()">
               <option value="">— Choisir —</option>
-              <option value="standard">Bougie Fête des Mères (disponible)</option>
+              <option value="standard">Bougie gourmande (disponible)</option>
               <option value="custom">Bougie personnalisée / sur mesure</option>
             </select>
           </div>
@@ -2088,7 +2088,7 @@ function clearVentes() {
       id: 'prix',
       words: ['prix', 'tarif', 'tarifs', 'cout', 'coute', 'combien', 'cher', 'chf', 'franc', 'francs', 'budget'],
       reply: 'Voici les prix actuels de la boutique 🕯️' + br + br +
-        '• <strong>Bougie Fête des Mères</strong> — Petite 90g : 8.90 CHF · Grande 180g : 10.90 CHF' + br +
+        '• <strong>Bougie gourmande</strong> — Petite 90g : 8.90 CHF · Grande 180g : 10.90 CHF' + br +
         '• <strong>Bougie Printanière — Tulipes Lila</strong> — 6.30 CHF' + br +
         '• <strong>Bougie Printanière — Tulipes Roses</strong> — 6.30 CHF' + br +
         '• <strong>Box Cadeau Yumiya</strong> (bougie florale + mini pot) — 13.30 CHF' + br + br +
@@ -2097,7 +2097,7 @@ function clearVentes() {
     {
       id: 'taille',
       words: ['taille', 'tailles', 'petite ou grande', 'quelle taille', 'grandeur', 'format', 'gramme', 'grammes', '90g', '180g'],
-      reply: 'La <strong>Bougie Fête des Mères</strong> existe en deux formats 📏' + br + br +
+      reply: 'La <strong>Bougie gourmande</strong> existe en deux formats 📏' + br + br +
         '• <strong>Petite 90g</strong> — 8.90 CHF, ~20h de combustion, idéale à offrir ou tester une senteur' + br +
         '• <strong>Grande 180g</strong> — 10.90 CHF, ~30h de combustion, parfaite en cadeau principal' + br + br +
         '(Les bougies Printanières et la Box Cadeau sont en taille unique.)'
@@ -2158,9 +2158,9 @@ function clearVentes() {
     },
     {
       id: 'senteur',
-      words: ['senteur', 'senteurs', 'parfum', 'parfums', 'odeur', 'arome', 'rose', 'fraise', 'vanille', 'sent quoi', 'ca sent quoi', 'quelles odeurs'],
-      reply: 'Notre bougie Fête des Mères a une senteur délicieuse 🌹🍓' + br + br +
-        '<strong>Rose · Fraise · Vanille chaude</strong>' + br + br +
+      words: ['senteur', 'senteurs', 'parfum', 'parfums', 'odeur', 'arome', 'marshmallow', 'framboise', 'sent quoi', 'ca sent quoi', 'quelles odeurs'],
+      reply: 'Notre bougie gourmande a une senteur délicieuse 🌹🍓' + br + br +
+        '<strong>Marshmallow · Framboise</strong>' + br + br +
         'Cire végétale de soja, mèche en coton, sans paraffine — 100% naturelle ✨'
     },
     {
@@ -2194,8 +2194,8 @@ function clearVentes() {
     {
       id: 'fete-des-meres',
       words: ['fete des meres', 'fete', 'mere', 'maman', 'mom', 'mother', 'cadeau maman'],
-      reply: 'Notre bougie Fête des Mères est disponible maintenant ! 🌸' + br + br +
-        'Senteur rose, fraise & vanille chaude — un cadeau parfait pour maman 💝' + br + br +
+      reply: 'Notre bougie gourmande est disponible maintenant ! 🌸' + br + br +
+        'Senteur marshmallow & framboise — un cadeau parfait pour maman 💝' + br + br +
         '• Petite 90g : <strong>8.90 CHF</strong>' + br +
         '• Grande 180g : <strong>10.90 CHF</strong>' + br + br +
         'Commande depuis l\'onglet Boutique 🛒'
