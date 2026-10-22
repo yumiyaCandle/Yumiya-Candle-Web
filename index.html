@@ -2,16 +2,23 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="viewport" content="width=1280"/>
 <title>Yumiya Candle – Bougies Gourmandes Artisanales</title>
-<meta name="description" content="Bougies gourmandes artisanales faites à la main en Suisse."/>
+<meta name="description" content="Bougies gourmandes artisanales faites à la main en Suisse : cire végétale de soja, mèche en coton, créations sur mesure."/>
+<meta name="theme-color" content="#4a0f20"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="fr_CH"/>
+<meta property="og:site_name" content="Yumiya Candle"/>
+<meta property="og:title" content="Yumiya Candle – Bougies Gourmandes Artisanales"/>
+<meta property="og:description" content="Bougies gourmandes artisanales faites à la main en Suisse. Commande aussi ta bougie sur mesure."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
 </head>
 <body>
+<noscript><p style="padding:2rem;text-align:center;font-family:sans-serif">Ce site nécessite JavaScript. Écris-nous à yumiyacandle@outlook.com pour commander.</p></noscript>
 <div id="app"></div>
 <script>
 const IMG_LOGO = "data:image/jpeg;base64,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";
@@ -30,7 +37,7 @@ const DEFAULT_DATA = {
   site_name: 'Yumiya Candle',
   site_tagline: 'Bougies Gourmandes Artisanales',
   site_instagram: '@yumiyacandle',
-  site_email: 'Yumiya@businesspiazza.ch',
+  site_email: 'yumiyacandle@outlook.com',
   site_location: 'Suisse romande',
 
   // ── PAGE ACCUEIL — Hero
@@ -39,7 +46,7 @@ const DEFAULT_DATA = {
   hero_subtitle: 'Pour chaque moment de vie',
   hero_desc: 'Des bougies artisanales aux senteurs enveloppantes. Et si la tienne n\'existe pas encore — on la crée pour toi sur mesure.',
   hero_btn1: 'Voir la boutique →',
-  hero_btn2: 'Commande perso ✨',
+  hero_btn2: 'Commande personnalisée',
 
   // ── PAGE ACCUEIL — Section collections titre
   coll_title: 'Nos collections',
@@ -52,7 +59,7 @@ const DEFAULT_DATA = {
   feat_title_em: 'gourmande',
   feat_spec1: '🌿 Cire végétale · mèche coton',
   feat_spec2: '🌸 Marshmallow · Framboise',
-  feat_spec3: '⏱ ~20h petite · ~30h grande',
+  feat_spec3: '⏱ ~12h petite · ~18h grande',
   feat_spec4: '📦 Verre transparent · livraison soignée',
 
   // ── PAGE ACCUEIL — Custom section
@@ -60,7 +67,7 @@ const DEFAULT_DATA = {
   custom_title: 'Ta bougie,',
   custom_title_em: 'tes règles',
   custom_desc: 'Tu as une idée bien précise ? Une senteur spéciale, des couleurs particulières, un message à graver, un événement unique ? On crée ta bougie exactement comme tu l\'imagines.',
-  custom_form_title: '✨ Décris ta bougie idéale',
+  custom_form_title: 'Décris ta bougie idéale',
   custom_form_sub: 'Plus tu nous donnes de détails, mieux on peut créer quelque chose qui te ressemble vraiment.',
 
   // ── PAGE ACCUEIL — CTA band
@@ -70,9 +77,9 @@ const DEFAULT_DATA = {
   cta_btn: 'Passer une demande →',
 
   // ── PAGE ACCUEIL — Valeurs
-  val1_ic: '🌿', val1_t: '100% Végétal', val1_p: 'Cire de soja pure, mèche coton. Zéro paraffine.',
-  val2_ic: '🤲', val2_t: 'Fait main',   val2_p: 'Chaque bougie est coulée à la main, une par une.',
-  val3_ic: '🇨🇭', val3_t: 'Made in Suisse', val3_p: 'Fabriqué localement, livré avec soin en Suisse.',
+  val1_ic: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`, val1_t: '100% Végétal', val1_p: 'Cire de soja pure, mèche coton. Zéro paraffine.',
+  val2_ic: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v6"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>`, val2_t: 'Fait main',   val2_p: 'Chaque bougie est coulée à la main, une par une.',
+  val3_ic: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`, val3_t: 'Made in Suisse', val3_p: 'Fabriqué localement, livré avec soin en Suisse.',
 
   // ── PAGE ACCUEIL — Avis
   testi1_stars: '★★★★★', testi1_quote: '« Une bougie qui sent divinement bon. Packaging soigné et livraison rapide ! »', testi1_name: '— Camille B., Lausanne',
@@ -81,7 +88,7 @@ const DEFAULT_DATA = {
 
   // ── BOUTIQUE — St-Valentin
   val_active: true,
-  val_collection: 'Collection Fête des Mères',
+  val_collection: 'Bougies gourmandes',
   val_name: 'Bougie gourmande',
   val_desc: 'Marshmallow & framboise. Cire végétale, mèche coton. Un parfum enveloppant et gourmand.',
   val_price_petite: 8.90,
@@ -109,11 +116,11 @@ const DEFAULT_DATA = {
   about_founder_title_em: 'une vraie entreprise',
   about_p1: 'Yumiya Candle est née d\'une vraie envie de créer quelque chose de concret. Nous sommes cinq élèves de l\'École Supérieure de Commerce de La Neuveville, et nous consacrons 8 leçons par semaine à faire vivre cette entreprise dans le cadre de notre formation.',
   about_p2: 'Du développement du produit à la vente, en passant par la communication et la gestion — tout est fait par nous, avec soin.',
-  about_p3: 'Chaque bougie que tu commandes est le reflet de ce travail. Artisanale, pensée et fabriquée à la main en Suisse. 🕯️',
-  av1_ic: '🌱', av1_t: 'Végétal & éco',   av1_p: 'Cire de soja, mèche coton, sans paraffine.',
-  av2_ic: '🤍', av2_t: 'Fait avec soin',  av2_p: 'Chaque pièce est unique, coulée à la main.',
-  av3_ic: '🇨🇭', av3_t: 'Local & honnête', av3_p: 'Fabriqué en Suisse, livré avec soin.',
-  av4_ic: '✨', av4_t: 'Sur mesure',      av4_p: 'On crée ta bougie exactement comme tu l\'imagines.',
+  about_p3: 'Chaque bougie que tu commandes est le reflet de ce travail. Artisanale, pensée et fabriquée à la main en Suisse.',
+  av1_ic: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`, av1_t: 'Végétal & éco',   av1_p: 'Cire de soja, mèche coton, sans paraffine.',
+  av2_ic: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`, av2_t: 'Fait avec soin',  av2_p: 'Chaque pièce est unique, coulée à la main.',
+  av3_ic: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`, av3_t: 'Local & honnête', av3_p: 'Fabriqué en Suisse, livré avec soin.',
+  av4_ic: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>`, av4_t: 'Sur mesure',      av4_p: 'On crée ta bougie exactement comme tu l\'imagines.',
 
   // ── STRIPE
   stripe_petite: 'https://buy.stripe.com/28E5kE4Wve4N9950RH9k401',
@@ -131,10 +138,10 @@ const DEFAULT_DATA = {
   contact_intro: 'Commande standard ou personnalisée — remplis le formulaire et paie par carte. Confirmation immédiate !',
   contact_step1: 'Choisis ta bougie et remplis le formulaire',
   contact_step2: 'Paye par carte en 1 clic',
-  contact_step3: 'Commande confirmée · Livraison rapide 🇨🇭',
-  contact_form_title: 'Commander 💳',
-  contact_form_sub: 'Remplis tes infos — tu seras redirigé vers Stripe pour payer.',
-  contact_note: 'Paiement sécurisé par carte via Stripe. Ta commande est confirmée dès réception du paiement.',
+  contact_step3: 'Commande confirmée · Livraison en Suisse',
+  contact_form_title: 'Commander',
+  contact_form_sub: 'Remplis tes infos, puis règle ta commande en ligne en toute sécurité.',
+  contact_note: 'Paiement sécurisé par carte (SumUp) ou par TWINT. Ta commande est confirmée dès réception du paiement.',
 
   // ── FOOTER
   footer_desc: 'Bougies gourmandes artisanales. Collections saisonnières & créations sur mesure, faites à la main en Suisse.',
@@ -594,19 +601,467 @@ nav.scrolled{box-shadow:var(--shadow-md)}
 .pay-secure-note{font-size:.7rem;color:var(--muted);margin-top:.4rem;line-height:1.6;text-align:center}
 .pay-toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:#0A0908;color:#fff;padding:.7rem 1.2rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,.28);z-index:9999;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;display:flex;align-items:center;gap:.5rem;white-space:nowrap}
 .pay-toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ═══ Finitions pro : lisibilité, accessibilité, détails ═══ */
+html{scroll-padding-top:90px}
+.eyebrow{color:#8a6420}
+.nav-links a{font-size:.74rem}
+.nav-links a:hover,.nav-links a.on{text-shadow:none}
+.nav-links a:focus-visible,.drawer a:focus-visible,.footer-links a:focus-visible,.nav-logo:focus-visible{outline:2px solid var(--rose);outline-offset:4px;border-radius:4px}
+.cf-in:focus,.yc-input:focus,#adm-search:focus{outline:none;border-color:var(--rose);box-shadow:0 0 0 3px rgba(200,69,90,.15)}
+img{max-width:100%}
+.to-top{position:fixed;right:22px;bottom:22px;z-index:700;width:44px;height:44px;border-radius:50%;border:none;background:var(--rose);color:#fff;font-size:1.1rem;cursor:pointer;box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s var(--ease),transform .3s var(--ease),visibility .3s,background .2s}
+.to-top.on{opacity:1;visibility:visible;transform:none}
+.to-top:hover{background:var(--burg)}
+@media(max-width:640px){.to-top{right:14px;bottom:84px}}
+.feat-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.feat-tab{padding:.5rem 1.1rem;border-radius:50px;font-size:.74rem;letter-spacing:.1em;cursor:pointer;border:1.5px solid var(--peach);background:#fff;color:var(--mid);transition:all .2s;font-family:'DM Sans',sans-serif;font-weight:500}
+.feat-tab.on{background:var(--rose);border-color:var(--rose);color:#fff}
+.feat-tab:hover:not(.on){border-color:var(--rose);color:var(--rose)}
+.feat-fade{animation:featFade .45s var(--ease)}
+@keyframes featFade{from{opacity:0}to{opacity:1}}
+
+/* ═══ Annonces d'accueil : compact & défilement ═══ */
+.feature{min-height:0;width:min(1100px,92%);margin:3rem auto;border-radius:22px;overflow:hidden;box-shadow:var(--shadow-md);border:1px solid var(--rose-light)}
+@media(min-width:901px){.feature{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}}
+.feat-img{min-height:300px}
+.feat-img img{min-height:0;height:100%}
+.feat-tag{bottom:1.1rem;left:1.1rem;padding:.4rem .9rem;font-size:.62rem;letter-spacing:.14em}
+.feat-body{padding:2rem 2.4rem}
+.feat-tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.3rem}
+.feat-tab{position:relative;overflow:hidden;padding:.42rem .95rem;font-size:.7rem;letter-spacing:.06em}
+.feat-tab.on::after{content:'';position:absolute;left:0;bottom:0;height:3px;width:100%;background:rgba(255,255,255,.85);transform-origin:left;animation:featProg 5.5s linear forwards}
+@keyframes featProg{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.feature:hover .feat-tab.on::after{animation-play-state:paused}
+.feat-body .h2{font-size:clamp(1.5rem,2.4vw,2.1rem)}
+.feat-body .bar{margin:.6rem 0 1.1rem}
+.feat-specs{display:grid;grid-template-columns:1fr 1fr;column-gap:1.2rem;max-width:none;padding:.8rem 1.1rem;margin-bottom:1.3rem;border-radius:10px}
+.feat-specs .spec{font-size:.78rem;padding:.25rem 0}
+.feat-price{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--rose);margin-bottom:1.2rem;line-height:1}
+.feat-price small{font-size:.8rem;font-family:'DM Sans',sans-serif;color:var(--muted);font-weight:300;margin-left:.3rem}
+.feat-body .btn{padding:.65rem 1.4rem;font-size:.7rem}
+@media(max-width:900px){.feat-img{min-height:0;height:230px}.feat-body{padding:1.6rem 1.4rem}}
+@media(max-width:520px){.feat-specs{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.feat-tab.on::after{animation:none;transform:scaleX(1)}}
+
+
+/* ═══ Photo du haut : collections qui défilent ═══ */
+.hero-r::after{content:'';position:absolute;left:0;right:0;bottom:0;height:36%;background:linear-gradient(to top,rgba(26,8,13,.38),transparent);z-index:2;pointer-events:none}
+.hero-r .hero-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity 1.1s ease,visibility 1.1s}
+.hero-r .hero-slide.on{opacity:1;visibility:visible}
+.hero-r .hero-slide img{position:absolute;inset:0;width:100%;height:100%}
+.hero-r .hs-bg{object-fit:cover;filter:blur(26px) saturate(1.15);transform:scale(1.15)!important}
+.hero-r .hs-fg{object-fit:cover}
+.hero-r .hs-contain{object-fit:contain;padding:2.2rem 1.5rem 4.5rem;filter:drop-shadow(0 18px 28px rgba(100,20,40,.22))}
+.hero-ctrl{position:absolute;left:1.8rem;bottom:2.6rem;z-index:3;display:flex;align-items:center;gap:1rem}
+.hero-name{background:rgba(255,255,255,.96);color:var(--rose);border:none;padding:.5rem 1.15rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;cursor:pointer;box-shadow:var(--shadow-md);transition:background .2s,color .2s}
+.hero-name:hover{background:var(--rose);color:#fff}
+.hero-dots{display:flex;gap:.4rem;align-items:center}
+.hero-dot{position:relative;overflow:hidden;width:8px;height:8px;border-radius:8px;border:none;padding:0;background:rgba(255,255,255,.6);cursor:pointer;transition:width .35s var(--ease),background .3s}
+.hero-dot.on{width:30px;background:rgba(255,255,255,.4)}
+.hero-dot.on::after{content:'';position:absolute;inset:0;background:#fff;transform-origin:left;animation:heroProg 4.5s linear forwards}
+@keyframes heroProg{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(max-width:900px){.hero-ctrl{left:1rem;bottom:1rem;gap:.7rem}.hero-badge{bottom:1rem;right:1rem;width:76px;height:76px}.hero-r .hs-contain{padding:1rem 1rem 3.4rem}}
+@media(prefers-reduced-motion:reduce){.hero-dot.on::after{animation:none}}
+
+/* ═══════════════════════════════════════════════════════════
+   REFONTE 2026 — design system « Atelier »
+   (couche par-dessus les styles existants : la logique est intacte)
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --bg:#fbf7f2;--bg2:#fffdfa;--blush:#f7e7e0;--peach:#ead3c7;
+  --rose:#b3304c;--rose2:#932440;--rose-light:#f1dde0;
+  --burg:#4a0f20;--gold:#a8834a;
+  --text:#25121a;--mid:#4d2a36;--muted:#7b5a64;
+  --line:rgba(74,15,32,.12);--line2:rgba(74,15,32,.07);
+  --shadow:rgba(74,15,32,.10);
+  --r:18px;--r-lg:28px;
+  --sh1:0 1px 2px rgba(74,15,32,.05),0 4px 14px rgba(74,15,32,.06);
+  --sh2:0 2px 4px rgba(74,15,32,.05),0 18px 44px rgba(74,15,32,.12);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+::selection{background:var(--rose);color:#fff}
+html{scroll-padding-top:90px}
+body{cursor:auto!important;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.6}
+#cur,#cur2{display:none!important}
+a,button,select,input,textarea{cursor:pointer}
+input,textarea{cursor:text}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:6px}
+
+/* ── Typo ── */
+.h1,.h2,.hero-title,.custom-info h2,.cta-band h2{font-weight:400;letter-spacing:-.02em}
+.h1{font-size:clamp(2.6rem,5vw,4.4rem);line-height:1.04}
+.h2{font-size:clamp(2rem,3.6vw,3rem);line-height:1.1}
+.eyebrow,.custom-eyebrow-el{font-size:.7rem;letter-spacing:.26em;font-weight:600;color:var(--gold)}
+.eyebrow::before,.custom-eyebrow-el::before{width:28px;background:var(--gold);opacity:.7}
+.bar{width:40px;height:1.5px;background:var(--gold);opacity:.8}
+.txt{color:var(--muted);line-height:1.85;font-weight:400}
+
+/* ── Boutons ── */
+.btn{padding:.95rem 2.1rem;font-size:.74rem;letter-spacing:.16em;font-weight:600;border-radius:999px;box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 8px 22px rgba(179,48,76,.28)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(74,15,32,.3)}
+.btn-ghost{background:transparent;border-color:var(--line);color:var(--text);box-shadow:none}
+.btn-ghost:hover{background:#fff;border-color:var(--rose);color:var(--rose);box-shadow:var(--sh1)}
+.btn-white{box-shadow:0 10px 28px rgba(0,0,0,.18)}
+
+/* ── Navigation ── */
+nav{height:76px;background:rgba(251,247,242,.86);backdrop-filter:saturate(1.4) blur(18px);-webkit-backdrop-filter:saturate(1.4) blur(18px);border-bottom:1px solid var(--line2);padding:0 clamp(1.2rem,4vw,3.5rem)}
+nav.scrolled{background:rgba(251,247,242,.94);box-shadow:0 10px 30px rgba(74,15,32,.07)}
+.nav-logo img{height:48px;border-radius:50%;mix-blend-mode:multiply}
+.nav-links{gap:2.6rem}
+.nav-links a{font-size:.72rem;letter-spacing:.2em;font-weight:600;color:var(--mid);text-shadow:none!important}
+.nav-links a::after{height:1.5px;background:var(--rose)}
+.nav-links a:hover,.nav-links a.on{color:var(--rose)}
+.cart-btn{background:var(--text);padding:.6rem 1.15rem .6rem 1rem;font-weight:600;letter-spacing:.14em;box-shadow:none}
+.cart-btn:hover{background:var(--rose);box-shadow:0 8px 20px rgba(179,48,76,.3)}
+.cart-count{background:var(--rose);color:#fff}
+.drawer{top:76px;background:var(--bg);box-shadow:0 20px 40px rgba(74,15,32,.1)}
+.drawer a{font-family:'Playfair Display',serif;font-size:1.4rem;padding:.4rem 0;border-bottom:1px solid var(--line2)}
+
+/* ── Hero ── */
+.hero{min-height:720px;height:720px;grid-template-columns:1.02fr 1fr;gap:0;background:var(--bg);align-items:stretch;padding:1.2rem clamp(1.2rem,4vw,3.5rem) 1.2rem 0}
+.hero-l{padding:3rem 3rem 3rem clamp(1.4rem,5.5vw,5.5rem);background:none}
+.hero-l::after{display:none}
+.hero-r{border-radius:var(--r-lg);box-shadow:var(--sh2);min-height:520px}
+.hero-r::before{display:none}
+.hero-title{font-size:clamp(3.2rem,6.4vw,6rem);line-height:1;margin-bottom:1.6rem}
+.hero-title small{font-size:.27em;letter-spacing:.22em;color:var(--gold);margin-top:1.4rem;font-weight:600}
+.hero-desc{font-size:1.05rem;line-height:1.8;color:var(--muted);max-width:440px;font-weight:400;margin-bottom:2.2rem}
+.hero-trust{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin-top:2.4rem;padding-top:1.6rem;border-top:1px solid var(--line);max-width:480px}
+.hero-trust span{display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--mid);font-weight:500}
+.hero-trust svg{width:16px;height:16px;color:var(--rose);flex-shrink:0}
+.hero-badge{animation:none;width:96px;height:96px;background:rgba(251,247,242,.92);color:var(--burg);backdrop-filter:blur(8px);box-shadow:0 10px 30px rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.7);top:1.4rem;bottom:auto;right:1.4rem}
+.hero-badge-in{animation:none}
+.hero-badge-t{color:var(--muted);font-size:.52rem;font-weight:600}
+.hero-badge .hb-val{font-size:1.5rem!important;color:var(--rose);line-height:1}
+.hero-ctrl{left:1.6rem;bottom:1.6rem}
+.hero-name{background:rgba(251,247,242,.92);backdrop-filter:blur(8px);color:var(--text);box-shadow:0 8px 24px rgba(0,0,0,.14);font-weight:600}
+
+/* ── Bandeau ── */
+.marquee{background:var(--burg);padding:.95rem 0;border:0}
+.mi{color:rgba(255,255,255,.78);font-weight:500;letter-spacing:.24em}
+.mi::after{color:var(--gold)}
+
+/* ── Collections ── */
+.collections{background:var(--bg2);padding:7rem clamp(1.2rem,5vw,4rem) 6rem}
+.collections-head{margin-bottom:3.4rem}
+.coll-grid{grid-template-columns:repeat(4,1fr);max-width:1240px;gap:1.4rem}
+.coll-card{border-radius:var(--r);border:1px solid var(--line2);background:#fff;box-shadow:var(--sh1)}
+.coll-card:hover{transform:translateY(-6px);box-shadow:var(--sh2)}
+.coll-card-img{height:340px}
+.coll-card-overlay{background:linear-gradient(to top,rgba(37,18,26,.72),transparent 58%)}
+.coll-card-badge{background:rgba(251,247,242,.94)!important;color:var(--rose)!important;font-weight:600;top:.9rem;left:.9rem;backdrop-filter:blur(6px)}
+.coll-card-badge.badge-custom{color:var(--gold)!important}
+.coll-card-name{font-size:1.3rem}
+.coll-card-info{padding:1.1rem 1.3rem}
+.coll-card-info span:first-child{font-size:1.05rem!important}
+
+/* ── Feature ── */
+.feature{width:min(1240px,calc(100% - 2*clamp(1.2rem,5vw,4rem)));margin:0 auto 6rem;border-radius:var(--r-lg);background:var(--blush);box-shadow:var(--sh1);border:1px solid var(--line2)}
+@media(min-width:901px){.feature{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr)}}
+.feat-img{min-height:440px}
+.feat-body{background:var(--blush);padding:3.4rem clamp(1.6rem,4vw,4.2rem)}
+.feat-body .h2{font-size:clamp(2rem,3.2vw,2.8rem)}
+.feat-specs{display:block;background:none;border:0;padding:0;box-shadow:none!important;margin-bottom:1.8rem}
+.feat-specs .spec{font-size:.92rem;padding:.55rem 0;border-bottom:1px solid rgba(74,15,32,.08);font-weight:400;gap:.8rem}
+.spec::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--rose);flex-shrink:0}
+.feat-price{font-size:2.3rem}
+.feat-tag{background:rgba(251,247,242,.94);font-weight:600;color:var(--rose)}
+.feat-tab{font-weight:600;background:rgba(255,255,255,.7)}
+.feat-body .btn{padding:.9rem 2rem;font-size:.74rem}
+
+/* ── Sur mesure ── */
+.custom-section{background:radial-gradient(1200px 500px at 85% -10%,rgba(179,48,76,.28),transparent 60%),linear-gradient(160deg,#2a0f19,#1b0a10);padding:7rem clamp(1.2rem,5vw,4rem)}
+.custom-inner{max-width:1120px;gap:clamp(2rem,5vw,5rem);grid-template-columns:1fr 1.05fr}
+.custom-info p{color:rgba(255,255,255,.72)!important;font-size:1rem!important}
+.custom-ex{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.09);border-radius:14px}
+.custom-ex-ic{background:rgba(168,131,74,.18);color:var(--gold)}
+.custom-ex-ic svg{width:18px;height:18px}
+.custom-ex-t{color:#fff}
+.custom-ex-s{color:rgba(255,255,255,.55)}
+.custom-form-box{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.12);border-radius:var(--r-lg);padding:2.6rem;box-shadow:0 30px 70px rgba(0,0,0,.3)}
+.cf-lbl-dark{color:rgba(255,255,255,.55)}
+.cf-in-dark::placeholder,.cf-ta-dark::placeholder{color:rgba(255,255,255,.3)}
+
+/* ── Valeurs ── */
+.vals{background:var(--bg);border:0;padding:6rem clamp(1.2rem,5vw,4rem) 3rem;max-width:1240px;margin:0 auto;gap:1.4rem}
+.val{background:#fff;border:1px solid var(--line2);border-radius:var(--r);padding:2.4rem 1.8rem;box-shadow:var(--sh1);transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+.val:hover{transform:translateY(-4px);box-shadow:var(--sh2)}
+.val-ic,.av-ic{width:60px;height:60px;border-radius:50%;background:var(--blush);color:var(--rose);box-shadow:none}
+.val-ic svg,.av-ic svg{width:26px;height:26px}
+.av-ic{display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem;font-size:1rem}
+.val-t,.av-t{font-size:1.3rem}
+.val-p,.av-p{font-weight:400;font-size:.9rem}
+
+/* ── Sections ajoutées ── */
+.sec{padding:6rem clamp(1.2rem,5vw,4rem);max-width:1240px;margin:0 auto}
+.sec-head{text-align:center;max-width:620px;margin:0 auto 3.4rem}
+.sec-head .eyebrow{justify-content:center}
+.sec-head .bar{margin:1.1rem auto 0}
+.sec-head p{color:var(--muted);margin-top:1.2rem;line-height:1.8}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;counter-reset:s}
+.step{position:relative;padding:2.2rem 1.9rem 2rem;background:#fff;border:1px solid var(--line2);border-radius:var(--r);box-shadow:var(--sh1)}
+.step-n{font-family:'Playfair Display',serif;font-size:3.2rem;line-height:1;color:var(--rose);opacity:.2;position:absolute;top:1.1rem;right:1.5rem}
+.step h3{font-family:'Playfair Display',serif;font-weight:500;font-size:1.3rem;margin-bottom:.6rem}
+.step p{color:var(--muted);font-size:.92rem;line-height:1.75}
+.testis{background:var(--blush);padding:6rem clamp(1.2rem,5vw,4rem);margin:3rem 0}
+.testis .sec-head{margin-bottom:3rem}
+.testi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;max-width:1240px;margin:0 auto}
+.testi{background:#fff;border-radius:var(--r);padding:2.2rem 2rem;box-shadow:var(--sh1);display:flex;flex-direction:column}
+.testi-s{color:var(--gold);letter-spacing:.2em;font-size:.95rem;margin-bottom:1rem}
+.testi-q{font-family:'Playfair Display',serif;font-size:1.12rem;line-height:1.65;font-style:italic;color:var(--text);flex:1}
+.testi-n{margin-top:1.4rem;padding-top:1.1rem;border-top:1px solid var(--line2);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.faq{max-width:820px;margin:0 auto;padding:5rem clamp(1.2rem,5vw,2rem) 6rem}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:first-of-type{border-top:1px solid var(--line)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1.5rem;padding:1.4rem .2rem;font-family:'Playfair Display',serif;font-size:1.2rem;cursor:pointer;color:var(--text);transition:color .2s}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';font-family:'DM Sans',sans-serif;font-size:1.6rem;font-weight:300;color:var(--rose);transition:transform .3s var(--ease);flex-shrink:0}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq summary:hover{color:var(--rose)}
+.faq details p{padding:0 .2rem 1.5rem;color:var(--muted);line-height:1.8;max-width:680px;font-size:.96rem}
+
+/* ── CTA ── */
+.cta-band{background:radial-gradient(900px 400px at 80% 0,rgba(168,131,74,.28),transparent 60%),linear-gradient(135deg,var(--burg),#7a1c33);padding:6.5rem 5vw}
+.cta-band h2{font-size:clamp(2.2rem,4.5vw,3.6rem)}
+.cta-band p{color:rgba(255,255,255,.8);font-size:1.02rem}
+
+/* ── Footer ── */
+footer{background:#1c0a11;padding:5rem clamp(1.2rem,5vw,4rem) 2.5rem}
+.footer-grid{max-width:1240px;margin:0 auto 3.5rem;grid-template-columns:1.7fr 1fr 1.2fr}
+.footer-logo img{filter:none;opacity:1;background:#fff;border-radius:50%;padding:0;height:56px;mix-blend-mode:normal}
+.footer-desc{color:rgba(255,255,255,.62);font-weight:400;max-width:360px}
+.footer-title{color:var(--gold);font-weight:600}
+.footer-links a{color:rgba(255,255,255,.7);font-weight:400;text-shadow:none!important}
+.footer-bottom{max-width:1240px;margin:0 auto;border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.5)}
+.footer-pay{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:1.3rem}
+.footer-pay span{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:.35rem .7rem;border:1px solid rgba(255,255,255,.18);border-radius:6px;color:rgba(255,255,255,.7)}
+
+/* ── Boutique ── */
+.shop-hero,.contact-hero,.about-hero{background:linear-gradient(120deg,var(--blush),#f6e3e3 55%,var(--bg));min-height:0;padding:5.5rem clamp(1.2rem,5vw,4rem) 4.5rem;border-bottom:1px solid var(--line2)}
+.shop-hero::after{display:none}
+.shop-tabs{margin:2.6rem auto 0;max-width:1400px;padding:0 clamp(1.2rem,4vw,3rem) 1.4rem;border-color:var(--line)}
+.shop-tab{border:1px solid var(--line);background:transparent;color:var(--mid);font-weight:600;padding:.6rem 1.3rem}
+.shop-tab.on{background:var(--text);border-color:var(--text)}
+.shop-tab:hover:not(.on){border-color:var(--rose);color:var(--rose);background:#fff}
+.shop-products{max-width:1400px;padding:0 clamp(1.2rem,4vw,3rem)}
+.shop-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.4rem}
+.shop-sep-text{color:var(--gold);font-weight:600}
+.prod-card{border-radius:var(--r);border:1px solid var(--line2);box-shadow:var(--sh1);display:flex;flex-direction:column}
+.prod-card:hover{transform:translateY(-6px);box-shadow:var(--sh2);border-color:var(--line)}
+.prod-card-body{display:flex;flex-direction:column;flex:1;padding:1.5rem 1.6rem 1.6rem}
+.prod-card-footer{margin-top:auto}
+.prod-card-img{height:300px}
+.prod-card-pill{background:rgba(251,247,242,.94)!important;color:var(--rose)!important;font-weight:600;backdrop-filter:blur(6px)}
+.prod-card-pill.pill-gold{color:var(--gold)!important}
+.prod-card-name{font-size:1.3rem}
+.prod-card-desc{font-weight:400;font-size:.88rem}
+.prod-card-col{font-weight:600;color:var(--gold)}
+.prd-btn{background:var(--text);border-color:var(--text);color:#fff;padding:.65rem 1.35rem;font-weight:600}
+.prd-btn:hover{background:var(--rose);border-color:var(--rose)}
+.prd-btn-gold{background:transparent;color:var(--gold);border-color:var(--gold)}
+.sz{border:1px solid var(--line);color:var(--mid);font-weight:500;padding:.45rem 1rem}
+.sz.picked{background:var(--text);border-color:var(--text)}
+
+/* ── À propos / contact ── */
+.about-body,.contact-wrap{max-width:1100px}
+.about-img-wrap img{border-radius:var(--r-lg)}
+.about-img-deco{border-color:var(--gold);opacity:.5;border-radius:var(--r-lg)}
+.about-vals{background:var(--bg2);border-color:var(--line2);padding:5.5rem clamp(1.2rem,5vw,4rem)}
+.about-vals-grid{max-width:1240px;margin:3rem auto 0}
+.av-card{background:#fff;border:1px solid var(--line2);border-radius:var(--r);box-shadow:var(--sh1);padding:2.2rem 1.4rem}
+.contact-chip{border-color:var(--line2);box-shadow:var(--sh1);border-radius:14px;align-items:center}
+.contact-chip-ic{background:var(--blush);color:var(--rose);font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500}
+.contact-chip-ic svg{width:17px;height:17px}
+.contact-form-box{border-radius:var(--r-lg);border-color:var(--line2);box-shadow:var(--sh2);padding:2.8rem}
+.cf-in,.cf-sel,.cf-ta{border-radius:12px;padding:.85rem 1.05rem;font-size:.92rem}
+.cf-in-light,.cf-sel-light,.cf-ta-light{border:1px solid var(--line);background:#fff}
+.cf-in-light:focus,.cf-sel-light:focus,.cf-ta-light:focus{box-shadow:0 0 0 4px rgba(179,48,76,.12)}
+.cf-lbl{font-weight:600;font-size:.68rem}
+.cf-lbl-light{color:var(--mid)}
+.cf-btn{padding:1rem;font-weight:600;border-radius:999px}
+.cf-btn-rose{background:var(--rose)}
+.info-note{border-radius:12px}
+
+/* ── Panier / modales ── */
+.cart-panel,.modal-box{border-radius:var(--r-lg)}
+.cart-panel{border-radius:var(--r-lg) 0 0 var(--r-lg)}
+.cart-hd-t,.modal-title{font-weight:500}
+.cart-order-btn,.pay-btn{border-radius:999px;font-weight:600}
+.to-top{background:var(--text)}
+
+@media(max-width:1100px){
+  .coll-grid{grid-template-columns:repeat(2,1fr)}
+  .coll-card-img{height:300px}
+}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding:0 1.2rem 1.2rem;max-height:none}
+  .hero-l{padding:2.5rem .4rem 2rem}
+  .hero-r{min-height:420px;height:auto;order:2}
+  .feature{grid-template-columns:1fr}
+  .feat-img{min-height:0;height:320px}
+  .feat-img img{min-height:0}
+  .steps,.testi-row,.vals{grid-template-columns:1fr}
+  .custom-inner{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .cart-panel{border-radius:0}
+}
+@media(max-width:640px){
+  nav{padding:0 1rem}
+  .coll-grid{grid-template-columns:1fr}
+  .coll-card-img{height:300px}
+  .footer-grid{grid-template-columns:1fr;gap:2rem}
+  .hero-title{font-size:clamp(2.8rem,14vw,4rem)}
+  .contact-form-box,.custom-form-box{padding:1.6rem}
+  .hero-trust{gap:.5rem 1.1rem}
+}
+
+.modal-icon{font-size:0!important;width:52px;height:52px;border-radius:50%;background:var(--blush);color:var(--rose);display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+.modal-icon svg{width:24px;height:24px}
+
+.scents{margin-bottom:1.6rem}
+.scents-t{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.8rem}
+.scents-l{display:flex;flex-wrap:wrap;gap:.5rem}
+.scents-l span{padding:.45rem 1rem;border:1px solid rgba(168,131,74,.5);border-radius:999px;color:#fff;font-size:.85rem;background:rgba(255,255,255,.05)}
+.hero .hero-ctas{flex-wrap:nowrap;gap:.8rem}.hero .btn{white-space:nowrap;padding:.95rem 1.7rem}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.coll-card-img img,.prod-card-img img{object-fit:cover!important;object-position:center 35%}
+.coll-card-img,.prod-card-img{background:var(--blush)!important}
+.coll-card-img[style*="gradient"]{background:linear-gradient(135deg,#1e0e08,#3e1c10)!important}
+.coll-card-overlay{background:linear-gradient(to top,rgba(37,18,26,.6),transparent 45%)}
+.coll-card-overlay{background:linear-gradient(to top,rgba(37,18,26,.82),rgba(37,18,26,.25) 45%,transparent 70%)}
+.soc-i{display:inline-flex;width:17px;height:17px;color:#fff}.soc-i svg{width:100%;height:100%}
+.soc{display:inline-flex;align-items:center;justify-content:center}
+.about-img-wrap img{aspect-ratio:4/5;object-fit:cover;object-position:center 30%}
+.prod-card[data-col="custom"] .prod-card-img{background:linear-gradient(135deg,#1e0e08,#3e1c10)!important}
+.legal{max-width:820px;margin:0 auto;padding:4.5rem clamp(1.2rem,5vw,2rem) 0}
+.legal h2{font-family:'Playfair Display',serif;font-weight:500;font-size:1.45rem;margin:2.4rem 0 .7rem;color:var(--text)}
+.legal p{color:var(--muted);line-height:1.85;font-size:.98rem}
+.legal a{color:var(--rose);text-decoration:underline}
+.legal{padding-bottom:5rem}
 </style>`);
 
 /* ═══════════════════════════════════════════════
    RENDER — génère tout le HTML depuis les données
    ═══════════════════════════════════════════════ */
+
+/* ── Accueil : annonce de toutes les collections ── */
+function featItems() {
+  const pp = parseFloat(D.val_price_petite), items = [];
+  if (D.val_active) items.push({
+    tab:'Bougies gourmandes', tag:D.feat_tag, eyebrow:D.feat_eyebrow, title:D.feat_title, em:D.feat_title_em,
+    img:IMG_COLL, hero:IMG_MAIN, fit:'cover', specs:[D.feat_spec1,D.feat_spec2,D.feat_spec3,D.feat_spec4],
+    price:'dès ' + pp.toFixed(2) + ' CHF', unit:'/ petite (90g)', cta:'Voir le produit'
+  });
+  if (D.spring_active) {
+    items.push({
+      tab:'Printanière', tag:'✦ Collection printanière', eyebrow:'Disponible maintenant', title:'Bougies', em:'printanières',
+      img:IMG_SPRING1, fit:'contain', specs:['🌷 Bouquet de tulipes en cire · lila ou rose','🌿 Socle vert mousse, dans son verre','🎨 Couleur au choix','📦 Livraison soignée'],
+      price:parseFloat(D.spring1_price).toFixed(2) + ' CHF', unit:'/ pièce', cta:'Voir la collection'
+    });
+    items.push({
+      tab:'Box cadeau', tag:'✦ Coffret cadeau', eyebrow:'Prêt à offrir', title:'Box cadeau', em:'Yumiya',
+      img:IMG_GIFTBOX, fit:'contain', specs:['🌸 Bougie florale + mini pot assorti','🎀 Boîte prête à offrir','🌿 Cire végétale · mèche coton','📦 Livraison soignée'],
+      price:parseFloat(D.box_price).toFixed(2) + ' CHF', unit:'/ coffret', cta:'Voir le coffret'
+    });
+  }
+  return items;
+}
+function featInner(k) {
+  const items = featItems(); if (!items.length) return '';
+  const it = items[Math.min(k, items.length - 1)];
+  const tabs = items.map((x, n) => `<button type="button" class="feat-tab${n===k?' on':''}" onclick="featSwitch(${n})">${x.tab}</button>`).join('');
+  return `<div class="feat-img feat-fade"><img src="${it.img}" alt="${it.title} ${it.em}" style="object-fit:${it.fit};${it.fit==='contain'?'background:var(--blush)':''}"/><span class="feat-tag">${it.tag}</span></div>
+    <div class="feat-body feat-fade">
+      <div class="feat-tabs">${tabs}</div>
+      <h2 class="h2">${it.title} <em>${it.em}</em></h2>
+      <div class="bar"></div>
+      <div class="feat-specs">${it.specs.map(t => `<div class="spec">${String(t).replace(/^[\p{Extended_Pictographic}\uFE0F\s]+/u,'')}</div>`).join('')}</div>
+      <div class="feat-price">${it.price} <small>${it.unit}</small></div>
+      <div class="hero-ctas">
+        <button class="btn" onclick="navigate('shop')">${it.cta}</button>
+      </div>
+    </div>`;
+}
+let featIdx = 0, featTimer = null, featPaused = false;
+const FEAT_MS = 5500;
+function featSchedule() {
+  clearTimeout(featTimer);
+  if (featPaused || window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  featTimer = setTimeout(() => {
+    const home = document.getElementById('pg-home'), n = featItems().length;
+    if (n > 1 && home && home.classList.contains('on') && !document.hidden) featSwitch((featIdx + 1) % n);
+    else featSchedule();
+  }, FEAT_MS);
+}
+function featSwitch(k) {
+  featIdx = k;
+  const el = document.getElementById('feature'); if (el) el.innerHTML = featInner(k);
+  featSchedule();
+}
+// Pause au survol (ordinateur) : la barre de progression reprend à zéro à la sortie
+document.addEventListener('mouseover', e => {
+  if (!window.matchMedia('(hover:hover)').matches) return;
+  const inside = !!e.target.closest('#feature');
+  if (inside === featPaused) return;
+  featPaused = inside;
+  if (inside) { clearTimeout(featTimer); return; }
+  const on = document.querySelector('.feat-tab.on');
+  if (on) { on.style.animation = 'none'; void on.offsetWidth; on.style.animation = ''; }
+  featSchedule();
+});
+featSchedule();
+
+
+
+/* ── Accueil : la photo du haut présente chaque collection ── */
+function heroSlides() {
+  const items = featItems();
+  if (!items.length) return `<img src="${IMG_MAIN}" alt="Bougie ${D.site_name}"/>`;
+  const nm = it => it.tab;
+  const num = it => (it.price.match(/[\d.]+/) || ['0'])[0];
+  const lab = it => it.tab.includes('Box') ? 'Prix' : 'Dès';
+  const f = items[0];
+  const slides = items.map((it, i) => {
+    const src = it.hero || it.img, contain = it.fit === 'contain';
+    return `<div class="hero-slide${i===0?' on':''}" data-name="${nm(it)}" data-price="${num(it)}" data-lab="${lab(it)}">${contain ? `<img class="hs-bg" src="${src}" alt=""/>` : ''}<img class="hs-fg${contain?' hs-contain':''}" src="${src}" alt="${nm(it)}"/></div>`;
+  }).join('');
+  const dots = items.length > 1 ? `<div class="hero-dots">${items.map((it, i) => `<button type="button" class="hero-dot${i===0?' on':''}" aria-label="${nm(it)}" onclick="heroGo(${i},true)"></button>`).join('')}</div>` : '';
+  return slides + `<div class="hero-ctrl"><button type="button" class="hero-name" onclick="navigate('shop')">${nm(f)}</button>${dots}</div>
+    <div class="hero-badge"><div class="hero-badge-in"><span class="hero-badge-t hb-lab">${lab(f)}</span><span class="hb-val" style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500">${num(f)}</span><span class="hero-badge-t">CHF</span></div></div>`;
+}
+let heroIdx = 0, heroTimer = null;
+function heroGo(k, manual) {
+  const r = document.getElementById('hero-r'); if (!r) return;
+  const sl = r.querySelectorAll('.hero-slide'); if (!sl.length) return;
+  heroIdx = k % sl.length;
+  sl.forEach((el, i) => el.classList.toggle('on', i === heroIdx));
+  r.querySelectorAll('.hero-dot').forEach((el, i) => el.classList.toggle('on', i === heroIdx));
+  const d = sl[heroIdx].dataset;
+  r.querySelector('.hero-name').textContent = d.name;
+  r.querySelector('.hb-lab').textContent = d.lab;
+  r.querySelector('.hb-val').textContent = d.price;
+  if (manual) heroSchedule();
+}
+function heroSchedule() {
+  clearTimeout(heroTimer);
+  if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  heroTimer = setTimeout(() => {
+    const home = document.getElementById('pg-home');
+    if (home && home.classList.contains('on') && !document.hidden) heroGo(heroIdx + 1);
+    heroSchedule();
+  }, 4500);
+}
+heroSchedule();
+
 function footer() {
   return `<footer>
     <div class="footer-grid">
-      <div><div class="footer-logo"><img src="${IMG_LOGO}" alt="${D.site_name}"/></div><p class="footer-desc">${D.footer_desc}</p></div>
-      <div><div class="footer-title">Navigation</div><ul class="footer-links"><li><a data-pg="home">Accueil</a></li><li><a data-pg="shop">Boutique</a></li><li><a data-pg="about">Notre histoire</a></li></ul></div>
+      <div><div class="footer-logo"><img src="${IMG_LOGO}" alt="${D.site_name}"/></div><p class="footer-desc">${D.footer_desc}</p><div class="footer-pay"><span>Visa</span><span>Mastercard</span><span>TWINT</span><span>Paiement sécurisé</span></div></div>
+      <div><div class="footer-title">Navigation</div><ul class="footer-links"><li><a data-pg="home">Accueil</a></li><li><a data-pg="shop">Boutique</a></li><li><a data-pg="about">Notre histoire</a></li><li><a data-pg="legal">Mentions légales</a></li><li><a data-pg="cgv">Conditions de vente</a></li></ul></div>
       <div><div class="footer-title">Contact</div><ul class="footer-links"><li><a href="https://www.instagram.com/${D.site_instagram.replace('@','')}/" target="_blank" rel="noopener">Instagram : ${D.site_instagram}</a></li><li><a href="mailto:${D.site_email}">${D.site_email}</a></li><li><a>${D.site_location}</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span>© 2025 ${D.site_name} · Tous droits réservés</span><div class="footer-socials"><a class="soc" href="https://www.instagram.com/${D.site_instagram.replace('@','')}/" target="_blank" rel="noopener" style="text-decoration:none" aria-label="Instagram">📷</a><a class="soc" href="mailto:${D.site_email}" style="text-decoration:none" aria-label="Nous écrire par email">✉️</a></div></div>
+    <div class="footer-bottom"><span>© ${new Date().getFullYear()} ${D.site_name} · Tous droits réservés</span><div class="footer-socials"><a class="soc" href="https://www.instagram.com/${D.site_instagram.replace('@','')}/" target="_blank" rel="noopener" style="text-decoration:none" aria-label="Instagram"><span class="soc-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></span></a><a class="soc" href="mailto:${D.site_email}" style="text-decoration:none" aria-label="Nous écrire par email"><span class="soc-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span></a></div></div>
   </footer>`;
 }
 
@@ -649,20 +1104,20 @@ function render() {
           <button class="btn" onclick="navigate('shop')">${D.hero_btn1}</button>
           <button class="btn btn-ghost" onclick="scrollCustom()">${D.hero_btn2}</button>
         </div>
+        <div class="hero-trust reveal d4"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Cire de soja 100% végétale</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Coulée à la main</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Livraison en Suisse</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Paiement sécurisé</span></div>
       </div>
-      <div class="hero-r">
-        <img src="${IMG_MAIN}" alt="Bougie ${D.site_name}"/>
-        <div class="hero-badge"><div class="hero-badge-in"><span class="hero-badge-t">Dès</span><span style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:500">${pp.toFixed(2)}</span><span class="hero-badge-t">CHF</span></div></div>
-      </div>
+      <div class="hero-r" id="hero-r">${heroSlides()}</div>
     </section>
     <div class="marquee"><div class="marquee-t">
       <span class="mi">Cire de soja 100% végétale</span><span class="mi">Fait à la main avec amour</span>
-      <span class="mi">Commandes personnalisées</span><span class="mi">Bougie gourmande disponible</span>
+      <span class="mi">Commandes personnalisées</span><span class="mi">Bougies gourmandes disponibles</span><span class="mi">Collection printanière disponible</span><span class="mi">Box cadeau Yumiya</span>
       <span class="mi">Livraison soignée en Suisse</span>
       <span class="mi">Cire de soja 100% végétale</span><span class="mi">Fait à la main avec amour</span>
-      <span class="mi">Commandes personnalisées</span><span class="mi">Bougie gourmande disponible</span>
+      <span class="mi">Commandes personnalisées</span><span class="mi">Bougies gourmandes disponibles</span><span class="mi">Collection printanière disponible</span><span class="mi">Box cadeau Yumiya</span>
       <span class="mi">Livraison soignée en Suisse</span>
     </div></div>
+
+    
 
     <section class="collections">
       <div class="collections-head">
@@ -694,33 +1149,17 @@ function render() {
         </div>
         <div class="coll-card reveal d2" onclick="scrollCustom()">
           <div class="coll-card-img" style="background:linear-gradient(135deg,#1e0e08,#3e1c10);display:flex;align-items:center;justify-content:center">
-            <div style="text-align:center;position:relative;z-index:2"><div style="font-size:3.2rem;margin-bottom:.5rem">✨</div><div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);font-style:italic">La tienne</div><div style="font-size:.74rem;color:rgba(255,255,255,.45);margin-top:.3rem">entièrement sur mesure</div></div>
+            <div style="text-align:center;position:relative;z-index:2"><div style="width:46px;height:46px;margin:0 auto .8rem;color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></div><div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);font-style:italic">La tienne</div><div style="font-size:.74rem;color:rgba(255,255,255,.45);margin-top:.3rem">entièrement sur mesure</div></div>
             <div class="coll-card-overlay" style="background:none"></div>
             <span class="coll-card-badge badge-custom">✦ Sur mesure</span>
-            <div class="coll-card-body"><div class="coll-card-name" style="color:var(--gold)">Personnalisée</div><div class="coll-card-sub">Ta senteur · Tes couleurs · Ton message</div></div>
+            <div class="coll-card-body"><div class="coll-card-name" style="color:var(--gold)">Personnalisée</div><div class="coll-card-sub">Violette · Rose · Vanille · Fraise · Pomme · Lavande</div></div>
           </div>
           <div class="coll-card-info"><span style="font-size:.82rem;color:var(--gold);font-weight:500">Prix sur demande</span><span class="coll-card-cta" style="color:var(--gold)">Créer →</span></div>
         </div>
       </div>
     </section>
 
-    <section class="feature">
-      <div class="feat-img reveal"><img src="${IMG_COLL}" alt="${D.feat_title}"/><span class="feat-tag">${D.feat_tag}</span></div>
-      <div class="feat-body">
-        <div class="eyebrow reveal">${D.feat_eyebrow}</div>
-        <h2 class="h2 reveal d1">${D.feat_title} <em>${D.feat_title_em}</em></h2>
-        <div class="bar reveal d1"></div>
-        <div class="feat-specs reveal d2">
-          <div class="spec">${D.feat_spec1}</div><div class="spec">${D.feat_spec2}</div>
-          <div class="spec">${D.feat_spec3}</div><div class="spec">${D.feat_spec4}</div>
-        </div>
-        <div style="font-family:'Playfair Display',serif;font-size:2.8rem;color:var(--rose);margin-bottom:1.5rem;line-height:1" class="reveal d3">dès ${pp.toFixed(2)} CHF <small style="font-size:.9rem;font-family:'DM Sans',sans-serif;color:var(--muted);font-weight:300;margin-left:.3rem">/ petite (90g)</small></div>
-        <div class="hero-ctas reveal d4">
-          <button class="btn" onclick="navigate('shop')">Voir le produit</button>
-          <button class="btn btn-o" onclick="navigate('contact')">Passer une demande</button>
-        </div>
-      </div>
-    </section>
+    <section class="feature" id="feature">${featInner(0)}</section>
 
     <div id="custom-anchor" style="scroll-margin-top:90px"></div>
     <section class="custom-section">
@@ -729,11 +1168,11 @@ function render() {
           <div class="custom-eyebrow-el reveal">${D.custom_eyebrow}</div>
           <h2 class="reveal d1">${D.custom_title} <em>${D.custom_title_em}</em></h2>
           <p class="reveal d2" style="color:rgba(255,255,255,.58);font-size:.92rem;line-height:1.82;font-weight:300;margin-bottom:1.8rem">${D.custom_desc}</p>
-          <div class="custom-examples reveal d2">
-            <div class="custom-ex"><div class="custom-ex-ic">💍</div><div><div class="custom-ex-t">Mariage & fiançailles</div><div class="custom-ex-s">Bougie souvenir avec date, prénoms, parfum choisi</div></div></div>
-            <div class="custom-ex"><div class="custom-ex-ic">🎂</div><div><div class="custom-ex-t">Anniversaire</div><div class="custom-ex-s">Couleurs, senteur et message personnalisés</div></div></div>
-            <div class="custom-ex"><div class="custom-ex-ic">🏢</div><div><div class="custom-ex-t">Cadeau d'entreprise</div><div class="custom-ex-s">Collection unique avec votre branding, en quantité</div></div></div>
-            <div class="custom-ex"><div class="custom-ex-ic">🌸</div><div><div class="custom-ex-t">Toute autre occasion</div><div class="custom-ex-s">Naissance, baby shower, déménagement…</div></div></div>
+          <div class="scents reveal d2"><div class="scents-t">Senteurs disponibles</div><div class="scents-l"><span>Violette</span><span>Rose</span><span>Vanille</span><span>Fraise</span><span>Pomme</span><span>Lavande</span></div></div><div class="custom-examples reveal d2">
+            <div class="custom-ex"><div class="custom-ex-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg></div><div><div class="custom-ex-t">Mariage & fiançailles</div><div class="custom-ex-s">Bougie souvenir avec date, prénoms, parfum choisi</div></div></div>
+            <div class="custom-ex"><div class="custom-ex-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3M12 8v3M17 8v3"/><path d="M7 4h.01M12 4h.01M17 4h.01"/></svg></div><div><div class="custom-ex-t">Anniversaire</div><div class="custom-ex-s">Couleurs, senteur et message personnalisés</div></div></div>
+            <div class="custom-ex"><div class="custom-ex-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></svg></div><div><div class="custom-ex-t">Cadeau d'entreprise</div><div class="custom-ex-s">Collection unique avec votre branding, en quantité</div></div></div>
+            <div class="custom-ex"><div class="custom-ex-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 16.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 1 1 4.5 4.5 4.5 4.5 0 1 1-4.5 4.5"/><path d="M12 7.5V9M7.5 12H9M16.5 12H15M12 16.5V15"/></svg></div><div><div class="custom-ex-t">Toute autre occasion</div><div class="custom-ex-s">Naissance, baby shower, déménagement…</div></div></div>
           </div>
         </div>
         <div class="custom-form-box reveal d2">
@@ -741,27 +1180,27 @@ function render() {
             <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;margin-bottom:.3rem;font-weight:500">${D.custom_form_title}</div>
             <div style="font-size:.82rem;color:rgba(255,255,255,.42);margin-bottom:1.6rem;line-height:1.65;font-weight:300">${D.custom_form_sub}</div>
             <div class="cf-group"><label class="cf-lbl cf-lbl-dark">Ton prénom *</label><input class="cf-in cf-in-dark" id="cm-name" placeholder="Marie" type="text"/></div>
-            <div class="cf-row">
+            <div class="cf-row" style="grid-template-columns:1fr">
               <div class="cf-group"><label class="cf-lbl cf-lbl-dark">Email *</label><input class="cf-in cf-in-dark" id="cm-email" placeholder="marie@email.com" type="email"/></div>
-              <div class="cf-group"><label class="cf-lbl cf-lbl-dark">Instagram</label><input class="cf-in cf-in-dark" id="cm-insta" placeholder="@tonpseudo"/></div>
+              
             </div>
             <div class="cf-group"><label class="cf-lbl cf-lbl-dark">Pour quelle occasion ? *</label>
               <select class="cf-sel cf-sel-dark" id="cm-occasion"><option value="">— Choisir —</option><option>Mariage / Fiançailles</option><option>Anniversaire</option><option>Naissance / Baby shower</option><option>Cadeau d'entreprise</option><option>Fête / Événement</option><option>Juste pour moi</option><option>Autre</option></select>
             </div>
             <div class="cf-row">
-              <div class="cf-group"><label class="cf-lbl cf-lbl-dark">Senteur(s)</label><input class="cf-in cf-in-dark" id="cm-scent" placeholder="Ex : jasmin, vanille…"/></div>
+              <div class="cf-group"><label class="cf-lbl cf-lbl-dark">Senteur</label><select class="cf-sel cf-sel-dark" id="cm-scent"><option value="">— Choisir —</option><option>Violette</option><option>Rose</option><option>Vanille</option><option>Fraise</option><option>Pomme</option><option>Lavande</option><option>Plusieurs (à préciser)</option></select></div>
               <div class="cf-group"><label class="cf-lbl cf-lbl-dark">Quantité</label>
                 <select class="cf-sel cf-sel-dark" id="cm-qty"><option value="">— Choisir —</option><option>1 bougie</option><option>2 à 5</option><option>6 à 20</option><option>Plus de 20</option></select>
               </div>
             </div>
             <div class="cf-group"><label class="cf-lbl cf-lbl-dark">Couleurs / ambiance</label><input class="cf-in cf-in-dark" id="cm-colors" placeholder="Ex : tons pastels, bordeaux et doré…"/></div>
             <div class="cf-group"><label class="cf-lbl cf-lbl-dark">Décris ta vision *</label><textarea class="cf-ta cf-ta-dark" id="cm-vision" placeholder="Raconte-nous ton idée, l'ambiance souhaitée, un message à inclure…"></textarea></div>
-            <button class="cf-btn cf-btn-rose" id="cm-btn" onclick="submitCustom()">Envoyer ma demande ✨</button>
+            <button class="cf-btn cf-btn-rose" id="cm-btn" onclick="submitCustom()">Envoyer ma demande</button>
           </div>
           <div style="display:none;text-align:center;padding:2rem 0" id="custom-success">
-            <div style="font-size:3rem;margin-bottom:.9rem">🌟</div>
+            <div style="width:60px;height:60px;margin:0 auto 1rem;border-radius:50%;background:rgba(168,131,74,.2);color:var(--gold);display:flex;align-items:center;justify-content:center"><span style="width:28px;height:28px;display:block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span></div>
             <div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);margin-bottom:.5rem">Demande reçue !</div>
-            <p style="font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.72;font-weight:300">On adore l'idée ! On te répond sous 48h pour discuter de ta bougie sur mesure. 🕯️</p>
+            <p style="font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.72;font-weight:300">On adore l'idée ! On te répond sous 48h pour discuter de ta bougie sur mesure.</p>
           </div>
         </div>
       </div>
@@ -774,6 +1213,26 @@ function render() {
     </section>
 
 
+
+
+    <section class="sec" id="how">
+      <div class="sec-head"><div class="eyebrow reveal">Simple &amp; rapide</div><h2 class="h2 reveal d1">Comment <em>commander</em></h2><div class="bar reveal d2"></div></div>
+      <div class="steps">
+        <div class="step reveal"><span class="step-n">01</span><h3>Choisis ta bougie</h3><p>Parcours la boutique, sélectionne la taille ou la couleur, ajoute au panier — ou décris-nous ta création sur mesure.</p></div>
+        <div class="step reveal d1"><span class="step-n">02</span><h3>Renseigne ta livraison</h3><p>Quelques informations suffisent. Les frais de livraison sont de 5.00 CHF pour toute la Suisse.</p></div>
+        <div class="step reveal d2"><span class="step-n">03</span><h3>Paie en toute sécurité</h3><p>Par carte ou par TWINT. Ta commande est confirmée dès réception du paiement, puis préparée avec soin.</p></div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="sec-head" style="margin-bottom:2.2rem"><div class="eyebrow reveal">Questions fréquentes</div><h2 class="h2 reveal d1">Tout ce qu'il faut <em>savoir</em></h2><div class="bar reveal d2"></div></div>
+      <details class="reveal"><summary>De quoi sont faites vos bougies ?</summary><p>De cire de soja 100% végétale et d'une mèche en coton, sans paraffine. Chaque bougie est coulée à la main, une par une.</p></details>
+      <details class="reveal"><summary>Combien de temps brûle une bougie ?</summary><p>Comptez environ 12 heures pour la petite bougie gourmande et environ 18 heures pour la grande.</p></details>
+      <details class="reveal"><summary>Quels sont les frais et délais de livraison ?</summary><p>La livraison coûte 5.00 CHF pour toute la Suisse. Compte 5 à 10 jours ouvrables après confirmation de ton paiement.</p></details>
+      <details class="reveal"><summary>Quels moyens de paiement acceptez-vous ?</summary><p>Le paiement se fait en ligne et en toute sécurité par carte bancaire (via SumUp) ou par TWINT.</p></details>
+      <details class="reveal"><summary>Puis-je retourner ma commande ?</summary><p>Oui, un retour est possible dans les 30 jours. Les frais de retour sont de 5.00 CHF. Tous les détails figurent dans nos <a data-pg="cgv" style="color:var(--rose);text-decoration:underline;cursor:pointer">conditions de vente</a>.</p></details>
+      <details class="reveal"><summary>Puis-je commander une bougie sur mesure ?</summary><p>Bien sûr. Décris-nous ton idée (senteur, couleurs, message, occasion) via le formulaire « Sur mesure » : nous te répondons sous 48 heures.</p></details>
+    </section>
 
     <section class="cta-band">
       <h2 class="reveal">${D.cta_title}<br><em style="font-style:italic">${D.cta_title_em}</em></h2>
@@ -790,14 +1249,14 @@ function render() {
         <div class="eyebrow">La boutique</div>
         <h1 class="h1" style="margin-bottom:1rem">Nos <em>bougies</em></h1>
         <div class="bar"></div>
-        <p class="txt" style="max-width:440px">Fête des Mères disponible maintenant et des créations 100% sur mesure à tout moment.</p>
+        <p class="txt" style="max-width:440px">Bougies gourmandes disponibles maintenant et des créations 100% sur mesure à tout moment.</p>
       </div>
     </div>
     <div class="shop-tabs">
       <button class="shop-tab on" onclick="filterShop('all',this)">Tout voir</button>
-      <button class="shop-tab" onclick="filterShop('valentin',this)">💐 Fête des Mères</button>
-      <button class="shop-tab" onclick="filterShop('printanier',this)">🌷 Printanière</button>
-      <button class="shop-tab" onclick="filterShop('custom',this)">✨ Sur mesure</button>
+      <button class="shop-tab" onclick="filterShop('valentin',this)">Bougies gourmandes</button>
+      <button class="shop-tab" onclick="filterShop('printanier',this)">Printanière</button>
+      <button class="shop-tab" onclick="filterShop('custom',this)">Sur mesure</button>
     </div>
     <div class="shop-products">
       <div class="shop-sep" id="sep-av"><div class="shop-sep-line"></div><div class="shop-sep-text">✦ Disponible maintenant</div><div class="shop-sep-line"></div></div>
@@ -876,12 +1335,12 @@ function render() {
         </div>
         <div class="prod-card reveal d1" data-col="custom" data-st="av">
           <div class="prod-card-img" style="background:linear-gradient(135deg,#180b04,#381408);display:flex;align-items:center;justify-content:center">
-            <div style="text-align:center;padding:2rem"><div style="font-size:3rem;margin-bottom:.5rem">✨</div><div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);font-style:italic">Sur Mesure</div></div>
+            <div style="text-align:center;padding:2rem"><div style="width:46px;height:46px;margin:0 auto .8rem;color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></div><div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);font-style:italic">Sur Mesure</div></div>
           </div>
           <div class="prod-card-body">
             <div class="prod-card-col" style="color:var(--gold)">Création personnalisée</div>
             <div class="prod-card-name">Ta bougie <em style="font-style:italic;color:var(--gold)">unique</em></div>
-            <p class="prod-card-desc">Senteur, couleurs, message — on crée exactement ce que tu imagines pour n'importe quelle occasion.</p>
+            <p class="prod-card-desc">Senteurs au choix : violette, rose, vanille, fraise, pomme ou lavande. Couleurs, message — on crée exactement ce que tu imagines.</p>
             <div class="prod-card-footer">
               <span style="font-size:.84rem;color:var(--gold);font-weight:500">Prix sur demande</span>
               <button class="prd-btn prd-btn-gold" onclick="scrollCustom()">Créer →</button>
@@ -928,6 +1387,45 @@ function render() {
     ${footer()}
   </div>
 
+
+  <div class="pg" id="pg-legal">
+    <div class="about-hero"><div style="max-width:620px;position:relative;z-index:1"><div class="eyebrow">Informations</div><h1 class="h1">Mentions <em>légales</em></h1><div class="bar"></div></div></div>
+    <article class="legal">
+      <h2>Éditeur du site</h2>
+      <p><strong>Yumiya Candle</strong><br>Route de Neuchâtel 7<br>Suisse<br>Email : <a href="mailto:${D.site_email}">${D.site_email}</a><br>Instagram : <a href="https://www.instagram.com/${D.site_instagram.replace('@','')}/" target="_blank" rel="noopener">${D.site_instagram}</a></p>
+      <h2>Activité</h2>
+      <p>Fabrication artisanale et vente en ligne de bougies, en Suisse.</p>
+      <h2>Propriété intellectuelle</h2>
+      <p>Les textes, photographies, logo et éléments graphiques de ce site sont la propriété de Yumiya Candle. Toute reproduction sans autorisation écrite préalable est interdite.</p>
+      <h2>Responsabilité</h2>
+      <p>Nous apportons le plus grand soin aux informations publiées sur ce site, mais ne pouvons garantir qu'elles soient exemptes d'erreurs. Les couleurs des produits peuvent légèrement varier selon l'écran.</p>
+      <h2>Contact</h2>
+      <p>Pour toute question : <a href="mailto:${D.site_email}">${D.site_email}</a>.</p>
+    </article>
+    ${footer()}
+  </div>
+
+  <div class="pg" id="pg-cgv">
+    <div class="about-hero"><div style="max-width:620px;position:relative;z-index:1"><div class="eyebrow">Informations</div><h1 class="h1">Conditions <em>de vente</em></h1><div class="bar"></div></div></div>
+    <article class="legal">
+      <h2>1. Vendeur</h2>
+      <p>Yumiya Candle, Route de Neuchâtel 7, Suisse. Contact : <a href="mailto:${D.site_email}">${D.site_email}</a>.</p>
+      <h2>2. Produits et prix</h2>
+      <p>Les prix sont indiqués en francs suisses (CHF). Nos bougies sont fabriquées à la main : de légères différences d'aspect entre deux pièces sont normales.</p>
+      <h2>3. Commande et paiement</h2>
+      <p>La commande se fait en ligne. Le paiement s'effectue par carte bancaire (via SumUp) ou par TWINT. La commande est confirmée dès réception du paiement.</p>
+      <h2>4. Livraison</h2>
+      <p>Nous livrons en Suisse. Les frais de livraison s'élèvent à <strong>5.00 CHF</strong>. Le délai de livraison est de <strong>5 à 10 jours ouvrables</strong> après confirmation du paiement.</p>
+      <h2>5. Retours</h2>
+      <p>Tu peux retourner ta commande <strong>dans les 30 jours</strong>. Les frais de retour s'élèvent à <strong>5.00 CHF</strong>. Pour effectuer un retour, contacte-nous d'abord par email.</p>
+      <h2>6. Créations sur mesure</h2>
+      <p>Les bougies personnalisées sont réalisées d'après ta demande. Leurs conditions (prix, délai) sont convenues avec toi avant la fabrication.</p>
+      <h2>7. Contact</h2>
+      <p>Une question sur ta commande ? Écris-nous à <a href="mailto:${D.site_email}">${D.site_email}</a>.</p>
+    </article>
+    ${footer()}
+  </div>
+
   <!-- ═══ CONTACT ═══ -->
   <div class="pg" id="pg-contact">
     <div class="contact-hero">
@@ -944,18 +1442,18 @@ function render() {
         <h2 class="h2" style="margin-bottom:1.3rem">Commander <em>facilement</em></h2>
         <p class="txt" style="margin-bottom:1.8rem">Remplis le formulaire et paye par carte. Ta commande est confirmée dès réception du paiement !</p>
         <div class="contact-chips">
-          <div class="contact-chip reveal"><div class="contact-chip-ic">1️⃣</div><div><div class="cchip-lbl">Étape 1</div><div class="cchip-val">${D.contact_step1}</div></div></div>
-          <div class="contact-chip reveal d1"><div class="contact-chip-ic">2️⃣</div><div><div class="cchip-lbl">Étape 2</div><div class="cchip-val">${D.contact_step2}</div></div></div>
-          <div class="contact-chip reveal d2"><div class="contact-chip-ic">3️⃣</div><div><div class="cchip-lbl">Étape 3</div><div class="cchip-val">${D.contact_step3}</div></div></div>
-          <div class="contact-chip reveal d3"><div class="contact-chip-ic">📷</div><div><div class="cchip-lbl">Instagram</div><a class="cchip-val" href="https://www.instagram.com/${D.site_instagram.replace('@','')}/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">${D.site_instagram}</a></div></div>
-          <div class="contact-chip reveal d4"><div class="contact-chip-ic">✉️</div><div><div class="cchip-lbl">Email</div><a class="cchip-val" href="mailto:${D.site_email}" style="text-decoration:underline;text-underline-offset:3px">${D.site_email}</a></div></div>
+          <div class="contact-chip reveal"><div class="contact-chip-ic">1</div><div><div class="cchip-lbl">Étape 1</div><div class="cchip-val">${D.contact_step1}</div></div></div>
+          <div class="contact-chip reveal d1"><div class="contact-chip-ic">2</div><div><div class="cchip-lbl">Étape 2</div><div class="cchip-val">${D.contact_step2}</div></div></div>
+          <div class="contact-chip reveal d2"><div class="contact-chip-ic">3</div><div><div class="cchip-lbl">Étape 3</div><div class="cchip-val">${D.contact_step3}</div></div></div>
+          <div class="contact-chip reveal d3"><div class="contact-chip-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></div><div><div class="cchip-lbl">Instagram</div><a class="cchip-val" href="https://www.instagram.com/${D.site_instagram.replace('@','')}/" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">${D.site_instagram}</a></div></div>
+          <div class="contact-chip reveal d4"><div class="contact-chip-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></div><div><div class="cchip-lbl">Email</div><a class="cchip-val" href="mailto:${D.site_email}" style="text-decoration:underline;text-underline-offset:3px">${D.site_email}</a></div></div>
         </div>
       </div>
       <div class="contact-form-box reveal d1">
         <div id="cf-form-content">
           <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:.35rem;font-weight:500">${D.contact_form_title}</h3>
           <p style="font-size:.84rem;color:var(--muted);margin-bottom:1.5rem;font-weight:300;line-height:1.7">${D.contact_form_sub}</p>
-          <div class="info-note"><span>💡</span><span>${D.contact_note}</span></div>
+          <div class="info-note"><span style="width:16px;height:16px;display:inline-block;flex-shrink:0;color:var(--rose)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><span>${D.contact_note}</span></div>
           <div class="cf-group"><label class="cf-lbl cf-lbl-light">Ton prénom *</label><input class="cf-in cf-in-light" id="cf-name" placeholder="Marie" type="text"/></div>
           <div class="cf-row">
             <div class="cf-group"><label class="cf-lbl cf-lbl-light">Email *</label><input class="cf-in cf-in-light" id="cf-email" placeholder="marie@email.com" type="email"/></div>
@@ -976,12 +1474,12 @@ function render() {
           <div id="cf-cust" style="display:none">
             <div class="cf-row">
               <div class="cf-group"><label class="cf-lbl cf-lbl-light">Occasion</label><input class="cf-in cf-in-light" id="cf-occasion" placeholder="Mariage, anniversaire…"/></div>
-              <div class="cf-group"><label class="cf-lbl cf-lbl-light">Senteur</label><input class="cf-in cf-in-light" id="cf-scent" placeholder="Rose, vanille…"/></div>
+              <div class="cf-group"><label class="cf-lbl cf-lbl-light">Senteur</label><select class="cf-sel cf-sel-light" id="cf-scent"><option value="">— Choisir —</option><option>Violette</option><option>Rose</option><option>Vanille</option><option>Fraise</option><option>Pomme</option><option>Lavande</option><option>Plusieurs (à préciser)</option></select></div>
             </div>
           </div>
           <div class="cf-group"><label class="cf-lbl cf-lbl-light">Adresse de livraison *</label><input class="cf-in cf-in-light" id="cf-address" placeholder="Rue, ville, NPA — Suisse"/></div>
           <div class="cf-group"><label class="cf-lbl cf-lbl-light">Message</label><textarea class="cf-ta cf-ta-light" id="cf-message" placeholder="Question, demande spéciale, message cadeau…"></textarea></div>
-          <button class="cf-btn cf-btn-rose" id="cf-btn" onclick="submitContact()">💳 Payer par carte →</button>
+          <button class="cf-btn cf-btn-rose" id="cf-btn" onclick="submitContact()">Payer par carte →</button>
         </div>
         <div class="form-success" id="cf-success">
           <div class="form-success-ic">💳</div>
@@ -997,13 +1495,13 @@ function render() {
               </button>
             </div>
             <a id="cf-twint-link" href="#" target="_blank" rel="noopener noreferrer" class="pay-btn pay-btn-sumup" onclick="return handlePayClickFrom('cf-twint-amount',event)">
-              💳 Payer par carte avec SumUp
+              Payer par carte
             </a>
             <div class="pay-divider"><span>ou</span></div>
             <a id="cf-twint-real-link" href="#" target="_blank" rel="noopener noreferrer" class="pay-btn pay-btn-twint" onclick="return handlePayClickFrom('cf-twint-amount',event)">
-              📱 Payer avec TWINT
+              Payer avec TWINT
             </a>
-            <div class="pay-secure-note">🔒 Paiement 100% sécurisé · Visa, Mastercard, Amex</div>
+            <div class="pay-secure-note">Paiement 100% sécurisé · Carte (SumUp) ou TWINT</div>
           </div>
         </div>
       </div>
@@ -1014,7 +1512,7 @@ function render() {
   <!-- CART -->
   <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
   <div class="cart-panel" id="cart-panel">
-    <div class="cart-hd"><div class="cart-hd-t">Mon panier 🛒</div><button class="cart-close" onclick="closeCart()">✕</button></div>
+    <div class="cart-hd"><div class="cart-hd-t">Mon panier</div><button class="cart-close" onclick="closeCart()">✕</button></div>
     <div class="cart-body" id="cart-body">
       <div class="cart-empty" id="cart-empty">
         <div class="cart-empty-ic">🕯️</div>
@@ -1028,8 +1526,8 @@ function render() {
       <div class="cart-tot-row" style="margin-bottom:.4rem"><span class="cart-tot-lbl">Sous-total</span><span style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--mid)" id="cart-subtotal">0.00 CHF</span></div>
       <div class="cart-tot-row" style="margin-bottom:.7rem"><span class="cart-tot-lbl">Frais de livraison</span><span style="font-size:.9rem;color:var(--muted)">5.00 CHF</span></div>
       <div class="cart-tot-row"><span class="cart-tot-lbl">Total</span><span class="cart-tot-amt" id="cart-total">0.00 CHF</span></div>
-      <button class="cart-order-btn" onclick="openOrderModal()">💳 Payer par carte</button>
-      <p class="cart-order-note">Paiement sécurisé · Livraison rapide 🇨🇭</p>
+      <button class="cart-order-btn" onclick="openOrderModal()">Passer commande</button>
+      <p class="cart-order-note">Paiement sécurisé · Livraison en Suisse</p>
     </div>
   </div>
 
@@ -1038,7 +1536,7 @@ function render() {
     <div class="modal-box"><button class="modal-close" onclick="closeModal('order-bg')">✕</button>
       <div class="modal-inner">
         <div id="order-form">
-          <div class="modal-icon">📦</div>
+          <div class="modal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></div>
           <div class="modal-title">Livraison & paiement</div>
           <p class="modal-sub">Remplis ton adresse de livraison, puis paye en toute sécurité via SumUp.</p>
           <div class="order-summary" id="order-summary"></div>
@@ -1272,7 +1770,7 @@ function renderCart() {
     <div class="cart-item">
       <div class="cart-item-img"><img src="${item.img || IMG_MAIN}" alt="${item.name}"/></div>
       <div class="cart-item-info">
-        <div><div class="cart-item-name">${item.name}</div><div class="cart-item-size">${item.size === 'petite' ? 'Petite · 90g · ~20h' : item.size === 'grande' ? 'Grande · 180g · ~30h' : ''}</div></div>
+        <div><div class="cart-item-name">${item.name}</div><div class="cart-item-size">${item.size === 'petite' ? 'Petite · 90g · ~12h' : item.size === 'grande' ? 'Grande · 180g · ~18h' : ''}</div></div>
         <div class="cart-item-bot">
           <div class="cart-item-price">${(item.price * item.qty).toFixed(2)} CHF</div>
           <div style="display:flex;align-items:center;gap:.4rem">
@@ -1338,7 +1836,7 @@ function openOrderModal(directPrice) {
   var rows = '';
   if (cart.length) {
     rows = cart.map(function(i) { tot += i.price * i.qty; var lbl = (i.size === 'unique') ? '×' + i.qty : (i.size + ' ×' + i.qty); return '<div class="os-row"><span>' + i.name + ' <em>' + lbl + '</em></span><span>' + (i.price*i.qty).toFixed(2) + ' CHF</span></div>'; }).join('');
-    rows += '<div class="os-row" style="color:var(--muted);font-size:.82rem"><span>🚚 Frais de livraison</span><span>5.00 CHF</span></div>';
+    rows += '<div class="os-row" style="color:var(--muted);font-size:.82rem"><span>Frais de livraison</span><span>5.00 CHF</span></div>';
     tot += 5;
     rows += '<div class="os-total"><span>Total</span><span>' + tot.toFixed(2) + ' CHF</span></div>';
   }
@@ -1346,7 +1844,7 @@ function openOrderModal(directPrice) {
   if (tot === 0 && directPrice && directPrice > 0) {
     tot = directPrice + 5;
     rows = '<div class="os-row"><span>' + (D.val_name || 'Bougie') + ' <em>' + shopSize + ' ×1</em></span><span>' + directPrice.toFixed(2) + ' CHF</span></div>';
-    rows += '<div class="os-row" style="color:var(--muted);font-size:.82rem"><span>🚚 Frais de livraison</span><span>5.00 CHF</span></div>';
+    rows += '<div class="os-row" style="color:var(--muted);font-size:.82rem"><span>Frais de livraison</span><span>5.00 CHF</span></div>';
     rows += '<div class="os-total"><span>Total</span><span>' + tot.toFixed(2) + ' CHF</span></div>';
   }
   document.getElementById('order-summary').innerHTML = rows;
@@ -1559,7 +2057,7 @@ function submitNotify() {
 function submitCustom() {
   const n=document.getElementById('cm-name').value.trim();
   const e=document.getElementById('cm-email').value.trim();
-  const insta=document.getElementById('cm-insta').value.trim();
+  const insta='';
   const o=document.getElementById('cm-occasion').value;
   const scent=document.getElementById('cm-scent').value.trim();
   const qty=document.getElementById('cm-qty').value;
@@ -1588,7 +2086,7 @@ function submitCustom() {
     }).catch(function(err){ console.warn('Formspree indisponible (données sauvegardées localement):', err.message); });
   } catch(err) { console.warn('Formspree indisponible:', err.message); }
 
-  setTimeout(()=>{document.getElementById('custom-form-content').style.display='none';document.getElementById('custom-success').style.display='block';btn.textContent='Envoyer ma demande ✨';btn.disabled=false;},1200);
+  setTimeout(()=>{document.getElementById('custom-form-content').style.display='none';document.getElementById('custom-success').style.display='block';btn.textContent='Envoyer ma demande';btn.disabled=false;},1200);
 }
 function toggleCfType() {
   const t=document.getElementById('cf-type').value;
@@ -1676,6 +2174,43 @@ function handlePayClickFrom(elId, e) {
 function doReveal() { document.querySelectorAll('.reveal').forEach(el => { const r=el.getBoundingClientRect(); if(r.top < window.innerHeight-60) el.classList.add('show'); }); }
 window.addEventListener('scroll', doReveal, { passive: true });
 document.addEventListener('keydown', e => { if(e.key==='Escape') { closeModal('order-bg'); closeModal('notify-bg'); closeCart(); closeAdminPanel(); } });
+
+/* ── Finitions : accessibilité, performance, confort de saisie ── */
+(function polish(){
+  try{
+    var ic=document.querySelector('link[rel~=icon]')||document.head.appendChild(Object.assign(document.createElement('link'),{rel:'icon'}));
+    ic.href=IMG_LOGO;
+    var set=function(sel,attrs){document.querySelectorAll(sel).forEach(function(el){for(var k in attrs)el.setAttribute(k,attrs[k]);});};
+    // Liens de navigation utilisables au clavier
+    document.querySelectorAll('a[data-pg], .nav-logo').forEach(function(a){
+      if(!a.getAttribute('href')){
+        a.setAttribute('role','link');a.setAttribute('tabindex','0');
+        a.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();a.click();}});
+      }
+    });
+    set('.nav-logo',{'aria-label':'Yumiya Candle – retour à l’accueil'});
+    set('#burger',{'aria-label':'Ouvrir le menu','aria-controls':'drawer'});
+    set('.cart-btn',{'aria-label':'Ouvrir le panier'});
+    set('#cart-count',{'aria-live':'polite'});
+    set('.modal-close',{'aria-label':'Fermer'});
+    set('.modal-box',{'role':'dialog','aria-modal':'true'});
+    // Images : chargement différé hors écran d'accueil
+    document.querySelectorAll('img').forEach(function(i){
+      i.decoding='async';
+      i.loading='eager';
+    });
+    // Autocomplétion des formulaires
+    var ac={'ord-fname':'given-name','ord-lname':'family-name','ord-address':'street-address','ord-npa':'postal-code','ord-city':'address-level2','ord-email':'email','ord-phone':'tel','cm-name':'name','cf-name':'name','cm-email':'email','cf-email':'email','nm-email':'email','cf-address':'street-address','adm-pw':'current-password'};
+    for(var id in ac){var el=document.getElementById(id);if(el)el.setAttribute('autocomplete',ac[id]);}
+    var npa=document.getElementById('ord-npa');if(npa)npa.setAttribute('inputmode','numeric');
+    // Bouton retour en haut
+    var t=document.createElement('button');
+    t.className='to-top';t.type='button';t.setAttribute('aria-label','Retour en haut');t.textContent='↑';
+    t.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+    document.body.appendChild(t);
+    window.addEventListener('scroll',function(){t.classList.toggle('on',window.scrollY>700);},{passive:true});
+  }catch(e){console.warn('polish',e);}
+})();
 setTimeout(doReveal, 100);
 
 /* ═══════════════════════════════════════════════
@@ -2092,14 +2627,14 @@ function clearVentes() {
         '• <strong>Bougie Printanière — Tulipes Lila</strong> — 6.30 CHF' + br +
         '• <strong>Bougie Printanière — Tulipes Roses</strong> — 6.30 CHF' + br +
         '• <strong>Box Cadeau Yumiya</strong> (bougie florale + mini pot) — 13.30 CHF' + br + br +
-        'Pour une bougie sur mesure, écris-nous à Yumiya@businesspiazza.ch pour un devis ✨'
+        'Pour une bougie sur mesure, écris-nous à yumiyacandle@outlook.com pour un devis ✨'
     },
     {
       id: 'taille',
       words: ['taille', 'tailles', 'petite ou grande', 'quelle taille', 'grandeur', 'format', 'gramme', 'grammes', '90g', '180g'],
       reply: 'La <strong>Bougie gourmande</strong> existe en deux formats 📏' + br + br +
-        '• <strong>Petite 90g</strong> — 8.90 CHF, ~20h de combustion, idéale à offrir ou tester une senteur' + br +
-        '• <strong>Grande 180g</strong> — 10.90 CHF, ~30h de combustion, parfaite en cadeau principal' + br + br +
+        '• <strong>Petite 90g</strong> — 8.90 CHF, ~12h de combustion, idéale à offrir ou tester une senteur' + br +
+        '• <strong>Grande 180g</strong> — 10.90 CHF, ~18h de combustion, parfaite en cadeau principal' + br + br +
         '(Les bougies Printanières et la Box Cadeau sont en taille unique.)'
     },
     {
@@ -2130,21 +2665,21 @@ function clearVentes() {
       id: 'stock',
       words: ['stock', 'disponible', 'dispo', 'rupture', 'reste-t-il', 'reste t il', 'en stock', 'plus disponible', 'epuise', 'epuisee'],
       reply: 'Nos quantités sont limitées car chaque bougie est faite main 🕯️' + br + br +
-        'Pour connaître la disponibilité exacte en temps réel, le plus sûr est de consulter l\'onglet <strong>Boutique</strong> ou de nous écrire directement 📧 Yumiya@businesspiazza.ch'
+        'Pour connaître la disponibilité exacte en temps réel, le plus sûr est de consulter l\'onglet <strong>Boutique</strong> ou de nous écrire directement 📧 yumiyacandle@outlook.com'
     },
     {
       id: 'livraison',
       words: ['livraison', 'livrer', 'livre', 'envoi', 'envoyer', 'expedition', 'expedie', 'delai', 'delais', 'quand vais-je recevoir', 'recevoir', 'poste', 'suisse', 'colis', 'combien de temps'],
       reply: 'Nous livrons partout en Suisse 🇨🇭' + br + br +
         'La livraison est rapide après confirmation et paiement de ta commande — on t\'envoie un suivi dès l\'expédition 📦' + br + br +
-        'Des questions sur les délais précis ? Écris-nous 📧 Yumiya@businesspiazza.ch'
+        'Des questions sur les délais précis ? Écris-nous 📧 yumiyacandle@outlook.com'
     },
     {
       id: 'retour',
       words: ['retour', 'retourner', 'rembours', 'annuler', 'annulation', 'echange', 'echanger', 'sav', 'probleme avec ma commande', 'colis casse', 'casse', 'abime', 'reclamation'],
       reply: 'Pas de souci, on trouve toujours une solution ensemble 🙏' + br + br +
         'Écris-nous directement en précisant ton numéro de commande et le souci rencontré :' + br +
-        '📧 Yumiya@businesspiazza.ch' + br + br +
+        '📧 yumiyacandle@outlook.com' + br + br +
         'On te répond rapidement et on s\'occupe de toi 🌸'
     },
     {
@@ -2154,7 +2689,7 @@ function clearVentes() {
         '• Senteur au choix' + br +
         '• Couleur au choix' + br +
         '• Message personnalisé' + br + br +
-        'Contacte-nous à Yumiya@businesspiazza.ch ou sur @yumiyacandle pour organiser ça ensemble 🌸'
+        'Contacte-nous à yumiyacandle@outlook.com ou sur @yumiyacandle pour organiser ça ensemble 🌸'
     },
     {
       id: 'senteur',
@@ -2189,7 +2724,7 @@ function clearVentes() {
         '• Coupe la mèche à ~5mm avant chaque allumage' + br +
         '• Laisse-la brûler jusqu\'à ce que toute la surface soit fondue la 1ère fois (évite l\'effet tunnel)' + br +
         '• Ne la laisse jamais sans surveillance' + br + br +
-        'Petite = ~20h · Grande = ~30h de combustion totale ✨'
+        'Petite = ~12h · Grande = ~18h de combustion totale ✨'
     },
     {
       id: 'fete-des-meres',
@@ -2217,7 +2752,7 @@ function clearVentes() {
       id: 'contact',
       words: ['contact', 'joindre', 'parler', 'email', 'mail', 'instagram', 'reseaux', 'reseaux sociaux', 'info', 'numero', 'telephone', 'appeler', 'humain', 'quelqu\'un'],
       reply: 'Tu peux nous contacter facilement 🌸' + br + br +
-        '📧 Yumiya@businesspiazza.ch' + br +
+        '📧 yumiyacandle@outlook.com' + br +
         '📱 @yumiyacandle sur Instagram' + br + br +
         'On répond généralement assez vite, avec plaisir ! ✨'
     },
@@ -2237,7 +2772,7 @@ function clearVentes() {
       id: 'insatisfaction',
       words: ['pas content', 'mecontent', 'decu', 'nul', 'mauvais', 'insatisfait', 'plainte', 'ca ne marche pas', 'bug', 'erreur'],
       reply: 'Désolée d\'entendre ça, on va arranger ça ensemble 🙏' + br + br +
-        'Peux-tu nous écrire en détail à 📧 Yumiya@businesspiazza.ch ? On te répond personnellement et rapidement.'
+        'Peux-tu nous écrire en détail à 📧 yumiyacandle@outlook.com ? On te répond personnellement et rapidement.'
     }
   ];
 
@@ -2264,7 +2799,7 @@ function clearVentes() {
 
   function ycFallback() {
     return 'Bonne question ! 🌸 Je n\'ai pas de réponse toute faite pour ça, mais on va s\'en occuper :' + br + br +
-      '📧 Yumiya@businesspiazza.ch' + br +
+      '📧 yumiyacandle@outlook.com' + br +
       '📱 @yumiyacandle sur Instagram' + br + br +
       'Sinon, je peux déjà t\'aider avec : prix, tailles, commande, livraison, paiement, senteurs, ingrédients, sur-mesure, retours ✨';
   }
