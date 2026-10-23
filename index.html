@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=1280"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>Yumiya Candle – Bougies Gourmandes Artisanales</title>
 <meta name="description" content="Bougies gourmandes artisanales faites à la main en Suisse : cire végétale de soja, mèche en coton, créations sur mesure."/>
 <meta name="theme-color" content="#4a0f20"/>
@@ -939,6 +939,33 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .legal p{color:var(--muted);line-height:1.85;font-size:.98rem}
 .legal a{color:var(--rose);text-decoration:underline}
 .legal{padding-bottom:5rem}
+
+/* ═══ MOBILE / TÉLÉPHONE — ajustements finaux ═══ */
+#pg-home,#pg-shop,#pg-about,#pg-contact{padding-top:76px}
+html,body{max-width:100%;overflow-x:hidden}
+@media(max-width:900px){
+  .hero{display:flex!important;flex-direction:column;height:auto!important;min-height:0!important;max-height:none!important;padding:0 1rem 1.2rem!important}
+  .hero-l{padding:1.8rem .3rem 1.6rem!important;min-width:0}
+  .hero-desc{max-width:none;font-size:1rem}
+  .hero .hero-ctas{flex-wrap:wrap!important}
+  .hero .btn{white-space:normal;text-align:center;padding:.9rem 1.5rem}
+  .hero-trust{max-width:none}
+  .hero-r{order:2;width:100%;height:auto!important;min-height:0!important;aspect-ratio:4/5;max-height:560px}
+  .hero-badge{width:76px;height:76px;top:.9rem;right:.9rem}
+  .hero-badge .hb-val{font-size:1.2rem!important}
+  .hero-ctrl{left:.9rem;bottom:.9rem}
+}
+@media(max-width:640px){
+  .hero-title{font-size:clamp(2.8rem,15vw,3.8rem)}
+  .hero .hero-ctas .btn{flex:1 1 100%}
+  .hero-trust span{font-size:.78rem}
+  .collections{padding:4rem 1rem 3rem}
+  .sec{padding:4rem 1.1rem}
+  .vals{padding:3.5rem 1.1rem 2rem}
+  .feature{margin-bottom:3.5rem}
+  .marquee .mi{letter-spacing:.16em}
+}
+@media(max-width:640px){nav .nav-right{margin-left:auto}nav{gap:1rem}}
 </style>`);
 
 /* ═══════════════════════════════════════════════
