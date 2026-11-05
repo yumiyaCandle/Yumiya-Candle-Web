@@ -1700,7 +1700,7 @@ body[data-view=creer] #creer,body[data-view=journal] #journal,body[data-view=mai
 .nw-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,28px)}
 .nw-card{position:relative;display:flex;flex-direction:column;background:var(--paper);border-radius:var(--r);overflow:hidden;cursor:pointer;box-shadow:0 1px 0 var(--line),0 30px 60px -40px rgba(30,21,18,.35);transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
 .nw-card:hover{transform:translateY(-4px);box-shadow:0 1px 0 var(--line),0 40px 70px -40px rgba(30,21,18,.45)}
-.nw-card>input{position:absolute;opacity:0;pointer-events:none}
+.nw-card>input{position:absolute;opacity:0;pointer-events:none;left:clamp(22px,2.6vw,34px);bottom:clamp(22px,2.6vw,34px);width:22px;height:22px;margin:0}
 .nw-card figure{position:relative;margin:0;aspect-ratio:4/3;overflow:hidden;background:var(--sand)}
 .nw-card img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
 .nw-card:hover img{transform:scale(1.04)}
@@ -1730,7 +1730,7 @@ body[data-view=creer] #creer,body[data-view=journal] #journal,body[data-view=mai
 .nw .fld input{color:var(--cream)}
 .nw .fld.err input{box-shadow:inset 0 0 0 1.5px #E58A8A}
 .nw-all{display:flex;align-items:center;gap:10px;margin:16px 0 18px;font-size:.95rem;cursor:pointer;min-height:40px}
-.nw-all input{position:absolute;opacity:0}
+.nw-all{position:relative}.nw-all input{position:absolute;opacity:0;left:0;top:50%;width:22px;height:22px;margin:-11px 0 0}
 .nw-all .nw-box{box-shadow:inset 0 0 0 1.5px rgba(244,233,220,.4)}
 .nw-all input:focus-visible+.nw-box{outline:2px solid var(--gold-2);outline-offset:3px}
 .nw-msg{min-height:1.4em;margin:.8rem 0 0;text-align:center;color:var(--gold-2);font-size:.92rem}
@@ -1770,6 +1770,18 @@ body[data-view=creer] #creer,body[data-view=journal] #journal,body[data-view=mai
   .st-rail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:visible;scroll-snap-type:none;max-width:var(--max);margin:0 auto;padding:6px var(--gut) 28px}
   .st-rail .st-card{flex:none;min-height:200px}
 }
+.ci-top>:last-child{white-space:nowrap;flex:none}
+
+/* Sur mesure : un bandeau court sous le configurateur (le grand formulaire est remplacé par la fenêtre « Nous écrire ») */
+.bsp-mini{background:var(--wine);color:var(--cream);scroll-margin-top:110px}
+.bsp-mini .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px 40px;flex-wrap:wrap;padding-block:clamp(40px,6vw,64px)}
+.bsp-mini .eyebrow{color:var(--gold-2)}
+.bsp-mini h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,3.4vw,2.8rem);line-height:1.05;margin:.5rem 0 .6rem}
+.bsp-mini h2 em{color:var(--gold-2)}
+.bsp-mini p{margin:0;color:rgba(244,233,220,.78);max-width:52ch;line-height:1.55}
+.bsp-mini .acts{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.bsp-mini .btn{background:var(--cream);color:var(--ink)}
+.bsp-mini small{color:rgba(244,233,220,.7);font-size:.85rem}
 /* ─── Finitions ordinateur + téléphone ─── */
 .ft a[href^="mailto:"]{white-space:nowrap;overflow-wrap:normal}
 @media (min-width:901px){.ft-top{grid-template-columns:1.3fr .9fr .9fr 1.25fr}}
@@ -2020,37 +2032,7 @@ body[data-view=acheter] .ft-bot{padding-bottom:calc(96px + env(safe-area-inset-b
 </section>
 
 <!-- ═══════════ SUR MESURE ═══════════ -->
-<section class="bespoke sec" id="sur-mesure" data-view="creer" aria-labelledby="bsp-t">
-  <div class="wrap bespoke-in">
-    <div>
-      <div class="eyebrow rv" data-t="bsp.eye">Sur mesure</div>
-      <h2 class="h2" id="bsp-t" style="margin:1rem 0 1.4rem" data-split data-t="bsp.t">Votre bougie, <em>votre histoire</em></h2>
-      <p class="lead rv" data-t="bsp.lead">Un mariage, une naissance, un cadeau d’entreprise : nous imaginons avec vous une création unique — senteur, couleurs, décor et message.</p>
-      <div class="bsteps rv">
-        <div><b data-t="b1.t">Vous racontez</b><span data-t="b1.p">L’occasion, les couleurs, la senteur souhaitée.</span></div>
-        <div><b data-t="b2.t">Nous proposons</b><span data-t="b2.p">Sous 48 heures, une proposition et un devis.</span></div>
-        <div><b data-t="b3.t">Nous créons</b><span data-t="b3.p">Coulée et décorée à la main, à l’atelier.</span></div>
-        <div><b data-t="b4.t">Vous recevez</b><span data-t="b4.p">Livrée avec soin partout en Suisse.</span></div>
-      </div>
-    </div>
-    <div class="rv">
-      <form class="form" id="cm-form" novalidate>
-        <div class="fld"><label for="cm-name" data-t="f.name">Prénom et nom</label><input id="cm-name" autocomplete="name" required/><div class="msg" data-t="f.req">Ce champ est nécessaire.</div></div>
-        <div class="fld"><label for="cm-email" data-t="f.email">Email</label><input id="cm-email" type="email" autocomplete="email" inputmode="email" required/><div class="msg" data-t="f.emailErr">Indiquez un email valide.</div></div>
-        <div class="fld"><label for="cm-occasion" data-t="f.occ">Occasion</label><select id="cm-occasion" required><option value="" data-t="f.choose">Choisir…</option><option value="Mariage" data-t="o1">Mariage</option><option value="Naissance / baptême" data-t="o2">Naissance / baptême</option><option value="Anniversaire" data-t="o3">Anniversaire</option><option value="Cadeau d’entreprise" data-t="o4">Cadeau d’entreprise</option><option value="Autre" data-t="o5">Autre</option></select><div class="msg" data-t="f.req">Ce champ est nécessaire.</div></div>
-        <div class="fld"><label for="cm-scent" data-t="f.scent">Senteur</label><select id="cm-scent"><option value="" data-t="f.free">Libre</option><option value="Lavande" data-t="sc1">Lavande</option><option value="Vanille" data-t="sc2">Vanille</option><option value="Fraise" data-t="sc3">Fraise</option><option value="Pomme" data-t="sc4">Pomme</option><option value="Rose" data-t="sc5">Rose</option><option value="Violette" data-t="sc6">Violette</option></select></div>
-        <div class="fld"><label for="cm-qty" data-t="f.qty">Quantité</label><input id="cm-qty" inputmode="numeric" placeholder="ex. 30"/></div>
-        <div class="fld"><label for="cm-colors" data-t="f.colors">Couleurs</label><input id="cm-colors"/></div>
-        <div class="fld full"><label for="cm-vision" data-t="f.vision">Décrivez votre idée</label><textarea id="cm-vision" required></textarea><div class="msg" data-t="f.visionErr">Quelques mots suffisent.</div></div>
-        <input type="hidden" id="cm-3d"/>
-        <div class="full" id="cm-3d-sum" style="display:none"></div>
-        <div class="full" id="cm-warn" style="display:none"></div>
-        <div class="full"><button class="btn light block" id="cm-btn" type="submit" data-t="f.send">Envoyer ma demande</button><p class="small" style="margin-top:.8rem;color:var(--cream-2)" data-t="f.note">Réponse personnalisée sous 48 heures. Sans engagement.</p></div>
-      </form>
-      <div class="ok-box" id="cm-ok" style="display:none" role="status"><div class="h3" data-t="f.okT">Merci, c’est bien reçu.</div><p data-t="f.okP">Nous revenons vers vous sous 48 heures avec une proposition.</p></div>
-    </div>
-  </div>
-</section>
+<section class="bsp-mini" id="sur-mesure" data-view="creer" aria-labelledby="bsp-t"></section>
 
 <!-- ═══════════ LE JOURNAL ═══════════ -->
 <section class="sec" id="journal" data-view="journal" aria-labelledby="jr-t">
@@ -3298,9 +3280,10 @@ function bagbar() {
 
 /* ═══════════════ CONFIGURATEUR 3D : le client voit sa bougie prendre forme ═══════════════ */
 const PAL = [['#F2ECE3', ['Crème', 'Creme', 'Cream']], ['#F3DFA2', ['Vanille', 'Vanille', 'Vanilla']], ['#B596DC', ['Lavande', 'Lavendel', 'Lavender']], ['#E8A0B4', ['Rose', 'Rosa', 'Pink']], ['#D6303D', ['Framboise', 'Himbeere', 'Raspberry']], ['#EA7F1E', ['Abricot', 'Aprikose', 'Apricot']], ['#A8C686', ['Pistache', 'Pistazie', 'Pistachio']], ['#9CC7E6', ['Ciel', 'Himmelblau', 'Sky blue']], ['#6B3B6E', ['Prune', 'Pflaume', 'Plum']], ['#7A4B32', ['Chocolat', 'Schokolade', 'Chocolate']]];
-const CFG = { type: 'lav', shape: 'droit', size: 'petite', n: 2, layers: ['#F2ECE3', '#B596DC'], topping: 'fouettee', decos: ['coeurs'], deco: '#B596DC', qty: 'normal', wick: 'coton', tulip: 'Rose', scent: 'Lavande' };
+const CFG = { type: 'lav', shape: 'droit', size: 'petite', n: 2, layers: ['#F2ECE3', '#B596DC'], topping: 'fouettee', decos: ['coeurs'], deco: '#B596DC', qty: 'normal', wick: 'coton', tulip: 'Rose', scent: 'Lavande', boxG: 'marsh' };
 const OPT = {
-  type: [['lav', ['Lavande', 'Lavendel', 'Lavender'], ['Notre gourmande signature', 'Unsere Signatur-Kerze', 'Our signature gourmand']], ['aut', ['Automne', 'Herbst', 'Autumn'], ['Pomme, chantilly, décor', 'Apfel, Sahne, Dekor', 'Apple, cream, decor']], ['gourmande', ['Gourmande sur mesure', 'Gourmet nach Mass', 'Custom gourmand'], ['Vos couleurs, en 3D', 'Ihre Farben, in 3D', 'Your colours, in 3D']], ['tulipe', ['Tulipe', 'Tulpe', 'Tulip'], ['Bouquet de tulipes en cire', 'Wachstulpenstrauss', 'Wax tulip bouquet']]],
+  type: [['lav', ['Lavande', 'Lavendel', 'Lavender'], ['Notre gourmande signature', 'Unsere Signatur-Kerze', 'Our signature gourmand']], ['aut', ['Automne', 'Herbst', 'Autumn'], ['Pomme, chantilly, décor', 'Apfel, Sahne, Dekor', 'Apple, cream, decor']], ['gourmande', ['Gourmande sur mesure', 'Gourmet nach Mass', 'Custom gourmand'], ['Vos couleurs, en 3D', 'Ihre Farben, in 3D', 'Your colours, in 3D']], ['tulipe', ['Tulipe', 'Tulpe', 'Tulip'], ['Bouquet de tulipes en cire', 'Wachstulpenstrauss', 'Wax tulip bouquet']], ['coffret', ['Coffret Yumiya', 'Geschenkbox', 'Gift box'], ['Deux bougies, un écrin', 'Zwei Kerzen, eine Schachtel', 'Two candles, one box']]],
+  boxG: [['lav', ['Lavande', 'Lavendel', 'Lavender'], ['Lavande · Crème', 'Lavendel · Creme', 'Lavender · Cream']], ['aut', ['Automne', 'Herbst', 'Autumn'], ['Pomme · Crème', 'Apfel · Creme', 'Apple · Cream']], ['marsh', ['Marshmallow-framboise', 'Marshmallow-Himbeere', 'Marshmallow-raspberry'], ['Notre classique du coffret', 'Unser Box-Klassiker', 'Our box classic']]],
   shape: [['droit', ['Droit', 'Gerade', 'Straight']], ['evase', ['Évasé', 'Ausgestellt', 'Flared']]],
   size: [['petite', ['Petite', 'Klein', 'Small'], ['90 g · ~12 h', '90 g · ~12 h', '90 g · ~12 h']], ['grande', ['Grande', 'Gross', 'Large'], ['180 g · ~18 h', '180 g · ~18 h', '180 g · ~18 h']]],
   topping: [['fouettee', ['Fouettée', 'Geschlagen', 'Whipped']], ['spirale', ['Spirale', 'Spirale', 'Swirl']]],
@@ -3317,17 +3300,22 @@ function cfgSpec() {
   return { type: 'gourmande', amb: 'atelier', shape: 'droit', size: CFG.size, layers: L, ratio: L.map(() => 1 / L.length), fill: CFG.topping === 'none' ? .8 : .64, topping: CFG.topping,
     tiers: CFG.topping === 'fouettee' ? 2 : 1, decos: CFG.topping === 'none' ? [] : CFG.decos, decoColor: CFG.deco, decoQty: CFG.qty, decoLean: .7, decoRad: 1.2, decoSink: .07, wick: 'coton', labelStyle: 'logo' };
 }
+const CFG_BASE = { petite: 10, grande: 12 }, CFG_SCENT = { lav: 'Lavande', aut: 'Pomme', tulipe: 'Vanille' };
+const cfgPrice = () => CFG.type === 'gourmande' ? CFG_BASE[CFG.size] + cfgExtra() : CFG.type === 'coffret' ? PRODUCTS.box.price : CFG.type === 'tulipe' ? PRODUCTS.tulip.price : PRODUCTS[CFG.type].price;
+const boxName = () => lbl('boxG', CFG.boxG) + ' + ' + tr('Tulipe', 'Tulpe', 'Tulip') + ' ' + pick((PRODUCTS.tulip.colors.find(c => c.n[0] === CFG.tulip) || { n: [CFG.tulip] }).n);
 const cfgExtra = () => CFG.type !== 'gourmande' ? 0 : Math.max(0, CFG.decos.length - 2) * .5 + (CFG.qty === 'beaucoup' ? 1.5 : 0);
 function cfgSummary(plain) {
-  const lines = (CFG.type === 'lav' || CFG.type === 'aut') ? [[tr('Modèle', 'Modell', 'Model'), lbl('type', CFG.type)]] : CFG.type === 'tulipe'
+  const lines = (CFG.type === 'lav' || CFG.type === 'aut') ? [[tr('Modèle', 'Modell', 'Model'), lbl('type', CFG.type)]] : CFG.type === 'coffret'
+    ? [[tr('Modèle', 'Modell', 'Model'), lbl('type', 'coffret')], [tr('Dans le coffret', 'In der Box', 'In the box'), boxName()]] : CFG.type === 'tulipe'
     ? [[tr('Modèle', 'Modell', 'Model'), lbl('type', 'tulipe')], [tr('Coloris', 'Farbe', 'Colour'), pick((PRODUCTS.tulip.colors.find(c => c.n[0] === CFG.tulip) || { n: [CFG.tulip] }).n)]]
     : [[tr('Modèle', 'Modell', 'Model'), lbl('type', 'gourmande') + ' · ' + lbl('size', CFG.size)],
        [tr('Cire', 'Wachs', 'Wax'), CFG.layers.slice(0, CFG.n).map(colName).join(' / ')],
        [tr('Chantilly', 'Sahne', 'Cream'), lbl('topping', CFG.topping)],
        [tr('Décor', 'Dekor', 'Decor'), CFG.topping === 'none' || !CFG.decos.length ? tr('Aucun', 'Keins', 'None') : CFG.decos.map(d => lbl('decos', d)).join(', ') + ' · ' + colName(CFG.deco) + ' · ' + lbl('qty', CFG.qty)],
        [tr('Mèche', 'Docht', 'Wick'), lbl('wick', CFG.wick)]];
-  lines.push([tr('Senteur', 'Duft', 'Scent'), lbl('scent', CFG.scent)]);
+  if (CFG.type !== 'coffret') lines.push([tr('Senteur', 'Duft', 'Scent'), lbl('scent', CFG.scent)]);
   const ex = cfgExtra(); if (ex) lines.push([tr('Suppléments', 'Zuschläge', 'Extras'), '+' + chf(ex) + (CFG.decos.length > 2 ? ' (' + (CFG.decos.length - 2) + ' ' + tr('décor(s) en plus', 'Dekor(e) mehr', 'extra decor') + (CFG.qty === 'beaucoup' ? ', ' + tr('généreux', 'üppig', 'generous') : '') + ')' : CFG.qty === 'beaucoup' ? ' (' + tr('généreux', 'üppig', 'generous') + ')' : '')]);
+  if (!plain) lines.push([tr('Prix', 'Preis', 'Price'), chf(cfgPrice())]);
   return plain ? lines.map(l => l[0] + ' : ' + l[1]).join(' · ') : lines.map(l => `<span><em>${l[0]}</em> — ${esc(l[1])}</span>`).join('<br/>');
 }
 let C3 = null, cfgT = 0;
@@ -3339,9 +3327,9 @@ function cfgApply() {
   if (ph) {
     stg.classList.toggle('photo', tul); ph.hidden = !tul;
     if (tul) {
-      const key = CFG.type === 'lav' ? 'lav' : CFG.type === 'aut' ? 'aut' : 'tul';
-      const cut = { lav: 'img/cut-lav.webp', aut: 'img/cut-aut.webp', tul: TULIP_IMG[CFG.tulip] || TULIP_IMG.Rose }[key];
-      const amb = { lav: 'img/p-lav.webp', aut: 'img/p-aut.webp', tul: 'img/spring1.webp' }[key];
+      const key = CFG.type === 'lav' ? 'lav' : CFG.type === 'aut' ? 'aut' : CFG.type === 'coffret' ? 'box' : 'tul';
+      const cut = { lav: 'img/cut-lav.webp', aut: 'img/cut-aut.webp', box: 'img/cut-box2.webp', tul: TULIP_IMG[CFG.tulip] || TULIP_IMG.Rose }[key];
+      const amb = { lav: 'img/p-lav.webp', aut: 'img/p-aut.webp', box: 'img/giftbox.webp', tul: 'img/spring1.webp' }[key];
       const amEl = $('#cfg-amb'), src = (window.__img || (x => x))(cut), asrc = (window.__img || (x => x))(amb);
       // changement de modèle : la nouvelle bougie arrive en fondu, légèrement de plus haut (même chemin à chaque fois)
       if (ph.getAttribute('src') !== src) { ph.src = src; if (!RM.matches) ph.animate([{ opacity: 0, transform: 'translate(-50%,-46%) scale(.96)' }, { opacity: 1, transform: 'translate(-50%,-48%) scale(1)' }], { duration: 520, easing: 'cubic-bezier(.22,.8,.24,1)' }); }
@@ -3350,23 +3338,26 @@ function cfgApply() {
     }
   }
   if (C3) C3.autoRotate(!tul);
-  clearTimeout(cfgT); cfgT = setTimeout(() => { if (C3 && !tul) C3.set(cfgSpec()); }, 60); const sm = $('#cfg-sum'); if (sm) sm.innerHTML = `<b>${tr('Votre création', 'Ihre Kreation', 'Your creation')}</b>${cfgSummary()}`; }
+  clearTimeout(cfgT); cfgT = setTimeout(() => { if (C3 && !tul) C3.set(cfgSpec()); }, 60); const sm = $('#cfg-sum'); if (sm) sm.innerHTML = `<b>${tr('Votre création', 'Ihre Kreation', 'Your creation')}</b>${cfgSummary()}`; const ab = $('#cfg-add'); if (ab) ab.textContent = tr('Ajouter au panier', 'In den Warenkorb', 'Add to bag') + ' · ' + chf(cfgPrice()); }
 function cfgRender() {
   const tiles = (k, multi) => `<div class="tiles" role="${multi ? 'group' : 'radiogroup'}">${OPT[k].map(([v, n, sub]) => { const on = multi ? CFG[k].includes(v) : CFG[k] === v; return `<button type="button" class="tile" data-k="${k}" data-v="${v}" ${multi ? `aria-pressed="${on}"` : `role="radio" aria-checked="${on}"`}>${pick(n)}${sub ? `<small>${pick(sub)}</small>` : ''}</button>`; }).join('')}</div>`;
   const pal = (key, idx) => `<div class="pal" role="radiogroup">${PAL.map(([c, n]) => `<button type="button" role="radio" style="background:${c}" aria-label="${esc(pick(n))}" aria-checked="${(idx == null ? CFG[key] : CFG.layers[idx]) === c}" data-pal="${key}" ${idx != null ? `data-i="${idx}"` : ''} data-c="${c}"></button>`).join('')}</div>`;
   const g = (t, body, aside = '') => `<div class="og"><h3>${t}<span>${aside}</span></h3>${body}</div>`;
   let html = g(tr('Modèle', 'Modell', 'Model'), tiles('type'));
-  if (CFG.type === 'tulipe') {
+  const tulTiles = () => g(tr('Coloris des tulipes', 'Tulpenfarbe', 'Tulip colour'), `<div class="tiles" role="radiogroup">${PRODUCTS.tulip.colors.map(c => `<button type="button" class="tile" role="radio" data-k="tulip" data-v="${c.n[0]}" aria-checked="${CFG.tulip === c.n[0]}"><span class="dot" style="margin-right:.5rem;vertical-align:-3px">${c.c.map(x => `<i style="background:${x}"></i>`).join('')}</span>${pick(c.n)}</button>`).join('')}</div>`);
+  if (CFG.type === 'coffret') {
+    html += tulTiles();  // le coffret contient toujours la gourmande marshmallow-framboise : seul le coloris de la tulipe se choisit
+  } else if (CFG.type === 'tulipe') {
     html += g(tr('Coloris des tulipes', 'Tulpenfarbe', 'Tulip colour'), `<div class="tiles" role="radiogroup">${PRODUCTS.tulip.colors.map(c => `<button type="button" class="tile" role="radio" data-k="tulip" data-v="${c.n[0]}" aria-checked="${CFG.tulip === c.n[0]}"><span class="dot" style="margin-right:.5rem;vertical-align:-3px">${c.c.map(x => `<i style="background:${x}"></i>`).join('')}</span>${pick(c.n)}</button>`).join('')}</div>`);
   } else if (CFG.type === 'gourmande') {
-    html += g(tr('Taille', 'Grösse', 'Size'), tiles('size'));
+    html += g(tr('Taille', 'Grösse', 'Size'), tiles('size'), tr('Petite 10.– · Grande 12.–', 'Klein 10.– · Gross 12.–', 'Small 10.– · Large 12.–'));
     html += g(tr('Couleurs de cire', 'Wachsfarben', 'Wax colours'), `<div class="tiles" role="radiogroup" style="margin-bottom:14px">${[1, 2, 3].map(n => `<button type="button" class="tile" role="radio" data-k="n" data-v="${n}" aria-checked="${CFG.n === n}">${n} ${n > 1 ? tr('couches', 'Schichten', 'layers') : tr('couche', 'Schicht', 'layer')}</button>`).join('')}</div>` +
       Array.from({ length: CFG.n }, (_, i) => `<div class="layer-row"><span>${[tr('Bas', 'Unten', 'Bottom'), tr('Milieu', 'Mitte', 'Middle'), tr('Haut', 'Oben', 'Top')][CFG.n === 2 && i === 1 ? 2 : i]}</span>${pal('layers', i)}</div>`).join(''));
     html += g(tr('Chantilly', 'Sahne', 'Cream topping'), tiles('topping'));
     if (CFG.topping !== 'none') html += g(tr('Décor', 'Dekor', 'Decor'), tiles('decos', true), tr('2 compris · +0.50 CHF par décor en plus', '2 inklusive · +0.50 CHF je weiteres Dekor', '2 included · +0.50 CHF per extra decor')) + g(tr('Couleur du décor', 'Dekorfarbe', 'Decor colour'), pal('deco')) + g(tr('Quantité de décor', 'Dekormenge', 'Amount of decor'), tiles('qty'));
   }
-  html += g(tr('Senteur', 'Duft', 'Scent'), tiles('scent'));
-  html += `<div class="cfg-sum" id="cfg-sum"></div><button type="button" class="btn block" id="cfg-send">${tr('Demander cette création', 'Diese Kreation anfragen', 'Request this creation')}</button><p class="small" style="text-align:center;margin-top:-14px">${tr('Réponse personnalisée et devis sous 48 heures. Sans engagement.', 'Persönliche Antwort und Offerte innert 48 Stunden. Unverbindlich.', 'Personal reply and quote within 48 hours. No commitment.')}</p>`;
+  if (CFG.type !== 'coffret') html += g(tr('Senteur', 'Duft', 'Scent'), tiles('scent'));
+  html += `<div class="cfg-sum" id="cfg-sum"></div><button type="button" class="btn block" id="cfg-add">${tr('Ajouter au panier', 'In den Warenkorb', 'Add to bag')}</button><button type="button" class="btn ghost block" id="cfg-send" style="margin-top:-8px">${tr('Une autre idée ? Demander un devis', 'Andere Idee? Offerte anfragen', 'Another idea? Ask for a quote')}</button><p class="small" style="text-align:center;margin-top:-14px">${tr('Fabriquée à la main après votre commande · livraison 8.90 CHF partout en Suisse.', 'Nach Ihrer Bestellung von Hand gefertigt · Versand 8.90 CHF in der ganzen Schweiz.', 'Handmade after your order · delivery 8.90 CHF across Switzerland.')}</p>`;
   $('#cfg-opts').innerHTML = html; cfgApply();
 }
 function configurator() {
@@ -3378,6 +3369,7 @@ function configurator() {
       const k = t.dataset.k, v = k === 'n' ? +t.dataset.v : t.dataset.v; haptic();
       if (k === 'decos') { CFG.decos = CFG.decos.includes(v) ? CFG.decos.filter(x => x !== v) : CFG.decos.concat(v); t.setAttribute('aria-pressed', String(CFG.decos.includes(v))); cfgApply(); return; }
       const rebuild = (k === 'type' || k === 'n' || (k === 'topping' && (v === 'none') !== (CFG.topping === 'none')));
+      if (k === 'type' && CFG_SCENT[v]) CFG.scent = CFG_SCENT[v];
       CFG[k] = v; if (k === 'n') while (CFG.layers.length < v) CFG.layers.push(PAL[(CFG.layers.length * 3) % PAL.length][0]);
       if (rebuild) cfgRender(); else { t.parentElement.querySelectorAll('[data-k]').forEach(x => x.setAttribute('aria-checked', String(x === t))); cfgApply(); }
       if (k === 'type' && C3) { C3.reset(); setLit(false); }
@@ -3385,6 +3377,7 @@ function configurator() {
     }
     if (p) { haptic(); if (p.dataset.i != null) CFG.layers[+p.dataset.i] = p.dataset.c; else CFG[p.dataset.pal] = p.dataset.c; p.parentElement.querySelectorAll('button').forEach(x => x.setAttribute('aria-checked', String(x === p))); cfgApply(); return; }
     if (e.target.closest('#cfg-send')) cfgSend();
+    if (e.target.closest('#cfg-add')) { addSrc = e.target.closest('#cfg-add'); cfgAdd(); }
   });
   let on = false;
   const setLit = v => { on = v; if (C3) C3.light(v); stage.classList.toggle('lit', v); lit.setAttribute('aria-pressed', String(v)); lit.textContent = v ? tr('Éteindre', 'Löschen', 'Blow out') : tr('Allumer', 'Anzünden', 'Light it'); };
@@ -3403,15 +3396,26 @@ function configurator() {
     C3.ready.then(a => { clearTimeout(to); if (!a) fail(); else { $('#cfg-fail').hidden = true; $$('.cfg-tools,.cfg-hint').forEach(x => x.style.display = ''); } }).catch(fail);
   }), { rootMargin: '60% 0px' }).observe(host);
 }
+const CUSTOM_P = { name: ['Gourmande sur mesure', 'Gourmet nach Mass', 'Custom gourmand'], full: ['Bougie gourmande sur mesure', 'Gourmet-Kerze nach Mass'], tint: 'var(--t-lav)', cut: 'img/cut-marsh.webp' };
+const prodOf = k => PRODUCTS[k] || (k === 'custom' ? CUSTOM_P : null);
+function cfgAdd() {
+  const t = CFG.type, sc = lbl('scent', CFG.scent); let it;
+  if (t === 'coffret') it = { key: 'box', name: PRODUCTS.box.full[0] + ' — ' + boxName(), label: boxName(), price: PRODUCTS.box.price };
+  else if (t === 'tulipe') { const c = (PRODUCTS.tulip.colors.find(x => x.n[0] === CFG.tulip) || PRODUCTS.tulip.colors[0]); it = { key: 'tulip', name: PRODUCTS.tulip.full[0] + ' — ' + c.n[0] + (CFG.scent !== 'Vanille' ? ' — senteur ' + CFG.scent : ''), label: pick(c.n) + (CFG.scent !== 'Vanille' ? ' · ' + sc : ''), price: PRODUCTS.tulip.price }; }
+  else if (t === 'lav' || t === 'aut') { const d = CFG_SCENT[t]; it = { key: t, name: PRODUCTS[t].full[0] + (CFG.scent !== d ? ' — senteur ' + CFG.scent : ''), label: CFG.scent !== d ? sc : '', price: PRODUCTS[t].price }; }
+  else it = { key: 'custom', name: CUSTOM_P.full[0] + ' — ' + cfgSummary(true), label: lbl('size', CFG.size) + ' · ' + CFG.layers.slice(0, CFG.n).map(colName).join(' / ') + ' · ' + sc, price: Math.round(cfgPrice() * 100) / 100 };
+  const ex = cart.find(i => i.name === it.name);
+  if (ex) ex.qty = Math.min(99, ex.qty + 1); else cart.push(Object.assign(it, { qty: 1 }));
+  saveCart(); flyToBag(prodOf(it.key)); badge(true); haptic();
+  toast(tr('Ajouté au panier', 'In den Warenkorb gelegt', 'Added to bag') + ' · ' + (t === 'gourmande' ? pick(CUSTOM_P.name) : lbl('type', t)), tr('Voir', 'Ansehen', 'View'), openCart);
+  if (Sheet.isOpen && Sheet.kind === 'cart') renderCart();
+}
 function cfgSend() {
-  const sum = cfgSummary(true);
-  $('#cm-3d').value = JSON.stringify(Object.assign({ resume: sum }, CFG));
-  const box = $('#cm-3d-sum'); box.style.display = ''; box.innerHTML = `<div class="bsp-sum"><b>${tr('Votre création 3D est jointe', 'Ihre 3D-Kreation ist angehängt', 'Your 3D creation is attached')}</b><br/>${esc(sum)}</div>`;
-  const col = $('#cm-colors'); if (!col.value) col.value = CFG.type === 'tulipe' ? CFG.tulip : CFG.layers.slice(0, CFG.n).map(colName).join(' / ');
-  const sc = $('#cm-scent'); if ([...sc.options].some(o => o.value === CFG.scent)) sc.value = CFG.scent;
-  const vi = $('#cm-vision'); if (!vi.value) vi.value = tr('Ma création 3D : ', 'Meine 3D-Kreation: ', 'My 3D creation: ') + sum;
-  goTo('#sur-mesure'); setTimeout(() => $('#cm-name').focus({ preventScroll: true }), 700);
-  toast(tr('Création ajoutée à votre demande', 'Kreation zur Anfrage hinzugefügt', 'Creation added to your request'));
+  openContact({ custom: true, msg: tr('Bonjour, voici ma création : ', 'Hallo, hier ist meine Kreation: ', 'Hello, here is my creation: ') + cfgSummary(true) + '\n\n' + tr('Quantité / occasion : ', 'Menge / Anlass: ', 'Quantity / occasion: ') });
+}
+function bspMini() {
+  const s = $('#sur-mesure'); if (!s) return;
+  s.innerHTML = `<div class="wrap"><div><div class="eyebrow">${tr('Sur mesure', 'Nach Mass', 'Made to order')}</div><h2 id="bsp-t">${tr('Plusieurs bougies pour <em>un grand jour ?</em>', 'Mehrere Kerzen für <em>einen grossen Tag?</em>', 'Several candles for <em>a big day?</em>')}</h2><p>${tr('Mariage, naissance, cadeau d’entreprise : décrivez votre idée et la quantité. Nous répondons sous 48 heures avec une proposition et un devis.', 'Hochzeit, Geburt, Firmengeschenk: Beschreiben Sie Ihre Idee und die Menge. Wir antworten innert 48 Stunden mit einem Vorschlag und einer Offerte.', 'Weddings, births, corporate gifts: describe your idea and the quantity. We reply within 48 hours with a proposal and a quote.')}</p></div><div class="acts"><button type="button" class="btn" data-contact="custom">${tr('Nous écrire', 'Schreiben Sie uns', 'Write to us')}</button><small>${SITE.email}</small></div></div>`;
 }
 
 
@@ -3703,7 +3707,7 @@ function eta() {
 
 /* ═══════════════ PANIER ═══════════════ */
 let cart = [];
-try { cart = JSON.parse(localStorage.getItem('yumiya_cart') || '[]').filter(i => i && PRODUCTS[i.key] && i.price > 0); } catch (e) { cart = []; }
+try { cart = JSON.parse(localStorage.getItem('yumiya_cart') || '[]').filter(i => i && prodOf(i.key) && i.price > 0); } catch (e) { cart = []; }
 const saveCart = () => { try { localStorage.setItem('yumiya_cart', JSON.stringify(cart)); } catch (e) {} };
 const cartN = () => cart.reduce((s, i) => s + i.qty, 0);
 const cartSub = () => cart.reduce((s, i) => s + i.price * i.qty, 0);
@@ -3746,7 +3750,7 @@ function roll(el, txt) {
 }
 function itemsHtml() {
   if (!cart.length) return `<div class="empty"><img src="img/logo.webp" alt=""/><div class="h3">${tr('Votre panier est vide', 'Ihr Warenkorb ist leer')}</div><p class="small">${tr('Laissez-vous tenter par nos créations.', 'Lassen Sie sich von unseren Kreationen verführen.')}</p><a class="btn" href="#collection" data-close>${tr('Découvrir la boutique', 'Zum Shop')}</a></div>`;
-  return cart.map((it, i) => { const p = PRODUCTS[it.key]; return `<div class="ci-wrap"><div class="ci-del" aria-hidden="true">${tr('Retirer', 'Entfernen')}</div><div class="ci" data-i="${i}"><div class="ci-img" style="--tint:${p.tint}">${(() => { const tc = it.key === 'tulip' && TULIP_IMG[(it.name.split(' — ')[1] || '').trim()]; return tc ? `<img src="${tc}" alt=""/>` : `<img src="${p.cut}" alt="" style="${p.wide ? 'width:90%;height:auto' : ''}"/>`; })()}</div><div>
+  return cart.map((it, i) => { const p = prodOf(it.key); return `<div class="ci-wrap"><div class="ci-del" aria-hidden="true">${tr('Retirer', 'Entfernen')}</div><div class="ci" data-i="${i}"><div class="ci-img" style="--tint:${p.tint}">${(() => { const tc = it.key === 'tulip' && TULIP_IMG[(it.name.split(' — ')[1] || '').trim()]; return tc ? `<img src="${tc}" alt=""/>` : `<img src="${p.cut}" alt="" style="${p.wide ? 'width:90%;height:auto' : ''}"/>`; })()}</div><div>
     <div class="ci-top"><div><div class="ci-name">${pick(p.name)}</div><div class="ci-var">${esc(it.label || pick(p.line))}</div></div><div>${chf(it.price * it.qty)}</div></div>
     <div class="ci-bot"><div class="stepper"><button type="button" data-q="${i}" data-d="-1" aria-label="${tr('Moins', 'Weniger')}">−</button><span>${it.qty}</span><button type="button" data-q="${i}" data-d="1" aria-label="${tr('Plus', 'Mehr')}">+</button></div><button type="button" class="ci-rm" data-rm="${i}">${tr('Retirer', 'Entfernen')}</button></div></div></div></div>`; }).join('');
 }
@@ -3886,7 +3890,7 @@ let confirmSent = '';
 function sendConfirmation(o, items, total) {
   const E = SITE.emailjs; if (!E || !E.publicKey || !E.serviceId || !E.templateId || confirmSent === o.reference) return Promise.resolve(false);
   confirmSent = o.reference;
-  const rows = items.map(i => { const p = PRODUCTS[i.key]; return `<tr><td style="padding:10px 0;border-bottom:1px solid #eee">${esc(pick(p.name))}${i.label ? ' <span style="color:#857">· ' + esc(i.label) + '</span>' : ''} × ${i.qty}</td><td style="padding:10px 0;border-bottom:1px solid #eee;text-align:right;white-space:nowrap">${chf(i.price * i.qty)}</td></tr>`; }).join('');
+  const rows = items.map(i => { const p = prodOf(i.key); return `<tr><td style="padding:10px 0;border-bottom:1px solid #eee">${esc(pick(p.name))}${i.label ? ' <span style="color:#857">· ' + esc(i.label) + '</span>' : ''} × ${i.qty}</td><td style="padding:10px 0;border-bottom:1px solid #eee;text-align:right;white-space:nowrap">${chf(i.price * i.qty)}</td></tr>`; }).join('');
   const amt = total.toFixed(2), twint = SITE.twint + '&amount=' + amt + '&trxInfo=' + encodeURIComponent(o.reference);
   const params = {
     to_email: o.email, to_name: o.prenom, reply_to: SITE.email, reference: o.reference,
@@ -3922,7 +3926,7 @@ function store(key, data) { try { const l = JSON.parse(localStorage.getItem(key)
 
 /* ═══════════════ FORMULAIRES ═══════════════ */
 function forms() {
-  $('#cm-form').addEventListener('submit', e => {
+  if ($('#cm-form')) $('#cm-form').addEventListener('submit', e => {
     e.preventDefault(); const v = id => $('#' + id).value.trim();
     if (!check([['cm-name', x => x.length > 1], ['cm-email', EMAIL], ['cm-occasion', x => x.length > 0], ['cm-vision', x => x.length > 5]])) return;
     const b = $('#cm-btn'), lbl = b.textContent; b.disabled = true; b.textContent = tr('Envoi…', 'Senden…');
@@ -3935,7 +3939,7 @@ function forms() {
       else failBox('#cm-warn', subj, data, tr('Votre demande n’a pas pu être envoyée automatiquement. Envoyez-la-nous par email : le message est déjà rédigé.', 'Ihre Anfrage konnte nicht automatisch gesendet werden. Senden Sie sie uns per E-Mail: Die Nachricht ist bereits vorbereitet.'));
     });
   });
-  $('#cm-form').addEventListener('input', e => { const f = e.target.closest('.fld.err'); if (f) f.classList.remove('err'); });
+  if ($('#cm-form')) $('#cm-form').addEventListener('input', e => { const f = e.target.closest('.fld.err'); if (f) f.classList.remove('err'); });
   $('#news').addEventListener('submit', e => {
     e.preventDefault(); const el = $('#news-email'), v = el.value.trim();
     if (!EMAIL(v)) { el.classList.add('err'); el.focus(); return; }
@@ -4007,7 +4011,7 @@ function openStory() {
 }
 
 /* ═══════════════ CONTACT ═══════════════ */
-function openContact() {
+function openContact(pre = {}) {
   const req = tr('Ce champ est nécessaire.', 'Dieses Feld ist erforderlich.');
   Sheet.open({ kind: 'contact', title: tr('Nous écrire', 'Schreiben Sie uns'),
     body: `<p class="pd-desc" style="margin-bottom:1.2rem">${tr('Une question sur une bougie, une commande ou un projet ? Nous répondons rapidement.', 'Eine Frage zu einer Kerze, einer Bestellung oder einem Projekt? Wir antworten schnell.')}</p>
@@ -4018,6 +4022,8 @@ function openContact() {
     foot: `<button type="button" class="btn block" id="ct-btn">${tr('Envoyer le message', 'Nachricht senden')}</button>`,
     after() {
       $('#ct-form').addEventListener('input', e => { const f = e.target.closest('.fld.err'); if (f) f.classList.remove('err'); });
+      if (pre.custom) { const sel = $('#ct-subject'); sel.selectedIndex = Math.max(0, [...sel.options].findIndex(o => /mesure|Mass|order/i.test(o.text))); }
+      if (pre.msg) $('#ct-msg').value = pre.msg;
       $('#ct-btn').onclick = () => {
         const v = id => $('#' + id).value.trim();
         if (!check([['ct-name', x => x.length > 1], ['ct-email', EMAIL], ['ct-msg', x => x.length > 3]])) return;
@@ -4285,6 +4291,12 @@ function newsPage() {
   const f = $('#nw-form'), em = $('#nw-email'), msg = $('#nw-msg'), btn = $('#nw-btn'), allB = $('#nw-all'), cs = $$('#nouveautes [name=nw-c]');
   const sync = () => { allB.checked = cs.every(c => c.checked); };
   cs.forEach(c => c.addEventListener('change', () => { sync(); haptic && haptic(); }));
+  // un clic sur la carte coche / décoche sans faire bouger la page (le navigateur faisait défiler vers la case cachée)
+  sec.querySelectorAll('.nw-card, .nw-all').forEach(lb => lb.addEventListener('click', e => {
+    if (e.target.tagName === 'INPUT') return; e.preventDefault();
+    const inp = lb.querySelector('input'), y = scrollY; inp.checked = !inp.checked; inp.focus({ preventScroll: true });
+    inp.dispatchEvent(new Event('change', { bubbles: true })); if (scrollY !== y) scrollTo(0, y);
+  }));
   allB.addEventListener('change', () => { if (allB.checked) cs.forEach(c => c.checked = true); });
   em.addEventListener('input', () => em.closest('.fld').classList.remove('err'));
   f.addEventListener('submit', e => {
@@ -4371,7 +4383,7 @@ document.addEventListener('click', e => {
   const fv = e.target.closest('[data-fav]'); if (fv) { e.preventDefault(); e.stopPropagation(); toggleFav(fv.dataset.fav, fv); return; }
   const ar = e.target.closest('[data-art]'); if (ar) { e.preventDefault(); openArticle(+ar.dataset.art); return; }
   if (e.target.closest('[data-favs]')) { e.preventDefault(); openFavs(); return; }
-  if (e.target.closest('[data-contact]')) { e.preventDefault(); openContact(); return; }
+  if (e.target.closest('[data-contact]')) { e.preventDefault(); openContact({ custom: e.target.closest('[data-contact]').dataset.contact === 'custom' }); return; }
   const add = e.target.closest('[data-add]');
   if (add) {
     e.preventDefault(); e.stopPropagation(); const k = add.dataset.add;
@@ -4912,7 +4924,7 @@ applyLang();
 journal();
 collection();
 faq();
-newsPage(); homeWick(); homeRange(); homeSoon(); homeGallery(); store(); storeShow(); storeZoom(); storeWords(); storeDiff(); xdr();
+bspMini(); newsPage(); homeWick(); homeRange(); homeSoon(); homeGallery(); store(); storeShow(); storeZoom(); storeWords(); storeDiff(); xdr();
 reveals();
 manifesto();
 header();
