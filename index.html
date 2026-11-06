@@ -1813,6 +1813,81 @@ body[data-view=acheter] .ft-bot{padding-bottom:calc(96px + env(safe-area-inset-b
 .nav-line.on{opacity:.9}
 @media (prefers-reduced-motion:reduce){.nav-line{transition:none}}
 </style>
+<style id="style-doux">
+/* ═══════════════ STYLE PLUS DOUX ═══════════════
+   Accent framboise (au lieu du bordeaux) et sections claires aux couleurs des bougies. */
+:root{--wine:#B23A62;--wine-2:#962C50;--berry:#B23A62;--rose-50:#FBF1F2;--rose-100:#F6E3E6;--lav-50:#F3EEF8;--peach-50:#FBF0E6}
+::selection{background:var(--berry);color:#fff}
+
+/* Sections passées en clair : les couleurs « claires sur fond sombre » sont inversées */
+.pp,.ft,.closing,.ptile.dark,.nw-form-w,.bsp-mini,.sn{
+  --cream:#1E1512;--cream-2:rgba(30,21,18,.66);--night:#FFFDF9;--night-2:#FFFFFF;--gold-2:#B23A62;--link-d:#1E1512;color:var(--ink)}
+
+/* Boutons dans ces sections : framboise plein, ou contour discret */
+.pp .btn:not(.ghost):not(.link),.closing .btn:not(.ghost),.ptile.dark .btn:not(.ghost),.bsp-mini .btn,.nw-form-w .btn:not(.ghost),.sn .btn:not(.ghost){background:var(--berry);color:#fff}
+.pp .btn:not(.ghost):not(.link):hover,.closing .btn:not(.ghost):hover,.ptile.dark .btn:not(.ghost):hover,.bsp-mini .btn:hover,.nw-form-w .btn:not(.ghost):hover,.sn .btn:not(.ghost):hover{background:var(--wine-2);color:#fff}
+.closing .btn.ghost,.ptile.dark .btn.ghost,.sn .btn.ghost{color:var(--ink);box-shadow:inset 0 0 0 1px rgba(30,21,18,.35)}
+.closing .btn.ghost:hover,.ptile.dark .btn.ghost:hover,.sn .btn.ghost:hover{background:var(--ink);color:#fff}
+
+/* Appel final « Prêt à allumer la vôtre ? » : rose poudré */
+.closing{background:radial-gradient(80% 90% at 50% 0%,#FBE2E6 0%,#F8EFEA 70%)}
+.closing .lead{color:var(--ink-2)}
+
+/* Pied de page : sable rosé */
+.ft{background:#F4EAE4;color:var(--ink-2)}
+.ft-top,.ft-bot{border-color:rgba(30,21,18,.1)!important}
+.ft h4{color:var(--berry)}
+.ft a:hover,.ft button:hover{color:var(--ink)}
+.ft-word{color:rgba(178,58,98,.08)}
+
+/* Tuiles sombres de l'accueil (Coffret, Sur mesure) : rose pâle */
+.ptile.dark{background:linear-gradient(180deg,#FBEDEF,#F4DDE1)}
+.ptile.dark p{color:var(--ink-2)}
+
+/* Sur mesure (page Créer) : lavande pâle */
+.bsp-mini{background:linear-gradient(160deg,#F3EEF8,#EADFF2)!important;color:var(--ink)}
+.bsp-mini p,.bsp-mini small{color:var(--ink-2)}
+
+/* Alerte nouveautés */
+.nw-form-w{background:linear-gradient(160deg,#FBEDEF,#F6E3E6)}
+.nw-form-w input{background:#fff!important;color:var(--ink)!important;box-shadow:inset 0 0 0 1px rgba(30,21,18,.15)!important}
+
+/* Accueil : nouvelles collections (bonshommes, oursons) en clair */
+.sn{background:radial-gradient(120% 80% at 50% 40%,#FFFBF6,#F3E7DE 70%)!important}
+.sn-stick::after{background:radial-gradient(120% 90% at 50% 50%,transparent 70%,rgba(178,58,98,.06))}
+.sn-cap{background:linear-gradient(to top,rgba(255,251,246,.94),rgba(255,251,246,0))}
+.sn-cap p,.sn-tx p,.sn-pitch,.sn-form p{color:rgba(30,21,18,.7)}
+.sn-sp>i{background:rgba(30,21,18,.18)}
+.sn-sp span,.sn-uses span{color:rgba(30,21,18,.55)}
+.sn-prog i{background:rgba(30,21,18,.12)}
+.sn-uses i{box-shadow:inset 0 0 0 1px rgba(30,21,18,.2)}
+.sn-row input{background:#fff;box-shadow:inset 0 0 0 1px rgba(30,21,18,.18);color:var(--ink)}
+.sn-row input::placeholder{color:rgba(30,21,18,.45)}
+.sn-big{-webkit-text-stroke:1px rgba(178,58,98,.16)}
+.sn-dots i{box-shadow:inset 0 0 0 1px rgba(30,21,18,.25)}
+.sn-cnames span{color:var(--ink)}
+
+/* Fiche produit : fond clair teinté de la couleur de la bougie */
+.pp{background:linear-gradient(180deg,var(--pp-tint,#FBF4EF) 0%,#FFFDF9 55%)}
+.pp[data-k="lav"]{--pp-tint:#EFE7F7}.pp[data-k="aut"]{--pp-tint:#FBEADA}.pp[data-k="tulip"]{--pp-tint:#FBE6EA}.pp[data-k="box"]{--pp-tint:#F6EBE3}
+.pp-ln{background:rgba(255,253,249,.82);border-bottom-color:rgba(30,21,18,.08)}
+.pp-x{background:rgba(30,21,18,.06);color:var(--ink)}
+.pp-title{background:linear-gradient(180deg,#1E1512 35%,var(--berry) 130%);-webkit-background-clip:text;background-clip:text}
+.pp-glow{background:radial-gradient(closest-side,rgba(255,190,140,calc(.22 + var(--p,0) * .2)),transparent 70%)}
+.pp-hero-img{filter:drop-shadow(0 40px 50px rgba(30,21,18,.22))}
+.pp-dotbar{background:rgba(30,21,18,.07)}
+.pp-dotbar button{background:rgba(30,21,18,.25)}
+.pp-play{background:rgba(30,21,18,.07);color:var(--ink)}
+.pp-cap{background:rgba(255,253,249,.88)}
+.pp-stmt span{background:linear-gradient(90deg,#1E1512 0 50%,rgba(30,21,18,.16) 50% 100%);background-size:200% 100%;background-position:calc(100% - var(--w,0) * 100%) 0;-webkit-background-clip:text;background-clip:text}
+.pp-tile{background:#fff;box-shadow:0 1px 0 rgba(30,21,18,.04),0 20px 40px -30px rgba(30,21,18,.25)}
+.pp-tile.big{background:linear-gradient(140deg,var(--pp-tint,#FBE6EA),#FFFFFF 70%)}
+.pp-num,.pp-word{background:linear-gradient(180deg,#1E1512 30%,var(--berry));-webkit-background-clip:text;background-clip:text}
+.pp-look{background:radial-gradient(80% 70% at 50% 40%,#FFFFFF,var(--pp-tint,#F3E9E1) 90%)}
+.pp-sw button{box-shadow:inset 0 0 0 1px rgba(30,21,18,.2)}
+.pp-row div{border-top-color:rgba(30,21,18,.12)}
+.duo-c{background:#fff}
+</style>
 </head>
 <body>
 <a class="sr" href="#/boutique">Aller à la boutique</a>
@@ -3059,7 +3134,7 @@ function manifesto() {
 
 /* ═══════════════ EN-TÊTE ═══════════════ */
 function header() {
-  const hd = $('#hd'); let lastY = scrollY; const darks = $$('.birth, .xdr, .hm-intro, .hm-wick, .sn, .bespoke, .closing, .ft');
+  const hd = $('#hd'); let lastY = scrollY; const darks = $$('.birth, .xdr, .hm-intro, .hm-wick, .bespoke');
   const tick = () => {
     const y = scrollY, dy = y - lastY, heroH = VIEW === 'home' || !VIEW ? $('#hm-wick').offsetHeight : 0;
     hd.classList.toggle('solid', y > heroH - 90);
@@ -5019,6 +5094,15 @@ if (/^#p\/\w+/.test(location.hash)) { const k = location.hash.slice(3); if (PP[k
     addEventListener('resize', function () { to(activeLink()); });
     setTimeout(function () { to(activeLink()); }, 300);
   }
+})();
+</script>
+<script>
+/* Style plus doux : la fiche produit prend la couleur de la bougie ouverte */
+(function () {
+  var pp = document.getElementById('pp'); if (!pp) return;
+  var mark = function () { var m = location.hash.match(/^#p\/(\w+)/); if (m) pp.setAttribute('data-k', m[1]); };
+  addEventListener('hashchange', mark); addEventListener('popstate', mark); mark();
+  new MutationObserver(mark).observe(pp, { attributes: true, attributeFilter: ['hidden'] });
 })();
 </script>
 </body>
