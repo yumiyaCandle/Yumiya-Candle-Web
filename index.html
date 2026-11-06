@@ -1922,10 +1922,15 @@ body[data-view=acheter] .ft-bot{padding-bottom:calc(96px + env(safe-area-inset-b
 .hm-wick .btn:not(.ghost):hover,.bespoke .btn:not(.ghost):hover{background:var(--wine-2);color:#fff}
 .hm-wick .btn.ghost,.bespoke .btn.ghost{background:#fff;color:var(--ink);box-shadow:none;border-radius:999px}
 .hm-wick .btn.ghost:hover,.bespoke .btn.ghost:hover{background:var(--ink);color:#fff}
-.hr-cone,.hr-sweep{mix-blend-mode:normal;opacity:0}
-.hr-cone i{background:rgba(194,65,107,.5);box-shadow:none}
-.hr-floor{background:radial-gradient(60% 40% at 50% 0,rgba(194,65,107,.06),transparent 70%)}
 .hm-range .hw-it img{-webkit-box-reflect:below 4px linear-gradient(transparent 70%,rgba(255,255,255,.22))}
+/* Gamme : fond rose poudré un peu plus soutenu, pour que la lumière ressorte */
+.hm-range{background:linear-gradient(180deg,#F2DAD8 0%,#E9CACC 55%,#E2C0C4 100%)}
+.hr-cone{mix-blend-mode:normal;filter:blur(12px);background:linear-gradient(180deg,rgba(255,244,222,.95),rgba(255,232,196,.55) 55%,rgba(255,226,186,0))}
+.hr-cone i{background:#FFF6E2;box-shadow:0 0 8px 2px rgba(255,214,150,.9)}
+.hr-beam{mix-blend-mode:normal;background:radial-gradient(calc(var(--bw,400px) * .62) calc(var(--bw,400px) * .5) at var(--bx,50%) var(--by,50%),rgba(255,246,226,.9),rgba(255,226,180,.35) 50%,transparent 75%)}
+.hr-sweep{mix-blend-mode:normal;background:linear-gradient(90deg,transparent,rgba(255,248,232,.5),transparent)}
+.hr-floor{background:radial-gradient(60% 40% at 50% 0,rgba(255,244,224,.7),transparent 70%)}
+.hr-halo{background:radial-gradient(closest-side,rgba(var(--hc),.55),rgba(var(--hc),.18) 55%,transparent)}
 .bespoke{background:linear-gradient(160deg,#F3EEF8,#EADFF2)}
 </style>
 </head>
