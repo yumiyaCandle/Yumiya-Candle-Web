@@ -5012,12 +5012,12 @@ if (/^#p\/\w+/.test(location.hash)) { const k = location.hash.slice(3); if (PP[k
       line.style.transform = 'translateX(' + (a.offsetLeft + pad) + 'px)';
       line.classList.add('on');
     };
-    var current = function () { return links.filter(function (a) { return a.hasAttribute('aria-current'); })[0]; };
+    var activeLink = function () { return links.filter(function (a) { return a.hasAttribute('aria-current'); })[0]; };
     nav.addEventListener('pointerover', function (e) { var a = e.target.closest('a'); if (a) to(a); });
-    nav.addEventListener('pointerleave', function () { to(current()); });
-    new MutationObserver(function () { if (!nav.matches(':hover')) to(current()); }).observe(nav, { subtree: true, attributes: true, attributeFilter: ['aria-current'] });
-    addEventListener('resize', function () { to(current()); });
-    setTimeout(function () { to(current()); }, 300);
+    nav.addEventListener('pointerleave', function () { to(activeLink()); });
+    new MutationObserver(function () { if (!nav.matches(':hover')) to(activeLink()); }).observe(nav, { subtree: true, attributes: true, attributeFilter: ['aria-current'] });
+    addEventListener('resize', function () { to(activeLink()); });
+    setTimeout(function () { to(activeLink()); }, 300);
   }
 })();
 </script>
