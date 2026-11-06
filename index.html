@@ -4971,10 +4971,15 @@ if (/^#p\/\w+/.test(location.hash)) { const k = location.hash.slice(3); if (PP[k
   if (fine && !reduce) {
     var target = scrollY, current = scrollY, gliding = false;
     var locked = function () { var h = getComputedStyle(document.documentElement).overflowY, b = getComputedStyle(document.body).overflowY; return h === 'hidden' || b === 'hidden'; };
+    var lastSet = scrollY;
+    var stop = function () { gliding = false; target = current = lastSet = scrollY; };
     var glide = function () {
+      if (!gliding) return;
+      // quelqu'un d'autre a déplacé la page (clic sur un onglet, lien, retour en haut) : on s'arrête
+      if (Math.abs(scrollY - lastSet) > 3) { stop(); return; }
       current += (target - current) * .11;
       if (Math.abs(target - current) < .5) { current = target; gliding = false; }
-      scrollTo({ top: current, behavior: 'instant' });
+      scrollTo({ top: current, behavior: 'instant' }); lastSet = scrollY;
       if (gliding) requestAnimationFrame(glide);
     };
     addEventListener('wheel', function (e) {
@@ -4984,12 +4989,14 @@ if (/^#p\/\w+/.test(location.hash)) { const k = location.hash.slice(3); if (PP[k
         if ((oy === 'auto' || oy === 'scroll') && n.scrollHeight > n.clientHeight + 2) return;
       }
       e.preventDefault();
-      if (!gliding) target = current = scrollY;
+      if (!gliding) target = current = lastSet = scrollY;
       var d = e.deltaMode === 1 ? e.deltaY * 32 : e.deltaMode === 2 ? e.deltaY * innerHeight : e.deltaY;
       target = Math.max(0, Math.min(document.documentElement.scrollHeight - innerHeight, target + d));
       if (!gliding) { gliding = true; requestAnimationFrame(glide); }
     }, { passive: false });
-    addEventListener('scroll', function () { if (!gliding) target = current = scrollY; }, { passive: true });
+    addEventListener('scroll', function () { if (!gliding) target = current = lastSet = scrollY; }, { passive: true });
+    // un clic, une touche ou un geste tactile arrête le glissement tout de suite
+    ['pointerdown', 'keydown', 'touchstart', 'hashchange', 'popstate'].forEach(function (ev) { addEventListener(ev, function () { if (gliding) stop(); }, { capture: true, passive: true }); });
   }
 
   // Menu : le soulignement glisse vers le lien survolé, puis revient sur la page en cours
