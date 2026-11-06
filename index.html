@@ -1805,6 +1805,14 @@ body[data-view=creer] #creer,body[data-view=journal] #journal,body[data-view=mai
 @media (max-width:480px){.bv-sl{display:none}.bv-tot{margin-left:auto}.bv-sum-in{gap:14px}}
 body[data-view=acheter] .ft-bot{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
 </style>
+<style>
+/* ═══════════════ FINITIONS DE MOUVEMENT ═══════════════ */
+/* Menu : un seul soulignement qui glisse d'un lien à l'autre */
+.nav.glide a::after{opacity:0!important}
+.nav-line{position:absolute;left:0;bottom:2px;height:1px;width:0;background:currentColor;opacity:0;pointer-events:none;transition:transform .5s cubic-bezier(.22,.8,.24,1),width .5s cubic-bezier(.22,.8,.24,1),opacity .3s}
+.nav-line.on{opacity:.9}
+@media (prefers-reduced-motion:reduce){.nav-line{transition:none}}
+</style>
 </head>
 <body>
 <a class="sr" href="#/boutique">Aller à la boutique</a>
@@ -4951,6 +4959,60 @@ route(false);
 addEventListener('popstate', () => { if (!/^#p\//.test(location.hash)) { navDepth = Math.max(0, navDepth - 1); route(false, true); } });
 if (/^#p\/\w+/.test(location.hash)) { const k = location.hash.slice(3); if (PP[k]) setTimeout(() => openPage(k, false), 300); }
 
+</script>
+<script>
+/* ═══════════════ FINITIONS DE MOUVEMENT ═══════════════ */
+(function () {
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  // Défilement doux à la molette (ordinateur) : la page glisse au lieu d'avancer par à-coups.
+  // Les zones qui défilent seules (fiche produit, panier, menus) gardent leur défilement normal.
+  if (fine && !reduce) {
+    var target = scrollY, current = scrollY, gliding = false;
+    var locked = function () { var h = getComputedStyle(document.documentElement).overflowY, b = getComputedStyle(document.body).overflowY; return h === 'hidden' || b === 'hidden'; };
+    var glide = function () {
+      current += (target - current) * .11;
+      if (Math.abs(target - current) < .5) { current = target; gliding = false; }
+      scrollTo({ top: current, behavior: 'instant' });
+      if (gliding) requestAnimationFrame(glide);
+    };
+    addEventListener('wheel', function (e) {
+      if (e.ctrlKey || e.defaultPrevented || locked() || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      for (var n = e.target; n && n !== document.body && n !== document.documentElement; n = n.parentElement) {
+        var oy = getComputedStyle(n).overflowY;
+        if ((oy === 'auto' || oy === 'scroll') && n.scrollHeight > n.clientHeight + 2) return;
+      }
+      e.preventDefault();
+      if (!gliding) target = current = scrollY;
+      var d = e.deltaMode === 1 ? e.deltaY * 32 : e.deltaMode === 2 ? e.deltaY * innerHeight : e.deltaY;
+      target = Math.max(0, Math.min(document.documentElement.scrollHeight - innerHeight, target + d));
+      if (!gliding) { gliding = true; requestAnimationFrame(glide); }
+    }, { passive: false });
+    addEventListener('scroll', function () { if (!gliding) target = current = scrollY; }, { passive: true });
+  }
+
+  // Menu : le soulignement glisse vers le lien survolé, puis revient sur la page en cours
+  var nav = document.querySelector('.nav');
+  if (nav && fine) {
+    var line = document.createElement('span'); line.className = 'nav-line'; line.setAttribute('aria-hidden', 'true');
+    nav.appendChild(line); nav.classList.add('glide');
+    var links = [].slice.call(nav.querySelectorAll('a'));
+    var to = function (a) {
+      if (!a) { line.classList.remove('on'); return; }
+      var pad = parseFloat(getComputedStyle(a).paddingLeft) || 0;
+      line.style.width = (a.offsetWidth - pad * 2) + 'px';
+      line.style.transform = 'translateX(' + (a.offsetLeft + pad) + 'px)';
+      line.classList.add('on');
+    };
+    var current = function () { return links.filter(function (a) { return a.hasAttribute('aria-current'); })[0]; };
+    nav.addEventListener('pointerover', function (e) { var a = e.target.closest('a'); if (a) to(a); });
+    nav.addEventListener('pointerleave', function () { to(current()); });
+    new MutationObserver(function () { if (!nav.matches(':hover')) to(current()); }).observe(nav, { subtree: true, attributes: true, attributeFilter: ['aria-current'] });
+    addEventListener('resize', function () { to(current()); });
+    setTimeout(function () { to(current()); }, 300);
+  }
+})();
 </script>
 </body>
 </html>
