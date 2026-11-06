@@ -1901,6 +1901,32 @@ body[data-view=acheter] .ft-bot{padding-bottom:calc(96px + env(safe-area-inset-b
 .pp-sw button{box-shadow:inset 0 0 0 1px rgba(30,21,18,.2)}
 .pp-row div{border-top-color:rgba(30,21,18,.12)}
 .duo-c{background:#fff}
+
+
+.hd-bar,.hd.solid .hd-bar{color:var(--ink);background:rgba(255,248,243,.86);box-shadow:0 1px 0 rgba(58,28,36,.08)}
+.hd:not(.solid) .lang button[aria-pressed=true] span{color:#fff}
+/* ═══════════════ ACCUEIL CLAIR ═══════════════
+   Fini le noir et l'or : fond crème rosé, textes prune, accents framboise. */
+.hm-wick,.bespoke{--cream:#3A1C24;--cream-2:rgba(58,28,36,.68);--night:#FFF8F3;--night-2:#FFFFFF;--gold:#C2416B;--gold-2:#C2416B;--link-d:#3A1C24;color:var(--ink)}
+.hm-wick{background:linear-gradient(180deg,#FFF5EE 0%,#FCE8E6 55%,#F8E4EE 100%)}
+.hz{background:radial-gradient(70% 50% at 50% 62%,#FFFFFF 0%,rgba(255,255,255,0) 70%),radial-gradient(120% 50% at 50% 100%,#FADCE0,#FFF5EE 65%)}
+.hz-under{stroke:#F0D9CC}.hz-fuse{stroke:#C98F72}.hz-ash{stroke:rgba(150,110,100,.32)}
+.hz-glow,.hw-glow{background:radial-gradient(circle 46vh at var(--gx,50%) var(--gy,30%),rgba(255,190,120,.26),rgba(255,170,120,.08) 45%,transparent 70%)}
+.hz-cand img,.hz.lit .hz-cand img,.hw-img{filter:drop-shadow(0 30px 30px rgba(120,50,60,.22))}
+.hz-cand img{filter:drop-shadow(0 30px 30px rgba(120,50,60,.18)) saturate(.85) brightness(.96)}
+.hz.lit .hz-cand img{filter:drop-shadow(0 30px 30px rgba(120,50,60,.22))}
+.hz-info.lit h2{text-shadow:none}
+.hm-wick .eyebrow,.hz-copy .eyebrow,.hz-k,.hr-cap-n{display:inline-block;padding:5px 13px;border-radius:999px;background:#fff;color:var(--berry);letter-spacing:.06em;box-shadow:0 6px 16px -10px rgba(120,40,60,.45)}
+.hz-copy h1 em,.hz-t h2 em,.hz-info h2 em,.hm-wick em{color:var(--berry)}
+.hm-wick .btn:not(.ghost),.bespoke .btn:not(.ghost){background:var(--berry);color:#fff;border-radius:999px}
+.hm-wick .btn:not(.ghost):hover,.bespoke .btn:not(.ghost):hover{background:var(--wine-2);color:#fff}
+.hm-wick .btn.ghost,.bespoke .btn.ghost{background:#fff;color:var(--ink);box-shadow:none;border-radius:999px}
+.hm-wick .btn.ghost:hover,.bespoke .btn.ghost:hover{background:var(--ink);color:#fff}
+.hr-cone,.hr-sweep{mix-blend-mode:normal;opacity:0}
+.hr-cone i{background:rgba(194,65,107,.5);box-shadow:none}
+.hr-floor{background:radial-gradient(60% 40% at 50% 0,rgba(194,65,107,.06),transparent 70%)}
+.hm-range .hw-it img{-webkit-box-reflect:below 4px linear-gradient(transparent 70%,rgba(255,255,255,.22))}
+.bespoke{background:linear-gradient(160deg,#F3EEF8,#EADFF2)}
 </style>
 </head>
 <body>
@@ -3153,7 +3179,7 @@ function manifesto() {
 
 /* ═══════════════ EN-TÊTE ═══════════════ */
 function header() {
-  const hd = $('#hd'); let lastY = scrollY; const darks = $$('.birth, .xdr, .hm-intro, .hm-wick, .bespoke');
+  const hd = $('#hd'); let lastY = scrollY; const darks = $$('.birth, .xdr');
   const tick = () => {
     const y = scrollY, dy = y - lastY, heroH = VIEW === 'home' || !VIEW ? $('#hm-wick').offsetHeight : 0;
     hd.classList.toggle('solid', y > heroH - 90);
@@ -4933,7 +4959,7 @@ function homeRange() {
       const side = phone ? (i % 2 ? 1 : -1) : (i < 2 ? -1 : 1);
       Object.assign(it.style, { left: cx.toFixed(1) + 'px', top: (base - ih).toFixed(1) + 'px', height: ih.toFixed(1) + 'px', opacity: Math.min(1, appear * 1.5).toFixed(3) });
       it.style.transform = `translateX(-50%) translateY(${(hlerp(110, 0, appear) - fe * 14).toFixed(1)}px) perspective(900px) rotateY(${(side * 18 * arc).toFixed(2)}deg) scale(${(hlerp(.9, 1, appear) * (1 + .05 * arc) * (1 + .1 * fe)).toFixed(4)})`;
-      imgs[i].style.opacity = 1; imgs[i].style.filter = `brightness(${(hlerp(.08, 1, appear) * dim + .12 * fe).toFixed(3)})`;
+      imgs[i].style.opacity = Math.min(1, .25 + .75 * dim).toFixed(3); imgs[i].style.filter = `saturate(${(.55 + .45 * dim).toFixed(3)})`;
       it.style.setProperty('--h', Math.max(fe, all * .8, hease(hseg(p, .3, .4)) * .35 * (1 - hseg(p, .38, .45))).toFixed(3));
       it.style.zIndex = fe > .3 ? 2 : 1;
       // les prix arrivent quand le projecteur passe sur la bougie, puis restent
