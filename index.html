@@ -1804,6 +1804,20 @@ body[data-view=creer] #creer,body[data-view=journal] #journal,body[data-view=mai
 }
 @media (max-width:480px){.bv-sl{display:none}.bv-tot{margin-left:auto}.bv-sum-in{gap:14px}}
 body[data-view=acheter] .ft-bot{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+
+/* Tuile « Créez la vôtre » : ton atelier, ludique */
+.pt-atelier{background:radial-gradient(90% 70% at 50% 100%,#FFF6EE 0%,transparent 70%),linear-gradient(180deg,#FCE9E4 0%,#F9DDD8 100%)!important}
+.pt-atelier::before,.pt-atelier::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.pt-atelier::before{width:220px;height:220px;left:-70px;top:38%;background:#F6CFD3;opacity:.55}
+.pt-atelier::after{width:150px;height:150px;right:-40px;top:16%;background:#FBE3C7;opacity:.7}
+.pt-tag{display:inline-block;margin-bottom:12px;padding:6px 14px;border-radius:999px;background:#fff;color:var(--wine);font-size:.8rem;font-weight:700;letter-spacing:.02em;box-shadow:0 6px 16px -10px rgba(120,40,60,.45);transform:rotate(-3deg)}
+.pt-atelier h2{color:#4A1C27}
+.pt-atelier .btn{border-radius:999px}
+.pt-layers{position:relative;z-index:1;display:block;flex:none;width:min(86%,420px);max-width:none;max-height:none;aspect-ratio:620/494;padding-top:0;margin:auto auto 0}
+.pt-layers img{display:block;width:100%;height:100%;object-fit:contain}
+.ly{position:absolute;left:50%;top:var(--y);display:flex;align-items:center;gap:6px;transform:translate(-50%,-50%);padding:4px 11px 4px 4px;border-radius:999px;background:rgba(255,255,255,.92);color:#4A1C27;font-size:.78rem;font-weight:600;white-space:nowrap;box-shadow:0 4px 12px -6px rgba(74,28,39,.35)}
+.ly i{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--wine);color:#fff;font-style:normal;font-size:.7rem;font-weight:700}
+@media (max-width:734px){.pt-layers{width:min(88%,360px)}.ly{font-size:.66rem;gap:5px;padding:2px 9px 2px 2px}.ly i{width:16px;height:16px;font-size:.6rem}}
 </style>
 <style>
 /* ═══════════════ FINITIONS DE MOUVEMENT ═══════════════ */
@@ -1892,10 +1906,15 @@ body[data-view=acheter] .ft-bot{padding-bottom:calc(96px + env(safe-area-inset-b
         <div class="pt-cta"><button type="button" class="btn" data-page="box" data-t="t.more">En savoir plus</button><button type="button" class="btn ghost" data-buy="box" data-t="t.buy">Acheter</button></div></div>
       <img class="pt-img" src="img/cut-box2.webp" alt="Coffret cadeau Yumiya" loading="lazy"/>
     </div>
-    <div class="ptile light">
-      <div class="pt-tx"><h2 data-t="t4.h">Créez la vôtre</h2><p data-t="t4.p">Composez-la, voyez-la prendre forme.</p>
+    <div class="ptile light pt-atelier">
+      <div class="pt-tx"><span class="pt-tag" data-t="t4.eye">L’atelier</span><h2 data-t="t4.h">Créez la vôtre</h2><p data-t="t4.p">Composez-la, voyez-la prendre forme.</p>
         <div class="pt-cta"><a class="btn" href="#creer" data-t="t4.cta">Commencer</a></div></div>
-      <img class="pt-img" src="img/verre-couches.webp" alt="Un verre et ses couches de cire" loading="lazy"/>
+      <div class="pt-img pt-layers">
+        <img src="img/verre-couches.webp" alt="Un verre et ses trois couches de cire" loading="lazy"/>
+        <span class="ly" style="--y:36%"><i>3</i><b data-t="ly.3">Couche du haut</b></span>
+        <span class="ly" style="--y:55%"><i>2</i><b data-t="ly.2">Couche du milieu</b></span>
+        <span class="ly" style="--y:72%"><i>1</i><b data-t="ly.1">Couche du bas</b></span>
+      </div>
     </div>
     <div class="ptile dark">
       <div class="pt-tx"><h2 data-t="t5.h">Sur mesure</h2><p data-t="t5.p">Mariage, naissance, cadeau d’entreprise.</p>
@@ -2720,7 +2739,7 @@ const EN_K = {
   're.d':'5 to 10 working days',
   'ft.news':'The Yumiya letter','ft.newsT':'New collections and stories from the workshop.','ft.ph':'Your email','ft.sub':'Subscribe','ft.shop':'Shop','ft.all':'All candles','ft.box':'Gift box','ft.quiz':'Find my candle',
   'ft.house':'Our house','ft.legal':'Legal notice','ft.cgv':'Terms of sale','ft.write':'Write to us','ft.contact':'Contact form','ft.esc':'A student company of the École Supérieure de Commerce, La Neuveville',
-  't0.eye':'Floral & soothing','t0.h':'Lavender','t0.p':'Lavender, whipped cream, and hearts placed by hand.','t1.eye':'Autumn edition','t1.h':'Autumn','t1.p':'Apple, whipped cream, and hand-placed decor.','t.more':'Learn more','t.buy':'Buy','t2.h':'Tulip','t2.p':'A wax bouquet, in four colours.','t3.h':'Yumiya Gift Box','t3.p':'The ready-to-give duo.','t4.h':'Create your own','t4.p':'Design it, watch it take shape.','t4.cta':'Get started','t5.h':'Made to order','t5.p':'Weddings, births, corporate gifts.','t5.cta':'Write to us','hero.lead2':'Lavender. Hand-poured in La Neuveville.','bb.go':'Checkout'
+  't0.eye':'Floral & soothing','t0.h':'Lavender','t0.p':'Lavender, whipped cream, and hearts placed by hand.','t1.eye':'Autumn edition','t1.h':'Autumn','t1.p':'Apple, whipped cream, and hand-placed decor.','t.more':'Learn more','t.buy':'Buy','t2.h':'Tulip','t2.p':'A wax bouquet, in four colours.','t3.h':'Yumiya Gift Box','t3.p':'The ready-to-give duo.','t4.h':'Create your own','t4.p':'Design it, watch it take shape.','t4.cta':'Get started','t4.eye':'The workshop','ly.1':'Bottom layer','ly.2':'Middle layer','ly.3':'Top layer','t5.h':'Made to order','t5.p':'Weddings, births, corporate gifts.','t5.cta':'Write to us','hero.lead2':'Lavender. Hand-poured in La Neuveville.','bb.go':'Checkout'
 };
 const EN = {
   'Panier':'Bag','Fermer':'Close','Touchez la mèche pour rallumer':'Touch the wick to relight','Rallumer la bougie':'Relight the candle','Touchez la flamme':'Touch the flame','Souffler la bougie':'Blow out the candle',
@@ -2857,7 +2876,7 @@ const DE = {
   'ft.news':'Der Yumiya-Brief','ft.newsT':'Neue Kollektionen und Einblicke ins Atelier.','ft.ph':'Ihre E-Mail','ft.sub':'Anmelden','ft.shop':'Shop','ft.all':'Alle Kerzen','ft.box':'Geschenkbox','ft.quiz':'Meine Kerze finden',
   'c1':'Ein Glas, <em>ein Docht.</em>','c2':'Das Sojawachs, <em>von Hand gegossen.</em>','c3':'Schicht <em>für Schicht.</em>','c4':'Die Sahne, <em>mit dem Spritzbeutel.</em>','c5':'Das Dekor, <em>Stück für Stück.</em>','c6':'Und dann, <em>das Licht.</em>','c7':'Eine Kollektion, <em>vier Charaktere.</em>',
   'ch1':'Das Glas','ch2':'Das Wachs','ch3':'Die Schichten','ch4':'Die Sahne','ch5':'Das Dekor','ch6':'Die Flamme','ch7':'Die Kollektion',
-  'seg.all':'Alle','seg.g':'Gourmet','seg.f':'Blumen','seg.c':'Boxen','cmp.eye':'Vergleichen','cmp.t':'Welche <em>passt zu Ihnen?</em>','cmp.note':'Alle unsere Kerzen: 100 % pflanzliches Sojawachs, Baumwolldocht, von Hand gegossen in La Neuveville.','t0.eye':'Blumig & beruhigend','t0.h':'Lavendel','t0.p':'Lavendel, Sahne und von Hand gesetzte Herzen.','t1.eye':'Herbst-Edition','t1.h':'Herbst','t1.p':'Apfel, Sahne und von Hand gesetztes Dekor.','t.more':'Mehr erfahren','t.buy':'Kaufen','t2.h':'Tulpe','t2.p':'Ein Strauss aus Wachs, in vier Farben.','t3.h':'Yumiya Geschenkbox','t3.p':'Das Duo zum Verschenken.','t4.h':'Gestalten Sie Ihre','t4.p':'Zusammenstellen und Gestalt annehmen sehen.','t4.cta':'Starten','t5.h':'Nach Mass','t5.p':'Hochzeit, Geburt, Firmengeschenk.','t5.cta':'Schreiben Sie uns','hero.lead2':'Lavendel. Von Hand gegossen, in La Neuveville.','bb.go':'Zur Kasse',
+  'seg.all':'Alle','seg.g':'Gourmet','seg.f':'Blumen','seg.c':'Boxen','cmp.eye':'Vergleichen','cmp.t':'Welche <em>passt zu Ihnen?</em>','cmp.note':'Alle unsere Kerzen: 100 % pflanzliches Sojawachs, Baumwolldocht, von Hand gegossen in La Neuveville.','t0.eye':'Blumig & beruhigend','t0.h':'Lavendel','t0.p':'Lavendel, Sahne und von Hand gesetzte Herzen.','t1.eye':'Herbst-Edition','t1.h':'Herbst','t1.p':'Apfel, Sahne und von Hand gesetztes Dekor.','t.more':'Mehr erfahren','t.buy':'Kaufen','t2.h':'Tulpe','t2.p':'Ein Strauss aus Wachs, in vier Farben.','t3.h':'Yumiya Geschenkbox','t3.p':'Das Duo zum Verschenken.','t4.h':'Gestalten Sie Ihre','t4.p':'Zusammenstellen und Gestalt annehmen sehen.','t4.cta':'Starten','t4.eye':'Die Werkstatt','ly.1':'Untere Schicht','ly.2':'Mittlere Schicht','ly.3':'Obere Schicht','t5.h':'Nach Mass','t5.p':'Hochzeit, Geburt, Firmengeschenk.','t5.cta':'Schreiben Sie uns','hero.lead2':'Lavendel. Von Hand gegossen, in La Neuveville.','bb.go':'Zur Kasse',
   'nav.jr':'Journal','nav.new':'Neuheiten','nav.mai':'Das Haus','jr.eye':'Das Journal','jr.t':'Rituale, Tipps <em>und Einblicke</em>','mai.eye':'Das Haus Yumiya','mai.more':'Unsere Geschichte lesen →','gal.lead':'Neue Kollektionen, limitierte Editionen und Handgriffe: Verfolgen Sie das Leben unserer Kerzen, eine Kreation nach der anderen.','gal.btn':'Folgen Sie uns auf Instagram','re.d':'5 bis 10 Werktage','ft.contact':'Kontaktformular',
   'cfg.studio':'Studio','cfg.amb':'Ambiente','cfg.eye':'Personalisierung','cfg.t':'Gestalten Sie Ihre, <em>sehen Sie sie in 3D</em>','cfg.lead':'Wählen Sie jedes Detail: Ihre Kerze nimmt vor Ihren Augen Gestalt an. Drehen Sie sie mit dem Finger, zünden Sie sie an und senden Sie uns Ihre Kreation.','cfg.light':'Anzünden','cfg.reset':'Zentrieren','cfg.hint':'Mit dem Finger drehen','cfg.fail':'Die 3D-Vorschau konnte nicht geladen werden. Sie können Ihre Kreation trotzdem gestalten und senden.',
   'ft.house':'Das Haus','ft.legal':'Impressum','ft.cgv':'Verkaufsbedingungen','ft.write':'Schreiben Sie uns','ft.esc':'Schülerunternehmen der Handelsmittelschule La Neuveville'
