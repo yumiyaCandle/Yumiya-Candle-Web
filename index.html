@@ -1813,18 +1813,6 @@ body[data-view=acheter] .ft-bot{padding-bottom:calc(96px + env(safe-area-inset-b
 .nav-line.on{opacity:.9}
 @media (prefers-reduced-motion:reduce){.nav-line{transition:none}}
 </style>
-<style>
-/* Tuile « Créez la vôtre » : le verre et ses couches de cire */
-.pt-glass{flex:0 0 auto;width:auto;height:clamp(250px,26vw,360px);max-width:80%;max-height:none;margin-top:auto;padding-top:20px;overflow:visible;filter:drop-shadow(0 24px 26px rgba(30,21,18,.14))}
-.pt-glass .pg-layer{transform-box:fill-box;transform-origin:50% 100%}
-.pt-glass.pg-wait .pg-layer{transform:scaleY(0);opacity:0}
-.pt-glass.pg-wait .pg-wick{opacity:0}
-.pt-glass.pg-go .pg-layer{animation:pg-pour .9s cubic-bezier(.22,.8,.24,1) both;animation-delay:var(--d)}
-.pt-glass.pg-go .pg-wick{animation:pg-in .6s ease 1.5s both}
-@keyframes pg-pour{from{transform:scaleY(0);opacity:.4}to{transform:none;opacity:1}}
-@keyframes pg-in{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.pt-glass.pg-wait .pg-layer,.pt-glass.pg-wait .pg-wick{transform:none;opacity:1}.pt-glass.pg-go .pg-layer,.pt-glass.pg-go .pg-wick{animation:none}}
-</style>
 </head>
 <body>
 <a class="sr" href="#/boutique">Aller à la boutique</a>
@@ -1907,24 +1895,7 @@ body[data-view=acheter] .ft-bot{padding-bottom:calc(96px + env(safe-area-inset-b
     <div class="ptile light">
       <div class="pt-tx"><h2 data-t="t4.h">Créez la vôtre</h2><p data-t="t4.p">Composez-la, voyez-la prendre forme.</p>
         <div class="pt-cta"><a class="btn" href="#creer" data-t="t4.cta">Commencer</a></div></div>
-      <svg class="pt-img pt-glass" viewBox="0 0 240 320" role="img" aria-label="Un verre et ses couches de cire" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="pg-shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".2"/><stop offset=".25" stop-color="#000" stop-opacity="0"/><stop offset=".45" stop-color="#fff" stop-opacity=".22"/><stop offset=".75" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".26"/></linearGradient>
-    <linearGradient id="pg-glass" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".1" stop-color="#fff" stop-opacity=".1"/><stop offset=".85" stop-color="#fff" stop-opacity=".05"/><stop offset=".94" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity=".12"/></linearGradient>
-    <radialGradient id="pg-floor"><stop offset="0" stop-color="#1E1512" stop-opacity=".2"/><stop offset="1" stop-color="#1E1512" stop-opacity="0"/></radialGradient>
-  </defs>
-  <ellipse cx="120" cy="300" rx="88" ry="14" fill="url(#pg-floor)"/>
-  <path d="M46 66L49 286A71 13 0 0 0 191 286L194 66Z" fill="rgba(255,255,255,.3)"/>
-  <ellipse cx="120" cy="66" rx="74" ry="13" fill="rgba(255,255,255,.22)" stroke="rgba(255,255,255,.9)" stroke-width="1.5"/>
-  <ellipse cx="120" cy="280" rx="66" ry="10" fill="rgba(255,255,255,.5)"/>
-  <g class="pg-layer" style="--d:0.25s"><path d="M54 228L54 274A66 10 0 0 0 186 274L186 228A66 10 0 0 1 54 228Z" fill="#E9DCC8"/><path d="M54 228L54 274A66 10 0 0 0 186 274L186 228A66 10 0 0 1 54 228Z" fill="url(#pg-shade)"/><ellipse cx="120" cy="228" rx="66" ry="10" fill="#F4ECDF"/><ellipse cx="120" cy="228" rx="66" ry="10" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1"/></g><g class="pg-layer" style="--d:0.57s"><path d="M54 188L54 228A66 10 0 0 0 186 228L186 188A66 10 0 0 1 54 188Z" fill="#B596DC"/><path d="M54 188L54 228A66 10 0 0 0 186 228L186 188A66 10 0 0 1 54 188Z" fill="url(#pg-shade)"/><ellipse cx="120" cy="188" rx="66" ry="10" fill="#CDB8EA"/><ellipse cx="120" cy="188" rx="66" ry="10" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1"/></g><g class="pg-layer" style="--d:0.89s"><path d="M54 150L54 188A66 10 0 0 0 186 188L186 150A66 10 0 0 1 54 150Z" fill="#E8A0B4"/><path d="M54 150L54 188A66 10 0 0 0 186 188L186 150A66 10 0 0 1 54 150Z" fill="url(#pg-shade)"/><ellipse cx="120" cy="150" rx="66" ry="10" fill="#F3BFCD"/><ellipse cx="120" cy="150" rx="66" ry="10" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1"/></g><g class="pg-layer" style="--d:1.21s"><path d="M54 114L54 150A66 10 0 0 0 186 150L186 114A66 10 0 0 1 54 114Z" fill="#EFB27A"/><path d="M54 114L54 150A66 10 0 0 0 186 150L186 114A66 10 0 0 1 54 114Z" fill="url(#pg-shade)"/><ellipse cx="120" cy="114" rx="66" ry="10" fill="#F6CB9F"/><ellipse cx="120" cy="114" rx="66" ry="10" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1"/></g>
-  <g class="pg-wick"><rect x="113" y="111" width="14" height="4" rx="2" fill="#B9B2A8"/><path d="M120 114V40" stroke="#F3EDE3" stroke-width="5" stroke-linecap="round"/><path d="M120 114V40" stroke="rgba(30,21,18,.12)" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 5"/></g>
-  <path d="M46 66L49 286A71 13 0 0 0 191 286L194 66A74 13 0 0 1 46 66Z" fill="url(#pg-glass)" stroke="rgba(255,255,255,.95)" stroke-width="1.6"/>
-  <path d="M46 66A74 13 0 0 0 194 66" fill="none" stroke="#fff" stroke-width="2.4"/>
-  <ellipse cx="120" cy="286" rx="70" ry="11" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="4"/>
-  <path d="M58 88V264" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".55"/>
-  <path d="M180 96V236" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
-</svg>
+      <img class="pt-img" src="img/cut-marsh.webp" alt="" loading="lazy"/>
     </div>
     <div class="ptile dark">
       <div class="pt-tx"><h2 data-t="t5.h">Sur mesure</h2><p data-t="t5.p">Mariage, naissance, cadeau d’entreprise.</p>
@@ -5048,14 +5019,6 @@ if (/^#p\/\w+/.test(location.hash)) { const k = location.hash.slice(3); if (PP[k
     addEventListener('resize', function () { to(activeLink()); });
     setTimeout(function () { to(activeLink()); }, 300);
   }
-})();
-</script>
-<script>
-/* Le verre se remplit couche après couche quand la tuile apparaît */
-(function () {
-  var g = document.querySelector('.pt-glass'); if (!g || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  g.classList.add('pg-wait');
-  new IntersectionObserver(function (es, o) { es.forEach(function (e) { if (e.isIntersecting) { g.classList.remove('pg-wait'); g.classList.add('pg-go'); o.disconnect(); } }); }, { threshold: .35 }).observe(g);
 })();
 </script>
 </body>
