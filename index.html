@@ -1932,6 +1932,31 @@ body[data-view=acheter] .ft-bot{padding-bottom:calc(96px + env(safe-area-inset-b
 .hr-floor{background:radial-gradient(60% 40% at 50% 0,rgba(255,244,224,.7),transparent 70%)}
 .hr-halo{background:radial-gradient(closest-side,rgba(var(--hc),.55),rgba(var(--hc),.18) 55%,transparent)}
 .bespoke{background:linear-gradient(160deg,#F3EEF8,#EADFF2)}
+
+/* ═══════════════ COULEURS YUMIYA ═══════════════
+   Violet lavande pour les boutons, rose tulipe pour les mots en italique,
+   pêche pour l'Automne, crème kraft pour le Coffret. */
+:root{--lav:#7A52A8;--lav-h:#5F3C8A;--lav-50:#F3EDFA;--pink:#D0567F;--peach:#E9782F;--kraft:#EFE2CF;
+  --blue:var(--lav);--blue-h:var(--lav-h);--link:var(--lav);--wine:var(--lav);--wine-2:var(--lav-h);--berry:var(--lav)}
+::selection{background:var(--lav);color:#fff}
+/* mots en italique des titres : rose tulipe */
+h1 em,h2 em,.display em,.h2 em,.h3 em,.hz-copy h1 em,.hz-t h2 em,.hz-info h2 em,.hm-wick em,.hr-t em,.pp-title em{color:var(--pink)!important}
+/* tuiles de l'accueil : chacune à la couleur de son produit */
+.ptile[data-k=aut]{background:linear-gradient(180deg,#FFF3E8 0%,#FBDDC4 100%)!important}
+.ptile[data-k=aut] .pt-eye{color:#B95A1C}
+.ptile[data-k=aut] .btn:not(.ghost){background:#D2621F;color:#fff}.ptile[data-k=aut] .btn:not(.ghost):hover{background:#B4501A}
+.ptile[data-k=aut] .btn.ghost{color:#B4501A;box-shadow:inset 0 0 0 1px #B4501A}
+.ptile[data-k=lav]{background:linear-gradient(180deg,#F4EEFA 0%,#E4D7F2 100%)!important}
+.ptile[data-k=lav] .pt-eye{color:var(--lav)}
+.ptile[data-k=tulip]{background:linear-gradient(180deg,#FCEEF3 0%,#F5D5E2 100%)!important}
+.ptile[data-k=box]{background:linear-gradient(180deg,#FBF5EC 0%,#EEDFCA 100%)!important}
+.pt-atelier{background:radial-gradient(90% 70% at 50% 100%,#FFF6EE 0%,transparent 70%),linear-gradient(180deg,#F6EEFB 0%,#FBE3EA 100%)!important}
+.pt-atelier::before{background:#E6D6F4}.pt-atelier::after{background:#FBDCC6}
+.pt-atelier h2{color:#3E2357}
+/* étiquettes pastilles : violet */
+.pt-tag,.hm-wick .eyebrow,.hz-copy .eyebrow,.hz-k,.hr-cap-n{color:var(--lav)}
+/* atelier (scènes sombres) : le doré devient lilas */
+.birth,.xdr{--gold:#CDB6EA;--gold-2:#E3D2F5}
 </style>
 </head>
 <body>
@@ -1991,23 +2016,23 @@ body[data-view=acheter] .ft-bot{padding-bottom:calc(96px + env(safe-area-inset-b
 <section class="hm-wick hm-range" id="hm-range" data-view="home" aria-labelledby="hr-t"></section>
 <section class="soon" id="bientot" data-view="home" aria-labelledby="soon-t"></section>
 <section class="ptiles" data-view="home" aria-label="À la une">
-  <div class="ptile pt-full light">
+  <div class="ptile pt-full light" data-k="aut">
     <div class="pt-tx"><div class="pt-eye" data-t="t1.eye">Édition d’automne</div><h2 data-t="t1.h">Automne</h2><p data-t="t1.p">Pomme, chantilly, et le décor posé à la main.</p>
       <div class="pt-cta"><button type="button" class="btn" data-page="aut" data-t="t.more">En savoir plus</button><button type="button" class="btn ghost" data-buy="aut" data-t="t.buy">Acheter</button></div></div>
     <img class="pt-img" src="img/cut-aut.webp" alt="Bougie gourmande Automne" loading="lazy"/>
   </div>
-  <div class="ptile pt-full light" style="background:linear-gradient(180deg,#F1ECF6,#E6DDF0)">
+  <div class="ptile pt-full light" data-k="lav">
     <div class="pt-tx"><div class="pt-eye" data-t="t0.eye">Florale &amp; apaisante</div><h2 data-t="t0.h">Lavande</h2><p data-t="t0.p">Lavande, chantilly, et des cœurs posés à la main.</p>
       <div class="pt-cta"><button type="button" class="btn" data-page="lav" data-t="t.more">En savoir plus</button><button type="button" class="btn ghost" data-buy="lav" data-t="t.buy">Acheter</button></div></div>
     <img class="pt-img" src="img/cut-lav.webp" alt="Bougie gourmande Lavande" loading="lazy"/>
   </div>
   <div class="ptile-grid">
-    <div class="ptile light">
+    <div class="ptile light" data-k="tulip">
       <div class="pt-tx"><h2 data-t="t2.h">Tulipe</h2><p data-t="t2.p">Un bouquet de cire, en quatre coloris.</p>
         <div class="pt-cta"><button type="button" class="btn" data-page="tulip" data-t="t.more">En savoir plus</button><button type="button" class="btn ghost" data-buy="tulip" data-t="t.buy">Acheter</button></div></div>
       <img class="pt-img" src="img/tulip-hq-violet.webp" alt="Bougie Tulipe" loading="lazy"/>
     </div>
-    <div class="ptile dark">
+    <div class="ptile dark" data-k="box">
       <div class="pt-tx"><h2 data-t="t3.h">Coffret Yumiya</h2><p data-t="t3.p">Le duo prêt à offrir.</p>
         <div class="pt-cta"><button type="button" class="btn" data-page="box" data-t="t.more">En savoir plus</button><button type="button" class="btn ghost" data-buy="box" data-t="t.buy">Acheter</button></div></div>
       <img class="pt-img" src="img/cut-box2.webp" alt="Coffret cadeau Yumiya" loading="lazy"/>
