@@ -2031,6 +2031,9 @@ h1 em,h2 em,.display em,.h2 em,.h3 em,.hz-copy h1 em,.hz-t h2 em,.hz-info h2 em,
 .pp-card.wb img{top:auto;height:min(52vh,440px)}
 /* Créer, tablette et téléphone : l'aperçu ne reste plus collé pendant qu'on choisit */
 @media (max-width:1000px){.cfg-view{position:relative;top:auto}}
+
+/* Cartes étroites (tablette, téléphone) : l'étiquette retirée pour ne pas toucher la flamme */
+@media (max-width:1100px){.card-media .badge{display:none}}
 </style>
 </head>
 <body>
