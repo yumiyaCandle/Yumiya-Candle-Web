@@ -1957,6 +1957,31 @@ h1 em,h2 em,.display em,.h2 em,.h3 em,.hz-copy h1 em,.hz-t h2 em,.hz-info h2 em,
 .pt-tag,.hm-wick .eyebrow,.hz-copy .eyebrow,.hz-k,.hr-cap-n{color:var(--lav)}
 /* atelier (scènes sombres) : le doré devient lilas */
 .birth,.xdr{--gold:#CDB6EA;--gold-2:#E3D2F5}
+
+/* ═══════════════ AUCUN TEXTE SUR LES PHOTOS ═══════════════ */
+/* Galerie « Chez vous » : la légende passe sous la photo */
+.hg-card{display:flex;flex-direction:column;aspect-ratio:auto;background:#fff}
+.hg-card img{height:auto;aspect-ratio:4/5;flex:none}
+.hg-card figcaption{position:static;padding:14px 18px;align-items:center;color:var(--ink);background:#fff}
+.hg-card b{font-size:1.35rem}
+.hg-buy{color:#fff;background:var(--lav);backdrop-filter:none;-webkit-backdrop-filter:none}
+.hg-buy:hover{background:var(--lav-h)}
+/* Nouveautés : l'étiquette « Bientôt » au-dessus de la photo, pas dessus */
+.nw-card{padding-top:50px}
+.nw-card figure{overflow:visible}
+.nw-card:hover img{transform:none}
+.nw-tag{top:-38px;left:16px;background:var(--lav-50);color:var(--lav);backdrop-filter:none;-webkit-backdrop-filter:none}
+/* Atelier, carte « Coulée à la main » : photo en haut, texte en dessous */
+.bt-a{padding:0;color:var(--ink);background:var(--paper);box-shadow:inset 0 0 0 1px var(--line)}
+.bt-a img{position:relative;inset:auto;flex:1 1 auto;min-height:220px;height:auto}
+.bt-a::after{display:none}
+.bt-a .bt-tx{padding:18px clamp(20px,2.4vw,30px) 22px}
+.bt-a .k{color:var(--lav)!important}.bt-a .bt-tx>span{color:var(--ink-2)!important}
+/* Atelier, « Une seule flamme » : la photo en haut, le texte en dessous */
+.xdr-frame{top:calc(var(--hd-h) + 2vh);bottom:auto;height:56%}
+.xdr-copy{bottom:clamp(28px,6vh,72px)}
+/* Tuiles de l'accueil : un peu d'air entre les boutons et la bougie */
+.ptile .pt-tx{margin-bottom:26px}
 </style>
 </head>
 <body>
@@ -3290,9 +3315,9 @@ function birth() {
     const i = Math.round(shown * (FILM_N - 1)); if (i === drawn) return;
     const im = nearest(i); if (!im) return; drawn = imgs[i] ? i : -1;
     // cadrage : le film remplit la scène, recadré au plus de 35 % sur téléphone
-    const fw = im.naturalWidth || im.width, fh = im.naturalHeight || im.height, ch = PHONE.matches ? H * .74 : H * .76;
+    const fw = im.naturalWidth || im.width, fh = im.naturalHeight || im.height, ch = PHONE.matches ? H * .56 : H * .76;
     let sc = Math.min(W / fw, ch / fh); sc = Math.min(sc * (W < H ? 1.35 : 1), Math.max(W / fw, ch / fh));
-    const dw = fw * sc, dh = fh * sc, x = (W - dw) / 2, y = (PHONE.matches ? H * .47 : H * .57) - dh / 2;
+    const dw = fw * sc, dh = fh * sc, x = (W - dw) / 2, y = (PHONE.matches ? H * .5 : H * .57) - dh / 2;
     G = { x, y, dw, dh }; placeLabels();
     cx.setTransform(dpr, 0, 0, dpr, 0, 0); cx.fillStyle = '#1B120E'; cx.fillRect(0, 0, W, H); cx.imageSmoothingQuality = 'high'; cx.drawImage(im, x, y, dw, dh);
   }
@@ -4704,7 +4729,7 @@ function storeZoom() {
     const p = RM.matches ? 1 : clamp(-r.top / Math.max(1, run.offsetHeight - st.offsetHeight), 0, 1);
     const W = st.clientWidth, H = st.clientHeight, phone = W < 800, t = ease(seg(p, .08, .6));
     // carte finale : à gauche (ordinateur) ou en haut (téléphone)
-    const fh = phone ? H * .5 : H * .78, fw = phone ? Math.min(W * .84, fh * .742) : fh * .742;
+    const fh = phone ? Math.max(140, Math.min(H * .5, H * .96 - cp.offsetHeight - H * .1 - 24)) : H * .78, fw = phone ? Math.min(W * .84, fh * .742) : fh * .742;
     const fx = phone ? (W - fw) / 2 : W * .5 - fw - W * .02, fy = phone ? H * .1 : (H - fh) / 2 + 20;
     // le cadre rétrécit réellement : la photo entière finit dans la carte
     fr.style.left = (fx * t).toFixed(1) + 'px'; fr.style.top = (fy * t).toFixed(1) + 'px';
@@ -4888,7 +4913,7 @@ function homeWick() {
   const lay = () => {
     vh = innerHeight; W = box.clientWidth; Hs = box.offsetHeight; const phone = W < 700;
     // la bougie, en bas de la dernière page
-    const hc = Math.min(vh * (phone ? .44 : sec.classList.contains('still') ? .41 : .48), W * .8 / RATIO), wc = hc * RATIO, top = Hs - vh * .13 - hc;
+    const hc = Math.min(vh * (phone ? .33 : sec.classList.contains('still') ? .41 : .48), W * .8 / RATIO), wc = hc * RATIO, top = Hs - vh * (phone ? .14 : .13) - hc;
     Object.assign(cand.style, { width: wc + 'px', height: hc + 'px', left: (W - wc) / 2 + 'px', top: top + 'px' });
     const tx = (W - wc) / 2 + WX * wc, ty = top + TIP * hc;
     // le chemin : un vrai fil de coton qui pend, avec de grandes courbes paresseuses et de petites irrégularités
@@ -4977,7 +5002,7 @@ function homeRange() {
     const tour = hseg(p, .38, .82), focusF = tour * 4 - .5, all = hease(hseg(p, .82, .95));
     let bx = W / 2, by = H * .5, bw = .32; const cxs = [], bys = [];
     its.forEach((it, i) => {
-      const ih1 = phone ? H * .2 : Math.min(H * .36, W * .17), cx1 = phone ? W * (i % 2 ? .72 : .28) : W * (.2 + i * .2), base1 = phone ? H * (i < 2 ? .5 : .83) : H * .7;
+      const ih1 = phone ? H * .15 : Math.min(H * .36, W * .17), cx1 = phone ? W * (i % 2 ? .72 : .28) : W * (.2 + i * .2), base1 = phone ? H * (i < 2 ? .49 : .86) : H * .7;
       const ih = hlerp(ih0, ih1, m), cx = hlerp(starts[i], cx1, m), base = hlerp(H * .66, base1, m);
       const appear = hease(hseg(p, -.32 + i * .05, -.04 + i * .05));
       // la bougie mise en lumière avance un peu ; les autres restent dans la pénombre
@@ -5029,7 +5054,7 @@ function homeTiles() {
       const r = t.getBoundingClientRect(); if (r.bottom < -50 || r.top > vh + 50) return;
       const e = hease(clamp((vh - r.top) / (vh * .55), 0, 1));
       t.style.transform = `scale(${hlerp(.9, 1, e).toFixed(4)})`; t.style.borderRadius = hlerp(36, PHONE.matches ? 0 : 18, e).toFixed(1) + 'px';
-      const im = t.querySelector('.pt-img'); if (im) im.style.transform = `translateY(${(((r.top + r.height / 2) - vh / 2) * -.08).toFixed(1)}px)`;
+      const im = t.querySelector('.pt-img'); if (im) im.style.transform = `translateY(${Math.max(0, ((r.top + r.height / 2) - vh / 2) * -.08).toFixed(1)}px)`;
       const tx = t.querySelector('.pt-tx'); if (tx) { tx.style.opacity = hseg(e, .3, 1).toFixed(3); tx.style.transform = `translateY(${hlerp(26, 0, e).toFixed(1)}px)`; }
     });
   };
