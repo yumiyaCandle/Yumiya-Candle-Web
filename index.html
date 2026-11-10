@@ -2041,6 +2041,20 @@ h1 em,h2 em,.display em,.h2 em,.h3 em,.hz-copy h1 em,.hz-t h2 em,.hz-info h2 em,
 .hz-copy h1{font-size:clamp(2.4rem,5.4vw,4.6rem);margin:0 0 .5rem}
 .hz-copy .lead{margin-bottom:1.1rem}
 .hz-more{bottom:1.4vh}.hz-more i{height:22px}
+
+/* Accueil : toute la collection */
+.hz-row{position:absolute;inset:0;pointer-events:none;z-index:2}
+.hz-col{position:absolute;display:block;pointer-events:auto;opacity:0;transform:translateY(16px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.hz-col img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 26px 26px rgba(120,50,60,.2));transition:transform .5s var(--ease)}
+.hz-col:hover img,.hz-cand:hover img{transform:translateY(-6px)}
+.hz-lab{position:absolute;display:flex;flex-direction:column;align-items:center;gap:2px;transform:translateX(-50%);pointer-events:auto;text-align:center;color:var(--ink);opacity:0;transition:opacity .9s var(--ease) .2s}
+.hz-lab b{font-weight:600;font-size:.95rem;line-height:1.15}
+.hz-lab span{font-size:.82rem;color:var(--ink-2)}
+.hz-lab:hover b{color:var(--lav)}
+.hz.lit .hz-col,.hz.lit .hz-lab,.hm-wick.still .hz-col,.hm-wick.still .hz-lab{opacity:1;transform:none}
+.hz.lit .hz-lab,.hm-wick.still .hz-lab{transform:translateX(-50%)}
+.hz-col[data-k=aut]{transition-delay:.1s}.hz-col[data-k=tulip]{transition-delay:.2s}.hz-col[data-k=box]{transition-delay:.3s}
+@media (max-width:700px){.hz-lab b{font-size:.74rem}.hz-lab span{font-size:.68rem}}
 </style>
 </head>
 <body>
@@ -4959,11 +4973,12 @@ function homeWick() {
       <div class="hz-end">
         <div class="hz-copy"><div class="eyebrow">${tr('Nouveau', 'Neu', 'New')}</div>
           <h1 class="display" id="hw-h1">${tr('La lumière, <em>faite main.</em>', 'Licht, <em>von Hand gemacht.</em>', 'Light, <em>made by hand.</em>')}</h1>
-          <p class="lead">${tr('Lavande. Coulée à la main, à La Neuveville.', 'Lavendel. Von Hand gegossen, in La Neuveville.', 'Lavender. Hand-poured in La Neuveville.')}</p>
+          <p class="lead">${tr('Quatre bougies, coulées à la main à La Neuveville.', 'Vier Kerzen, von Hand gegossen in La Neuveville.', 'Four candles, hand-poured in La Neuveville.')}</p>
           <div class="hw-cta"><a class="btn light" href="#/boutique">${tr('Découvrir la boutique', 'Shop entdecken', 'Visit the shop')}</a><a class="btn ghost" href="#creer">${tr('Créer la vôtre', 'Selbst gestalten', 'Create your own')}</a></div></div>
         <div class="hz-more" aria-hidden="true"><span>${tr('Découvrez toute la gamme', 'Entdecken Sie die ganze Kollektion', 'Discover the whole collection')}</span><i></i></div>
       </div>
         <div class="hz-cand"><img src="img/cut-lav.webp" alt="${tr('Bougie gourmande Lavande', 'Gourmet-Kerze Lavendel', 'Lavender gourmand candle')}"/><div class="flame-at hz-cf"></div></div>
+      <div class="hz-row">${['aut', 'tulip', 'box'].map(k => `<a class="hz-col" data-k="${k}" href="#p/${k}"><img src="${k === 'tulip' ? 'img/tulip-hq-violet.webp' : PRODUCTS[k].cut}" alt="${esc(pick(PRODUCTS[k].name))}"/></a>`).join('')}${['lav', 'aut', 'tulip', 'box'].map(k => `<a class="hz-lab" data-k="${k}" href="#p/${k}"><b>${esc(pick(PRODUCTS[k].name))}</b></a>`).join('')}</div>
       <div class="hz-glow" aria-hidden="true"></div>
       <div class="flame-at hz-ff" aria-hidden="true"></div><i class="hz-ember" aria-hidden="true"></i>
     </div>`;
@@ -4975,10 +4990,19 @@ function homeWick() {
     vh = innerHeight; W = box.clientWidth; Hs = box.offsetHeight; const phone = W < 700;
     // la bougie, en bas de la dernière page
     const endEl = box.querySelector('.hz-end'), cpEl = box.querySelector('.hz-copy'), bot = vh * (phone ? .13 : .105);
-    const room = Hs - bot - (endEl.offsetTop + cpEl.offsetTop + cpEl.offsetHeight) - (phone ? 84 : 78);
-    const hc = Math.max(phone ? 70 : 110, Math.min(vh * (phone ? .4 : .6), W * .8 / RATIO, room)), wc = hc * RATIO, top = Hs - bot - hc;
-    Object.assign(cand.style, { width: wc + 'px', height: hc + 'px', left: (W - wc) / 2 + 'px', top: top + 'px' });
-    const tx = (W - wc) / 2 + WX * wc, ty = top + TIP * hc;
+    const botI = bot + (phone ? 30 : 36), ITEMS = [['lav', 615 / 949, 1], ['aut', 597 / 954, 1], ['tulip', 494 / 679, .8], ['box', 819 / 1210, .92]];
+    const gap = phone ? W * .025 : Math.min(W * .045, 80), sumR = ITEMS.reduce((a, it) => a + it[1] * it[2], 0);
+    const room = Hs - botI - (endEl.offsetTop + cpEl.offsetTop + cpEl.offsetHeight) - (phone ? 70 : 78);
+    const hc = Math.max(phone ? 70 : 110, Math.min(vh * (phone ? .4 : .5), (W * (phone ? .95 : .86) - gap * 3) / sumR, room)), wc = hc * RATIO, top = Hs - botI - hc;
+    let xx = (W - (sumR * hc + gap * 3)) / 2, lavX = 0;
+    ITEMS.forEach(([k, r, sc]) => {
+      const w = hc * r * sc, h = hc * sc, el = k === 'lav' ? cand : box.querySelector(`.hz-col[data-k="${k}"]`), lb = box.querySelector(`.hz-lab[data-k="${k}"]`);
+      if (k === 'lav') lavX = xx;
+      Object.assign(el.style, { width: w + 'px', height: h + 'px', left: xx + 'px', top: (Hs - botI - h) + 'px' });
+      Object.assign(lb.style, { left: (xx + w / 2) + 'px', top: (Hs - botI + 10) + 'px', width: (w + gap) + 'px' });
+      xx += w + gap;
+    });
+    const tx = lavX + WX * wc, ty = top + TIP * hc;
     // le chemin : un vrai fil de coton qui pend, avec de grandes courbes paresseuses et de petites irrégularités
     const start = vh * .34, stop = ty - vh * .14, amp = phone ? .19 : .15;
     const anc = [[.5, 0], [.5 + amp * .9, .2], [.5 - amp * .35, .43], [.5 + amp * .55, .66], [.5 - amp * .15, .86], [tx / W, 1]].map(([x, f]) => [W * x, start + (stop - start) * f]);
@@ -5065,7 +5089,7 @@ function homeRange() {
     const tour = hseg(p, .38, .82), focusF = tour * 4 - .5, all = hease(hseg(p, .82, .95));
     let bx = W / 2, by = H * .5, bw = .32; const cxs = [], bys = [];
     its.forEach((it, i) => {
-      const capB = Math.max(0, ...caps.map(c => c.offsetTop + c.offsetHeight)) + 22;
+      const capB = Math.max(0, ...caps.map(c => c.offsetTop + c.offsetHeight)) + 36;
       const ih1 = phone ? Math.min(H * .15, H * .49 - capB) : Math.min(H * .36, W * .17, H * .7 - capB), cx1 = phone ? W * (i % 2 ? .72 : .28) : W * (.2 + i * .2), base1 = phone ? H * (i < 2 ? .49 : .86) : H * .7;
       const ih = hlerp(ih0, ih1, m), cx = hlerp(starts[i], cx1, m), base = hlerp(H * .66, base1, m);
       const appear = hease(hseg(p, -.32 + i * .05, -.04 + i * .05));
