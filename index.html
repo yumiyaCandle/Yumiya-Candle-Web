@@ -2034,6 +2034,13 @@ h1 em,h2 em,.display em,.h2 em,.h3 em,.hz-copy h1 em,.hz-t h2 em,.hz-info h2 em,
 
 /* Cartes étroites (tablette, téléphone) : l'étiquette retirée pour ne pas toucher la flamme */
 @media (max-width:1100px){.card-media .badge{display:none}}
+
+/* Accueil : sans « Nouveau », titre un peu plus compact, bougie plus grande */
+.hz-copy .eyebrow{display:none}
+.hz-copy{top:calc(var(--hd-h) + 3vh)}
+.hz-copy h1{font-size:clamp(2.4rem,5.4vw,4.6rem);margin:0 0 .5rem}
+.hz-copy .lead{margin-bottom:1.1rem}
+.hz-more{bottom:1.4vh}.hz-more i{height:22px}
 </style>
 </head>
 <body>
@@ -4967,9 +4974,9 @@ function homeWick() {
   const lay = () => {
     vh = innerHeight; W = box.clientWidth; Hs = box.offsetHeight; const phone = W < 700;
     // la bougie, en bas de la dernière page
-    const endEl = box.querySelector('.hz-end'), cpEl = box.querySelector('.hz-copy'), bot = vh * (phone ? .15 : .13);
-    const room = Hs - bot - (endEl.offsetTop + cpEl.offsetTop + cpEl.offsetHeight) - (phone ? 96 : 104);
-    const hc = Math.max(phone ? 70 : 110, Math.min(vh * (phone ? .33 : sec.classList.contains('still') ? .41 : .48), W * .8 / RATIO, room)), wc = hc * RATIO, top = Hs - bot - hc;
+    const endEl = box.querySelector('.hz-end'), cpEl = box.querySelector('.hz-copy'), bot = vh * (phone ? .13 : .105);
+    const room = Hs - bot - (endEl.offsetTop + cpEl.offsetTop + cpEl.offsetHeight) - (phone ? 84 : 78);
+    const hc = Math.max(phone ? 70 : 110, Math.min(vh * (phone ? .4 : .6), W * .8 / RATIO, room)), wc = hc * RATIO, top = Hs - bot - hc;
     Object.assign(cand.style, { width: wc + 'px', height: hc + 'px', left: (W - wc) / 2 + 'px', top: top + 'px' });
     const tx = (W - wc) / 2 + WX * wc, ty = top + TIP * hc;
     // le chemin : un vrai fil de coton qui pend, avec de grandes courbes paresseuses et de petites irrégularités
