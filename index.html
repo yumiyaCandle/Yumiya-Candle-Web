@@ -5119,7 +5119,8 @@ function homeRange() {
     cone.style.setProperty('--cx', bx.toFixed(0) + 'px'); cone.style.setProperty('--cy', (by + H * .12).toFixed(0) + 'px'); cone.style.setProperty('--cw', (hlerp(W * .55, (phone ? .36 : .17) * W, inTour) * (1 + all * .8)).toFixed(0) + 'px');
     cone.style.opacity = (hease(hseg(p, -.12, .04)) * (1 - .55 * all)).toFixed(3);
     // pendant la présentation, le grand titre laisse la place au nom de la bougie éclairée
-    caps.forEach((c, i) => { const v = p < .38 || p > .86 ? 0 : clamp(1 - Math.abs(focusF - i) * 1.6, 0, 1); c.style.opacity = hease(v).toFixed(3); c.style.transform = `translateY(${((1 - hease(v)) * (focusF > i ? -18 : 18)).toFixed(1)}px)`; c.style.filter = `blur(${((1 - v) * 6).toFixed(1)}px)`; });
+    const kF = Math.max(0, Math.min(caps.length - 1, Math.round(focusF)));
+    caps.forEach((c, i) => { const v = p < .38 || p > .86 ? 0 : (i === kF ? 1 : 0); c.style.transition = 'opacity .35s ease, transform .35s ease'; c.style.opacity = hease(v).toFixed(3); c.style.transform = `translateY(${((1 - hease(v)) * (focusF > i ? -18 : 18)).toFixed(1)}px)`; c.style.filter = 'none'; });
     st.classList.toggle('touring', inTour > .5);
     its.forEach((it, i) => it.classList.toggle('wave', all > .95));
     beam.style.setProperty('--bx', bx.toFixed(0) + 'px'); beam.style.setProperty('--by', by.toFixed(0) + 'px'); beam.style.setProperty('--bw', (bw * W).toFixed(0) + 'px');
