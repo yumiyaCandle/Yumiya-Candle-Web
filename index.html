@@ -1982,6 +1982,18 @@ h1 em,h2 em,.display em,.h2 em,.h3 em,.hz-copy h1 em,.hz-t h2 em,.hz-info h2 em,
 .xdr-copy{bottom:clamp(28px,6vh,72px)}
 /* Tuiles de l'accueil : un peu d'air entre les boutons et la bougie */
 .ptile .pt-tx{margin-bottom:26px}
+
+/* Atelier, « La lumière » : la photo s'arrête toujours au-dessus du texte */
+.xdr-h{font-size:clamp(2.2rem,5vw,4.6rem)}
+.xdr-frame{height:auto!important;bottom:calc(clamp(28px,6vh,72px) + 2.1 * clamp(2.2rem,5vw,4.6rem) + 3.4rem)}
+@media (max-width:700px){.xdr-frame{bottom:calc(clamp(28px,6vh,72px) + 4.2 * 2.2rem + 3.4rem)}}
+
+/* Pages produit, « Les points forts » : le texte sous la photo */
+.pp-card{display:flex;flex-direction:column;height:auto;background:#fff;box-shadow:0 20px 40px -30px rgba(30,21,18,.3)}
+.pp-card img{position:relative;inset:auto;flex:none;height:min(52vh,440px);opacity:1}
+.pp-card p{position:static;padding:18px 26px 22px;color:var(--ink);text-shadow:none;max-width:none;font-size:clamp(1.05rem,1.8vw,1.35rem)}
+/* Pages produit sur téléphone : la bougie en haut, la fiche en dessous */
+@media (max-width:760px){.pp-pin-st{place-items:start center;padding-top:3vh}.pp-pin-img{height:min(40vh,360px)}.pp-cap{bottom:3vh}}
 </style>
 </head>
 <body>
@@ -4361,8 +4373,9 @@ function homeSoon() {
     pg[0].style.setProperty('--p', hseg(p, .1, .44).toFixed(3)); pg[1].style.setProperty('--p', hseg(p, .42, .76).toFixed(3));
     $s('.sn-prog').style.opacity = (hseg(p, .1, .14) * (1 - hseg(p, .74, .78))).toFixed(3);
     // 4. la fin : les deux bougies côte à côte
-    const eL = phone ? { x: W * .06, y: H * .2, w: W * .43, h: H * .22 } : { x: W * .1, y: H * .26, w: W * .38, h: H * .4 };
-    const eR = phone ? { x: W * .51, y: H * .2, w: W * .43, h: H * .22 } : { x: W * .52, y: H * .26, w: W * .38, h: H * .4 };
+    const endB = end.offsetTop + end.offsetHeight + 18, eY = Math.max(phone ? H * .2 : H * .26, endB), eH = Math.max(60, (phone ? H * .42 : H * .66) - eY);
+    const eL = phone ? { x: W * .06, y: eY, w: W * .43, h: eH } : { x: W * .1, y: eY, w: W * .38, h: eH };
+    const eR = phone ? { x: W * .51, y: eY, w: W * .43, h: eH } : { x: W * .52, y: eY, w: W * .38, h: eH };
     [[f1, eL, .78], [f2, eR, .81]].forEach(([f, R, s0]) => { const t = hease(hseg(p, s0, s0 + .1)); put(f, R); f.style.opacity = t.toFixed(3); f.style.clipPath = `inset(0 0 ${((1 - t) * 100).toFixed(2)}% 0 round 26px)`; f.style.transform = `perspective(1200px) rotateX(${((1 - t) * 18).toFixed(2)}deg) translateY(${((1 - t) * 40).toFixed(1)}px)`; f.querySelector('img').style.transform = `scale(${hlerp(1.15, 1, t).toFixed(4)})`; f.style.visibility = t > .01 ? 'visible' : 'hidden'; });
     const e = hease(hseg(p, .8, .9)); show(end, e, (1 - e) * 24);
     const sw = hseg(p, .87, .97), swe = $s('.sn-sweep'); swe.style.opacity = Math.sin(sw * Math.PI).toFixed(3); swe.style.transform = `translateX(${hlerp(-40, 140, sw).toFixed(1)}vw) skewX(-16deg)`;
@@ -4913,7 +4926,9 @@ function homeWick() {
   const lay = () => {
     vh = innerHeight; W = box.clientWidth; Hs = box.offsetHeight; const phone = W < 700;
     // la bougie, en bas de la dernière page
-    const hc = Math.min(vh * (phone ? .33 : sec.classList.contains('still') ? .41 : .48), W * .8 / RATIO), wc = hc * RATIO, top = Hs - vh * (phone ? .14 : .13) - hc;
+    const endEl = box.querySelector('.hz-end'), cpEl = box.querySelector('.hz-copy'), bot = vh * (phone ? .14 : .13);
+    const room = Hs - bot - (endEl.offsetTop + cpEl.offsetTop + cpEl.offsetHeight) - (phone ? 70 : 96);
+    const hc = Math.max(110, Math.min(vh * (phone ? .33 : sec.classList.contains('still') ? .41 : .48), W * .8 / RATIO, room)), wc = hc * RATIO, top = Hs - bot - hc;
     Object.assign(cand.style, { width: wc + 'px', height: hc + 'px', left: (W - wc) / 2 + 'px', top: top + 'px' });
     const tx = (W - wc) / 2 + WX * wc, ty = top + TIP * hc;
     // le chemin : un vrai fil de coton qui pend, avec de grandes courbes paresseuses et de petites irrégularités
@@ -5002,7 +5017,8 @@ function homeRange() {
     const tour = hseg(p, .38, .82), focusF = tour * 4 - .5, all = hease(hseg(p, .82, .95));
     let bx = W / 2, by = H * .5, bw = .32; const cxs = [], bys = [];
     its.forEach((it, i) => {
-      const ih1 = phone ? H * .15 : Math.min(H * .36, W * .17), cx1 = phone ? W * (i % 2 ? .72 : .28) : W * (.2 + i * .2), base1 = phone ? H * (i < 2 ? .49 : .86) : H * .7;
+      const capB = Math.max(0, ...caps.map(c => c.offsetTop + c.offsetHeight)) + 22;
+      const ih1 = phone ? Math.min(H * .15, H * .49 - capB) : Math.min(H * .36, W * .17, H * .7 - capB), cx1 = phone ? W * (i % 2 ? .72 : .28) : W * (.2 + i * .2), base1 = phone ? H * (i < 2 ? .49 : .86) : H * .7;
       const ih = hlerp(ih0, ih1, m), cx = hlerp(starts[i], cx1, m), base = hlerp(H * .66, base1, m);
       const appear = hease(hseg(p, -.32 + i * .05, -.04 + i * .05));
       // la bougie mise en lumière avance un peu ; les autres restent dans la pénombre
