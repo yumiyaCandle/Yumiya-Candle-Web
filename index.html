@@ -2023,6 +2023,14 @@ h1 em,h2 em,.display em,.h2 em,.h3 em,.hz-copy h1 em,.hz-t h2 em,.hz-info h2 em,
 .card-media .badge{top:14px;bottom:auto}
 /* Créer : la photo de la bougie remonte au-dessus des boutons */
 .cfg-photo{height:min(68%,470px)!important;transform:translate(-50%,-57%)!important}
+
+/* Galerie « Chez vous » : les cartes tiennent toujours dans l'écran, sous le titre */
+.hg-card{width:min(clamp(240px,30vw,420px),calc((100svh - 300px) * .8))}
+@media (max-width:700px){.hg-card{width:min(72vw,calc((100svh - 280px) * .8))}}
+/* Coffret, carrousel : la photo garde sa place au-dessus du texte */
+.pp-card.wb img{top:auto;height:min(52vh,440px)}
+/* Créer, tablette et téléphone : l'aperçu ne reste plus collé pendant qu'on choisit */
+@media (max-width:1000px){.cfg-view{position:relative;top:auto}}
 </style>
 </head>
 <body>
@@ -4378,7 +4386,7 @@ function homeSoon() {
     // reflet doré qui traverse la photo quand elle se pose
     const fl = hseg(p, at(.3), at(.5)); c.flare.style.opacity = Math.sin(fl * Math.PI).toFixed(3); c.flare.style.transform = `translateX(${hlerp(-60, 160, fl).toFixed(1)}%) skewX(-18deg)`;
     // le texte : lignes puis mots qui montent d’un masque
-    c.a.forEach((el, k) => { const t = hease(hseg(p, at(.34 + k * .05), at(.5 + k * .05))); el.style.opacity = (Math.min(1, t * 1.4) * (1 - out)).toFixed(3); el.style.transform = `translateY(${((1 - t) * 40 - out * 24).toFixed(1)}px)`; el.style.clipPath = `inset(-12% -5% ${((1 - t) * 100).toFixed(1)}% -5%)`; });
+    c.a.forEach((el, k) => { const t = hease(hseg(p, at(.34 + k * .05), at(.5 + k * .05))); el.style.opacity = (Math.min(1, t * 1.4) * (1 - hease(hseg(p, at(.76), at(.9))))).toFixed(3); el.style.transform = `translateY(${((1 - t) * 40 - out * 24).toFixed(1)}px)`; el.style.clipPath = `inset(-12% -5% ${((1 - t) * 100).toFixed(1)}% -5%)`; });
     c.ws.forEach((w, k) => { const t = hease(hseg(p, at(.46 + k * .006), at(.56 + k * .006))); w.style.transform = `translateY(${((1 - t) * 110).toFixed(1)}%)`; w.style.opacity = t.toFixed(3); });
     // lumière ambiante et mot géant
     c.amb.style.opacity = (hease(hseg(p, at(.1), at(.45))) * .35 * (1 - out)).toFixed(3);
@@ -4956,8 +4964,8 @@ function homeWick() {
   const lay = () => {
     vh = innerHeight; W = box.clientWidth; Hs = box.offsetHeight; const phone = W < 700;
     // la bougie, en bas de la dernière page
-    const endEl = box.querySelector('.hz-end'), cpEl = box.querySelector('.hz-copy'), bot = vh * (phone ? .12 : .13);
-    const room = Hs - bot - (endEl.offsetTop + cpEl.offsetTop + cpEl.offsetHeight) - (phone ? 62 : 96);
+    const endEl = box.querySelector('.hz-end'), cpEl = box.querySelector('.hz-copy'), bot = vh * (phone ? .15 : .13);
+    const room = Hs - bot - (endEl.offsetTop + cpEl.offsetTop + cpEl.offsetHeight) - (phone ? 96 : 104);
     const hc = Math.max(phone ? 70 : 110, Math.min(vh * (phone ? .33 : sec.classList.contains('still') ? .41 : .48), W * .8 / RATIO, room)), wc = hc * RATIO, top = Hs - bot - hc;
     Object.assign(cand.style, { width: wc + 'px', height: hc + 'px', left: (W - wc) / 2 + 'px', top: top + 'px' });
     const tx = (W - wc) / 2 + WX * wc, ty = top + TIP * hc;
