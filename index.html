@@ -2016,6 +2016,13 @@ h1 em,h2 em,.display em,.h2 em,.h3 em,.hz-copy h1 em,.hz-t h2 em,.hz-info h2 em,
 
 /* Commande : la barre du bas est opaque (rien ne passe derrière le texte) */
 .bv-sum{background:#FBF8F4}
+
+/* Grand mot décoratif derrière les nouveautés : retiré (il passait derrière les bougies) */
+.sn-big{display:none!important}
+/* Cartes de la boutique : l'étiquette en haut à gauche, loin de la bougie */
+.card-media .badge{top:14px;bottom:auto}
+/* Créer : la photo de la bougie remonte au-dessus des boutons */
+.cfg-photo{height:min(68%,470px)!important;transform:translate(-50%,-57%)!important}
 </style>
 </head>
 <body>
@@ -4718,7 +4725,7 @@ function storeShow() {
   sec.querySelectorAll('.ss-it').forEach(it => { const im = it.querySelector('img'), k = it.querySelector('[data-buy]').dataset.buy; im.setAttribute('role', 'link'); im.tabIndex = 0; const open = () => go('#/acheter/' + k); im.addEventListener('click', open); im.addEventListener('keydown', e => { if (e.key === 'Enter') open(); }); });
   const run = sec.firstElementChild, st = run.firstElementChild, its = [...sec.querySelectorAll('.ss-it')], h = sec.querySelector('.ss-h'), hs = [...h.children], fl = sec.querySelector('.ss-floor'), cue = sec.querySelector('.sc-cue');
   // départs éparpillés (fraction de l’écran) et rotation
-  const FROM = [[-.62, -.35, -24], [-.25, .7, 16], [.3, -.72, -14], [.66, .4, 22]];
+  const FROM = [[-.62, .35, -24], [-.25, .7, 16], [.3, .72, -14], [.66, .4, 22]];
   const seg = (p, a, b) => clamp((p - a) / (b - a), 0, 1), ease = t => 1 - Math.pow(1 - t, 3), lerp = (a, b, t) => a + (b - a) * t;
   const tick = () => {
     if (VIEW !== 'boutique') return;
@@ -4949,9 +4956,9 @@ function homeWick() {
   const lay = () => {
     vh = innerHeight; W = box.clientWidth; Hs = box.offsetHeight; const phone = W < 700;
     // la bougie, en bas de la dernière page
-    const endEl = box.querySelector('.hz-end'), cpEl = box.querySelector('.hz-copy'), bot = vh * (phone ? .14 : .13);
-    const room = Hs - bot - (endEl.offsetTop + cpEl.offsetTop + cpEl.offsetHeight) - (phone ? 70 : 96);
-    const hc = Math.max(110, Math.min(vh * (phone ? .33 : sec.classList.contains('still') ? .41 : .48), W * .8 / RATIO, room)), wc = hc * RATIO, top = Hs - bot - hc;
+    const endEl = box.querySelector('.hz-end'), cpEl = box.querySelector('.hz-copy'), bot = vh * (phone ? .12 : .13);
+    const room = Hs - bot - (endEl.offsetTop + cpEl.offsetTop + cpEl.offsetHeight) - (phone ? 62 : 96);
+    const hc = Math.max(phone ? 70 : 110, Math.min(vh * (phone ? .33 : sec.classList.contains('still') ? .41 : .48), W * .8 / RATIO, room)), wc = hc * RATIO, top = Hs - bot - hc;
     Object.assign(cand.style, { width: wc + 'px', height: hc + 'px', left: (W - wc) / 2 + 'px', top: top + 'px' });
     const tx = (W - wc) / 2 + WX * wc, ty = top + TIP * hc;
     // le chemin : un vrai fil de coton qui pend, avec de grandes courbes paresseuses et de petites irrégularités
