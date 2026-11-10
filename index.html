@@ -2055,6 +2055,12 @@ h1 em,h2 em,.display em,.h2 em,.h3 em,.hz-copy h1 em,.hz-t h2 em,.hz-info h2 em,
 .hz.lit .hz-lab,.hm-wick.still .hz-lab{transform:translateX(-50%)}
 .hz-col[data-k=aut]{transition-delay:.1s}.hz-col[data-k=tulip]{transition-delay:.2s}.hz-col[data-k=box]{transition-delay:.3s}
 @media (max-width:700px){.hz-lab b{font-size:.74rem}.hz-lab span{font-size:.68rem}}
+
+/* Accueil, aperçu de la collection : sans flamme, noms discrets dans la police des titres */
+.hz-cf,.hz-ff,.hz-ember,.hz-glow{display:none!important}
+.hz-lab b{font-family:var(--serif);font-weight:400;font-size:clamp(1.05rem,1.3vw,1.3rem);color:var(--ink-2);letter-spacing:0}
+.hz-lab:hover b{color:var(--lav)}
+@media (max-width:700px){.hz-lab b{font-size:.92rem}}
 </style>
 </head>
 <body>
@@ -4992,7 +4998,7 @@ function homeWick() {
     const endEl = box.querySelector('.hz-end'), cpEl = box.querySelector('.hz-copy'), bot = vh * (phone ? .13 : .105);
     const botI = bot + (phone ? 30 : 36), ITEMS = [['lav', 615 / 949, 1], ['aut', 597 / 954, 1], ['tulip', 494 / 679, .8], ['box', 819 / 1210, .92]];
     const gap = phone ? W * .025 : Math.min(W * .045, 80), sumR = ITEMS.reduce((a, it) => a + it[1] * it[2], 0);
-    const room = Hs - botI - (endEl.offsetTop + cpEl.offsetTop + cpEl.offsetHeight) - (phone ? 70 : 78);
+    const room = Hs - botI - (endEl.offsetTop + cpEl.offsetTop + cpEl.offsetHeight) - (phone ? 36 : 44);
     const hc = Math.max(phone ? 70 : 110, Math.min(vh * (phone ? .4 : .5), (W * (phone ? .95 : .86) - gap * 3) / sumR, room)), wc = hc * RATIO, top = Hs - botI - hc;
     let xx = (W - (sumR * hc + gap * 3)) / 2, lavX = 0;
     ITEMS.forEach(([k, r, sc]) => {
