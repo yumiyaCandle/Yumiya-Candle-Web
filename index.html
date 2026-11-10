@@ -1994,6 +1994,28 @@ h1 em,h2 em,.display em,.h2 em,.h3 em,.hz-copy h1 em,.hz-t h2 em,.hz-info h2 em,
 .pp-card p{position:static;padding:18px 26px 22px;color:var(--ink);text-shadow:none;max-width:none;font-size:clamp(1.05rem,1.8vw,1.35rem)}
 /* Pages produit sur téléphone : la bougie en haut, la fiche en dessous */
 @media (max-width:760px){.pp-pin-st{place-items:start center;padding-top:3vh}.pp-pin-img{height:min(40vh,360px)}.pp-cap{bottom:3vh}}
+
+/* Indications « Faites défiler » posées dans les scènes : retirées */
+.sc-cue{display:none!important}
+/* Nouveautés (accueil) : le nom de la couleur sous la bougie, pas sur son pied */
+.sn-cnames{bottom:-4%}
+.sn-bear{bottom:16%}
+/* Pages produit : les photos du carrousel ne débordent plus de leur carte */
+.pp-card img,.pp-card.cur img{transform:none}
+/* Galerie « Chez vous » : un peu d'air sous le titre */
+.hg-stick{gap:clamp(28px,5vh,52px)}
+
+/* Créer : la bougie au-dessus des boutons « Studio / Ambiance » */
+.cfg-amb,.cfg-amb-bg{height:calc(100% - 72px)!important}
+.c3d-host{bottom:60px}
+
+/* Pages produit : la bougie monte, mais s'arrête toujours sous le titre */
+.pp-hero-img{height:min(56vh,560px,calc(100vh - 52px - 340px));min-height:200px;transform:translate3d(-50%,calc(8% - var(--p,0) * 8%),0) scale(calc(.9 + var(--p,0) * .1))}
+.pp-hero-img.wide{height:auto;width:min(80vw,560px,calc((100vh - 52px - 340px) * 1.3))}
+@media (max-width:700px){.pp-hero-img{height:min(50vh,calc(100vh - 52px - 260px))}}
+
+/* Commande : la barre du bas est opaque (rien ne passe derrière le texte) */
+.bv-sum{background:#FBF8F4}
 </style>
 </head>
 <body>
@@ -4242,7 +4264,7 @@ function zoomGallery() {
     const p = clamp(-r.top / (r.height - innerHeight), 0, 1), e = p * p * (3 - 2 * p), fade = 1 - seg(p, .35, .8);
     L.forEach((l, i) => { l.style.transform = `scale(${(1 + (S[i] - 1) * e).toFixed(4)})`; l.style.opacity = fade.toFixed(3); });
     cue.style.opacity = (1 - seg(p, .02, .12)).toFixed(3);
-    const t = seg(p, .58, .82); tx.style.opacity = t.toFixed(3); tx.style.transform = `scale(${(.9 + .1 * t).toFixed(4)})`; tx.classList.toggle('on', t > .5);
+    const t = seg(p, .8, .93); tx.style.opacity = t.toFixed(3); tx.style.transform = `scale(${(.9 + .1 * t).toFixed(4)})`; tx.classList.toggle('on', t > .5);
   }
   const on = () => { if (!raf) raf = requestAnimationFrame(draw); };
   addEventListener('scroll', on, { passive: true }); addEventListener('resize', on); draw();
@@ -4707,7 +4729,8 @@ function storeShow() {
     its.forEach((it, i) => {
       const t = ease(seg(p, -.4 + i * .06, .5 + i * .05));
       // place finale : une rangée (ordinateur) ou 2 × 2 (téléphone)
-      const ih = phone ? H * .2 : Math.min(H * .42, W * .19), cx = phone ? W * (i % 2 ? .72 : .28) : W * (.2 + i * .2), base = phone ? H * (i < 2 ? .46 : .8) : H * .7;
+      const hB = hs[0].parentElement.offsetTop + hs[0].parentElement.offsetHeight + 26;
+      const ih = phone ? Math.min(H * .16, H * .44 - hB) : Math.min(H * .42, W * .19, H * .7 - hB), cx = phone ? W * (i % 2 ? .72 : .28) : W * (.2 + i * .2), base = phone ? H * (i < 2 ? .44 : .84) : H * .7;
       it.style.height = ih + 'px';
       const x = lerp(FROM[i][0] * W, 0, t), y = lerp(FROM[i][1] * H, 0, t), rot = lerp(FROM[i][2], 0, t), sc = lerp(1.7, 1, t);
       it.style.left = cx + 'px'; it.style.top = (base - ih) + 'px';
@@ -4715,7 +4738,7 @@ function storeShow() {
       it.style.opacity = Math.min(1, t * 2.2).toFixed(3);
       const l = ease(seg(p, .6 + i * .04, .78 + i * .04)); it.style.setProperty('--l', l.toFixed(3)); it.classList.toggle('live', l > .6);
     });
-    const a = ease(seg(p, -.4, -.05)), b = ease(seg(p, .42, .6));
+    const a = ease(seg(p, .52, .66)), b = ease(seg(p, .6, .72));
     hs[0].style.opacity = a.toFixed(3); hs[0].style.transform = `scale(${lerp(1.15, 1, a).toFixed(3)})`;
     hs[1].style.opacity = b.toFixed(3); hs[1].style.transform = `translateY(${lerp(24, 0, b).toFixed(1)}px)`;
     fl.style.opacity = ease(seg(p, .4, .65)).toFixed(3);
